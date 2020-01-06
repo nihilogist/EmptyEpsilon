@@ -93,7 +93,7 @@ void WeaponTube::fire(float target_angle)
     
     if (type_loaded == MW_HVLI)
     {
-        fire_count = 5;
+        fire_count = 12;
         state = WTS_Firing;
         delay = 0.0;
     }else{
@@ -164,7 +164,8 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->owner = parent;
             missile->setFactionId(parent->getFactionId());
             missile->setPosition(fireLocation);
-            missile->setRotation(parent->getRotation() + direction);
+            double driftAngle = (rand() % 6) - 3; // Drift angle is between -3 and 3 degrees
+            missile->setRotation(parent->getRotation() + direction + driftAngle);
             missile->target_angle = parent->getRotation() + direction;
             missile->category_modifier = getSizeCategoryModifier();
         }
@@ -242,12 +243,14 @@ void WeaponTube::update(float delta)
             break;
         case WTS_Firing:
             {
+                // Only called via the HVLI, so we can update this however we want.
                 spawnProjectile(0);
-                
                 fire_count -= 1;
+
                 if (fire_count > 0)
                 {
-                    delay = 1.5;
+                    double randomDelay = ((double) rand() / (RAND_MAX)) / 5; // delay is a random number between 0 and 0.2 seconds
+                    delay = randomDelay;
                 }
                 else
                 {
