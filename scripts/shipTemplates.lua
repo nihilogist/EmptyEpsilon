@@ -17,6 +17,8 @@ require("shipTemplates_StarFighters.lua")
 require("shipTemplates_Frigates.lua")
 require("shipTemplates_Corvette.lua")
 require("shipTemplates_Dreadnaught.lua")
+require("shipTemplates_40k_Cruisers.lua")
+require("shipTemplates_40k_starFighters.lua")
 --]]
 --For now, we add our old ship templates as well. These should be removed at some point.
 require("shipTemplates_OLD.lua")
