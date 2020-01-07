@@ -25,7 +25,7 @@ variation:setModel("WespeScoutRed")
 variation:setDescription([[The Fury Interceptor is the most common type of starfighter used by the Imperial Navy.]])
 variation:setHull(35)
 variation:setShields(22)
-variation:setSpeed(125, 35, 25)
+variation:setSpeed(130, 35, 25)
 variation:setBeam(0, 30, 0, 900.0, 4.0, 2.5)
 
 variation:setRepairCrewCount(1)

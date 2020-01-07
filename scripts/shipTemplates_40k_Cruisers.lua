@@ -32,9 +32,11 @@ variation:setHull(750)
 variation:setSpeed(30, 5, 15)
 variation:setWeaponStorage("Homing", 12)
 variation:setWeaponStorage("HVLI", 100)
-variation:setTubes(4, 8.0) -- Amount of torpedo tubes, and loading time of the tubes.
-variation:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "HVLI")
-variation:weaponTubeDisallowMissle(2, "Homing"):weaponTubeDisallowMissle(3, "HVLI")
+variation:setTubes(5, 10.0) -- Amount of torpedo tubes, and loading time of the tubes.
+variation:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "Homing")
+variation:weaponTubeDisallowMissle(2, "Homing"):weaponTubeDisallowMissle(3, "Homing")
+variation:setTubeDirection(4, 0)
+variation:weaponTubeDisallowMissle(4, "HVLI")
 
 variation:addRoomSystem(1, 0, 2, 1, "Maneuver");
 variation:addRoomSystem(1, 1, 2, 1, "BeamWeapons");

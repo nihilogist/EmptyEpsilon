@@ -96,7 +96,15 @@ void WeaponTube::fire(float target_angle)
         fire_count = 12;
         state = WTS_Firing;
         delay = 0.0;
-    }else{
+    }else if (type_loaded == MW_Homing){
+        for (int iterations = 0; iterations<5; iterations++) {
+            double firing_angle = target_angle - 5 + (iterations * 2);
+            spawnProjectile(firing_angle);    
+        }
+        state = WTS_Empty;
+        type_loaded = MW_None;
+    }
+    else{
         spawnProjectile(target_angle);
         state = WTS_Empty;
         type_loaded = MW_None;
