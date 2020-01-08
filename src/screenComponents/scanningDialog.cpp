@@ -111,13 +111,13 @@ void GuiScanningDialog::setupParameters()
     case 1: label += "Biomass frequency"; break;
     case 2: label += "Gravity well signature"; break;
     case 3: label += "Radiation halftime"; break;
-    case 4: label += "Radio profile"; break;
+    case 4: label += "Plasma oscillations"; break;
     case 5: label += "Ionic phase shift"; break;
     case 6: label += "Infra-red color shift"; break;
     case 7: label += "Doppler stability"; break;
-    case 8: label += "Raspberry jam prevention"; break;
-    case 9: label += "Infinity impropability"; break;
-    case 10: label += "Zerospace audio frequency"; break;
+    case 8: label += "Geller Field profile"; break;
+    case 9: label += "Void shield resonance"; break;
+    case 10: label += "Noospheric transmissions"; break;
     }
     signal_label->setText(label);
 }
