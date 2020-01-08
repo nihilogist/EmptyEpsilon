@@ -10,12 +10,12 @@ Nuke::Nuke()
 
 void Nuke::hitObject(P<SpaceObject> object)
 {
-    DamageInfo info(owner, DT_Kinetic, getPosition());
-    SpaceObject::damageArea(getPosition(), category_modifier * blast_range, category_modifier * damage_at_edge, category_modifier * damage_at_center, info, getRadius());
+    DamageInfo info(owner, DT_Energy, getPosition());
+    object->takeDamage(category_modifier * 6, info);
 
     P<ExplosionEffect> e = new ExplosionEffect();
-    e->setSize(category_modifier * blast_range);
+    e->setSize(category_modifier * 10);
     e->setPosition(getPosition());
     e->setOnRadar(true);
-    e->setExplosionSound("sfx/nuke_explosion.wav");
+    e->setExplosionSound("explosion.wav");
 }

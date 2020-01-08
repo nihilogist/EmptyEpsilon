@@ -103,8 +103,11 @@ void WeaponTube::fire(float target_angle)
         }
         state = WTS_Empty;
         type_loaded = MW_None;
-    }
-    else{
+    } else if (type_loaded == MW_Nuke) {
+        spawnProjectile(target_angle);
+        state = WTS_Empty;
+        startLoad(MW_Nuke);
+    } else{
         spawnProjectile(target_angle);
         state = WTS_Empty;
         type_loaded = MW_None;

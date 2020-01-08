@@ -27,6 +27,8 @@ variation:setHull(35)
 variation:setShields(22)
 variation:setSpeed(130, 35, 25)
 variation:setBeam(0, 30, 0, 900.0, 4.0, 2.5)
+variation:setTubes(1, 0.5)
+variation:setWeaponStorage("Nuke", 100)
 
 variation:setRepairCrewCount(1)
 variation:addRoomSystem(3, 0, 1, 1, "Maneuver");
