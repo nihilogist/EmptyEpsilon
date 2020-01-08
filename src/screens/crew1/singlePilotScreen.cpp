@@ -32,25 +32,25 @@ SinglePilotScreen::SinglePilotScreen(GuiContainer* owner)
 {
     // Create a 3D viewport behind everything, to serve as the right-side panel
     viewport = new GuiViewport3D(this, "3D_VIEW");
-    viewport->setPosition(1000, 0, ATopLeft)->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
+    viewport->setPosition(500, 0, ATopLeft)->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
     // Create left panel for controls.
     left_panel = new GuiElement(this, "LEFT_PANEL");
-    left_panel->setPosition(0, 0, ATopLeft)->setSize(1000, GuiElement::GuiSizeMax);
+    left_panel->setPosition(0, 0, ATopLeft)->setSize(500, GuiElement::GuiSizeMax);
 
     // Render the radar shadow and background decorations.
-    background_gradient = new GuiOverlay(left_panel, "BACKGROUND_GRADIENT", sf::Color::White);
-    background_gradient->setTextureCenter("gui/BackgroundGradientSingle");
+    //background_gradient = new GuiOverlay(left_panel, "BACKGROUND_GRADIENT", sf::Color::White);
+    //background_gradient->setTextureCenter("gui/BackgroundGradientSingle");
 
-    background_crosses = new GuiOverlay(left_panel, "BACKGROUND_CROSSES", sf::Color::White);
-    background_crosses->setTextureTiled("gui/BackgroundCrosses");
+    //background_crosses = new GuiOverlay(left_panel, "BACKGROUND_CROSSES", sf::Color::White);
+    //background_crosses->setTextureTiled("gui/BackgroundCrosses");
 
     // Render the alert level color overlay.
     (new AlertLevelOverlay(this));
 
     // 5U tactical radar with piloting features.
-    radar = new GuiRadarView(left_panel, "TACTICAL_RADAR", 5000.0, &targets);
-    radar->setPosition(0, 0, ACenter)->setSize(GuiElement::GuiSizeMatchHeight, 650);
+    radar = new GuiRadarView(left_panel, "TACTICAL_RADAR", 3000.0, &targets);
+    radar->setPosition(25, 100, ACenterLeft)->setSize(GuiElement::GuiSizeMatchHeight, 450);
     radar->setRangeIndicatorStepSize(1000.0)->shortRange()->enableGhostDots()->enableWaypoints()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
     radar->setCallbacks(
         [this](sf::Vector2f position) {
@@ -69,6 +69,11 @@ SinglePilotScreen::SinglePilotScreen(GuiContainer* owner)
                 my_spaceship->commandTargetRotation(sf::vector2ToAngle(position - my_spaceship->getPosition()));
         }
     );
+
+    navRadar = new GuiRadarView(left_panel, "NAVIGATION_RADAR", 10000.0, nullptr);
+    navRadar->setPosition(120, 60, ATopLeft)->setSize(GuiElement::GuiSizeMatchHeight, 250);
+    navRadar->setRangeIndicatorStepSize(2000.0)->longRange()->enableWaypoints()->setStyle(GuiRadarView::Circular);
+
 
     // Joystick controls.
     radar->setJoystickCallbacks(
@@ -107,16 +112,16 @@ SinglePilotScreen::SinglePilotScreen(GuiContainer* owner)
     );
 
     // Ship stats and combat maneuver at bottom right corner of left panel.
-    (new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(200, 150);
+    (new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(100, 75);
 
-    energy_display = new GuiKeyValueDisplay(left_panel, "ENERGY_DISPLAY", 0.45, "Energy", "");
-    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(240, 40);
-    heading_display = new GuiKeyValueDisplay(left_panel, "HEADING_DISPLAY", 0.45, "Heading", "");
-    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(240, 40);
-    velocity_display = new GuiKeyValueDisplay(left_panel, "VELOCITY_DISPLAY", 0.45, "Speed", "");
-    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(240, 40);
-    shields_display = new GuiKeyValueDisplay(left_panel, "SHIELDS_DISPLAY", 0.45, "Shields", "");
-    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(240, 40);
+    energy_display = new GuiKeyValueDisplay(viewport, "ENERGY_DISPLAY", 0.45, "Energy", "");
+    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(180, 30);
+    heading_display = new GuiKeyValueDisplay(viewport, "HEADING_DISPLAY", 0.45, "Heading", "");
+    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(180, 30);
+    velocity_display = new GuiKeyValueDisplay(viewport, "VELOCITY_DISPLAY", 0.45, "Speed", "");
+    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(180, 30);
+    shields_display = new GuiKeyValueDisplay(viewport, "SHIELDS_DISPLAY", 0.45, "Shields", "");
+    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(180, 30);
 
     // Unlocked missile aim dial and lock controls.
     missile_aim = new GuiRotationDial(left_panel, "MISSILE_AIM", -90, 360 - 90, 0, [this](float value){
@@ -130,21 +135,21 @@ SinglePilotScreen::SinglePilotScreen(GuiContainer* owner)
     radar->enableTargetProjections(tube_controls);
 
     // Engine layout in top left corner of left panel.
-    GuiAutoLayout* engine_layout = new GuiAutoLayout(left_panel, "ENGINE_LAYOUT", GuiAutoLayout::LayoutHorizontalLeftToRight);
-    engine_layout->setPosition(20, 80, ATopLeft)->setSize(GuiElement::GuiSizeMax, 250);
-    (new GuiImpulseControls(engine_layout, "IMPULSE"))->setSize(100, GuiElement::GuiSizeMax);
+    GuiAutoLayout* engine_layout = new GuiAutoLayout(viewport, "ENGINE_LAYOUT", GuiAutoLayout::LayoutHorizontalLeftToRight);
+    engine_layout->setPosition(1000, 500, ATopLeft)->setSize(GuiElement::GuiSizeMax, 200);
+    (new GuiImpulseControls(engine_layout, "IMPULSE"))->setSize(650, GuiElement::GuiSizeMax);
     warp_controls = (new GuiWarpControls(engine_layout, "WARP"))->setSize(100, GuiElement::GuiSizeMax);
     jump_controls = (new GuiJumpControls(engine_layout, "JUMP"))->setSize(100, GuiElement::GuiSizeMax);
 
     // Docking, comms, and shields buttons across top.
-    (new GuiDockingButton(left_panel, "DOCKING"))->setPosition(20, 20, ATopLeft)->setSize(250, 50);
-    (new GuiOpenCommsButton(left_panel, "OPEN_COMMS_BUTTON", &targets))->setPosition(270, 20, ATopLeft)->setSize(250, 50);
-    (new GuiCommsOverlay(this))->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
-    (new GuiShieldsEnableButton(left_panel, "SHIELDS_ENABLE"))->setPosition(520, 20, ATopLeft)->setSize(250, 50);
+    (new GuiDockingButton(left_panel, "DOCKING"))->setPosition(20, 20, ATopLeft)->setSize(200, 40);
+    //(new GuiOpenCommsButton(left_panel, "OPEN_COMMS_BUTTON", &targets))->setPosition(270, 20, ATopLeft)->setSize(250, 50);
+    //(new GuiCommsOverlay(this))->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
+    (new GuiShieldsEnableButton(left_panel, "SHIELDS_ENABLE"))->setPosition(230, 20, ATopLeft)->setSize(230, 40);
 
     // Missile lock button near top right of left panel.
     lock_aim = new AimLockButton(left_panel, "LOCK_AIM", tube_controls, missile_aim);
-    lock_aim->setPosition(250, 70, ATopCenter)->setSize(130, 50);
+    lock_aim->setPosition(20, 60, ATopLeft)->setSize(100, 40);
     
     (new GuiCustomShipFunctions(this, singlePilot, ""))->setPosition(-20, 120, ATopRight)->setSize(250, GuiElement::GuiSizeMax);
 }
@@ -178,7 +183,7 @@ void SinglePilotScreen::onDraw(sf::RenderTarget& window)
     else
     {
         viewport->show();
-        left_panel->setSize(1000, GuiElement::GuiSizeMax);
+        left_panel->setSize(500, GuiElement::GuiSizeMax);
     }
 
     if (my_spaceship)
