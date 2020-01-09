@@ -128,6 +128,7 @@ set(SOURCES
 	src/screens/extra/powerManagement.cpp
 	src/screens/extra/databaseScreen.cpp
 	src/screens/extra/shipLogScreen.cpp
+	src/screens/extra/fighterBay.cpp
 	src/screens/gm/gameMasterScreen.cpp
 	src/screens/gm/objectCreationView.cpp
 	src/screens/gm/globalMessageEntryView.cpp

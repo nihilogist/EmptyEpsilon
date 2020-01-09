@@ -17,6 +17,7 @@
 #include "screens/extra/damcon.h"
 #include "screens/extra/powerManagement.h"
 #include "screens/extra/databaseScreen.h"
+#include "screens/extra/fighterBay.h"
 
 #include "screens/extra/shipLogScreen.h"
 
@@ -150,6 +151,8 @@ void PlayerInfo::spawnUI()
             screen->addStationTab(new PowerManagementScreen(screen), powerManagement, getCrewPositionName(powerManagement), getCrewPositionIcon(powerManagement));
         if (crew_position[databaseView])
             screen->addStationTab(new DatabaseScreen(screen), databaseView, getCrewPositionName(databaseView), getCrewPositionIcon(databaseView));
+        if (crew_position[fighterBay])
+            screen->addStationTab(new FighterBayScreen(screen), fighterBay, getCrewPositionName(fighterBay), getCrewPositionIcon(fighterBay));
         
         //Ship log screen, if you have comms, you have ships log. (note this is mostly replaced by the [at the bottom of the screen openable log]
         if (crew_position[singlePilot])
@@ -197,6 +200,7 @@ string getCrewPositionName(ECrewPosition position)
     case damageControl: return "Damage Control";
     case powerManagement: return "Power Management";
     case databaseView: return "Database";
+    case fighterBay: return "Fighter Launch Bay";
     default: return "ErrUnk: " + string(position);
     }
 }
@@ -217,6 +221,7 @@ string getCrewPositionIcon(ECrewPosition position)
     case damageControl: return "";
     case powerManagement: return "";
     case databaseView: return "";
+    case fighterBay: return "";
     default: return "ErrUnk: " + string(position);
     }
 }
@@ -257,6 +262,8 @@ template<> void convert<ECrewPosition>::param(lua_State* L, int& idx, ECrewPosit
         cp = powerManagement;
     else if (str == "database" || str == "databaseview")
         cp = databaseView;
+    else if (str == "fighterbay")
+        cp = fighterBay;
     
     else
         luaL_error(L, "Unknown value for crew position: %s", str.c_str());

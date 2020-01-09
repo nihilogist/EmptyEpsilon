@@ -21,6 +21,7 @@ enum ECrewPosition
     damageControl,
     powerManagement,
     databaseView,
+    fighterBay,
 
     max_crew_positions
 };

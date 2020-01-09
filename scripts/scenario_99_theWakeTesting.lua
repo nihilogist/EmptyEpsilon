@@ -57,7 +57,7 @@ end
 
 function init()
 	-- Spawn a player Atlantis.
-	player = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser")
+	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser")
 
 	enemyList = {}
 	friendlyList = {}
@@ -222,7 +222,22 @@ function init()
 	BlackHole():setPosition(x, y)
 
 	-- Spawn random neutral transports.
-	Script():run("util_random_transports.lua")
+    Script():run("util_random_transports.lua")
+    
+    
+    theWake:addCustomButton("fighterBay","Launch","Launch Fury Interceptor",launchInterceptor)
+end
+
+function launchInterceptor()
+
+    launchedFighter = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Mars-Pattern Fury Interceptor"):setCallSign("BOB")
+    local x, y = theWake:getPosition()
+    local direction = theWake:getHeading()
+    setCirclePos(launchedFighter, x, y, direction - 270, 400)
+    launchedFighter:setHeading(direction - 180)
+    launchedFighter:commandTargetRotation(direction - 270)
+    launchedFighter:commandImpulse(0.5)
+    return launchedFighter
 end
 
 function update(delta)
