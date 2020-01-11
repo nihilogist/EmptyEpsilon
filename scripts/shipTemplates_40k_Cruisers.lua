@@ -12,11 +12,13 @@ They come in 3 different subclasses:
 --[[----------------------Destroyers----------------------]]
 
 template = ShipTemplate():setName("Dauntless Class Cruiser"):setClass("Corvette", "Destroyer"):setModel("battleship_destroyer_1_upgraded")
-template:setDescription([[This ship was built to address the desperate need for carriers in Battle fleet Gothic, and the Dictator served its role as a cruiser/light carrier hybrid admirably well.]])
+template:setDescription([[This ship was built to address the desperate need for carriers in Battle fleet Gothic, and the Dauntless served its role as a cruiser/light carrier hybrid admirably well.]])
 template:setRadarTrace("radar_dread.png")
 template:setHull(750)
 template:setShields(200, 200, 200, 200)
 template:setSpeed(30, 3.5, 5)
+--                  Arc, Dir, Range, CycleTime, Dmg
+template:setBeam(0, 90, 0, 5000.0, 20.0, 30)
 template:setTubes(4, 10.0)
 template:setWeaponStorage("HVLI", 20)
 template:setWeaponStorage("Homing", 4)
@@ -80,7 +82,7 @@ template:setShields(100)
 template:setSpeed(40, 6, 5)
 template:setJumpDrive(true)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 360, 0, 2000.0, 10.0, 11)
+template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
 template:setTubes(2, 10.0)
 template:setWeaponStorage("Homing", 4)
 
