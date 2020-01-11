@@ -56,8 +56,8 @@ function setWaveDistance(enemy_group_count)
 end
 
 function init()
-	-- Spawn a player Atlantis.
-	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser")
+	-- Spawn a player Dauntless.
+	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
 
 	enemyList = {}
 	friendlyList = {}
@@ -203,34 +203,16 @@ function init()
 		end
 	end
 
-	-- Spawn a random black hole.
-	a = random(0, 360)
-	d = random(10000, 45000)
-	x, y = vectorFromAngle(a, d)
-	-- Watching a station fall into a black hole to start the game never gets old,
-	-- but players hate it. Avoid spawning black holes too close to stations.
-	spawn_hole = false
-	while not spawn_hole do
-		for i,station in ipairs(stationList) do
-			if distance(station, x, y) > 3000 then
-				spawn_hole = true
-			else
-				spawn_hole = false
-			end
-		end
-	end
-	BlackHole():setPosition(x, y)
-
 	-- Spawn random neutral transports.
     Script():run("util_random_transports.lua")
     
     
-    theWake:addCustomButton("fighterBay","Launch","Launch Fury Interceptor",launchInterceptor)
+    theWake:addCustomButton("fighterBay","Launch","Launch Fury 1",launchInterceptor)
 end
 
 function launchInterceptor()
 
-    launchedFighter = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Mars-Pattern Fury Interceptor"):setCallSign("BOB")
+    launchedFighter = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Mars-Pattern Fury Interceptor")
     local x, y = theWake:getPosition()
     local direction = theWake:getHeading()
     setCirclePos(launchedFighter, x, y, direction - 270, 400)
@@ -241,6 +223,9 @@ function launchInterceptor()
 end
 
 function update(delta)
+
+	-- Check to see if this is a fighter
+
 	enemy_count = 0
 	friendly_count = 0
 

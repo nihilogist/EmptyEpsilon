@@ -26,6 +26,7 @@ template:setTubeDirection(0, -90)
 template:setTubeDirection(1, -90)
 template:setTubeDirection(2,  90)
 template:setTubeDirection(3,  90)
+template:setDockClasses("Starfighter")
 
 variation = template:copy("Regency Pattern Dauntless Light Cruiser"):setType("playership")
 variation:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])

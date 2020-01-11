@@ -438,14 +438,15 @@ void SpaceShip::update(float delta)
     {
         if (docking_state == DS_Docking)
         {
-            if (!docking_target)
-                docking_state = DS_NotDocking;
-            else
-                target_rotation = sf::vector2ToAngle(getPosition() - docking_target->getPosition());
-            if (fabs(sf::angleDifference(target_rotation, getRotation())) < 10.0)
-                impulse_request = -1.0;
-            else
-                impulse_request = 0.0;
+            destroy();
+            // if (!docking_target)
+            //     docking_state = DS_NotDocking;
+            // else
+            //     target_rotation = sf::vector2ToAngle(getPosition() - docking_target->getPosition());
+            // if (fabs(sf::angleDifference(target_rotation, getRotation())) < 10.0)
+            //     impulse_request = -1.0;
+            // else
+            //     impulse_request = 0.0;
         }
         if (docking_state == DS_Docked)
         {

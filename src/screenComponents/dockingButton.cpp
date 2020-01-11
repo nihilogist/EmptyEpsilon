@@ -84,7 +84,7 @@ void GuiDockingButton::onHotkey(const HotkeyResult& key)
 
 P<SpaceObject> GuiDockingButton::findDockingTarget()
 {
-    PVector<Collisionable> obj_list = CollisionManager::queryArea(my_spaceship->getPosition() - sf::Vector2f(1000, 1000), my_spaceship->getPosition() + sf::Vector2f(1000, 1000));
+    PVector<Collisionable> obj_list = CollisionManager::queryArea(my_spaceship->getPosition() - sf::Vector2f(100, 100), my_spaceship->getPosition() + sf::Vector2f(100, 100));
     P<SpaceObject> dock_object;
     foreach(Collisionable, obj, obj_list)
     {
