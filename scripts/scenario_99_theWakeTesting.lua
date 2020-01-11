@@ -207,24 +207,54 @@ function init()
     Script():run("util_random_transports.lua")
     
     
-    theWake:addCustomButton("fighterBay","Launch","Launch Fury 1",launchInterceptor)
+	theWake:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+	theWake:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
+	theWake:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 end
 
-function launchInterceptor()
-
-    launchedFighter = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Mars-Pattern Fury Interceptor")
-    local x, y = theWake:getPosition()
-    local direction = theWake:getHeading()
-    setCirclePos(launchedFighter, x, y, direction - 270, 400)
-    launchedFighter:setHeading(direction - 180)
-    launchedFighter:commandTargetRotation(direction - 270)
-    launchedFighter:commandImpulse(0.5)
+function launchInterceptorOne()
+	theWake:removeCustom("LaunchFury1")
+    launchedFighter = launchFuryFromWake("Fury 1")
     return launchedFighter
+end
+
+function launchInterceptorTwo()
+	theWake:removeCustom("LaunchFury2")
+    launchedFighter = launchFuryFromWake("Fury 2")
+    return launchedFighter
+end
+
+function launchBomberOne()
+	theWake:removeCustom("LaunchStarhawk1")
+	launchedFighter = launchStarhawkFromWake("Starhawk 1")
+	return launchedFighter
+end
+
+function launchFuryFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
+	return launchedFighter
+end
+
+function launchStarhawkFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
+	return launchedFighter
+end
+
+function launchVehicleFromWake(vehicleClass, callsign)
+	launchedVehicle = PlayerSpaceship():setFaction("Human Navy"):setTemplate(vehicleClass):setCallSign(callsign)
+	local x, y = theWake:getPosition()
+    local direction = theWake:getHeading()
+    setCirclePos(launchedVehicle, x, y, direction - 270, 100)
+    launchedVehicle:setHeading(direction - 180)
+    launchedVehicle:commandTargetRotation(direction - 270)
+    launchedVehicle:commandImpulse(0.5)
+    return launchedVehicle
 end
 
 function update(delta)
 
-	-- Check to see if this is a fighter
+	-- check for fighters
+
 
 	enemy_count = 0
 	friendly_count = 0
