@@ -58,6 +58,12 @@ end
 function init()
 	-- Spawn a player Dauntless.
 	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	furyOne = nil
+	furyOneButton = true
+	furyTwo = nil
+	furyTwoButton = true
+	starhawkOne = nil
+	starhawkOneButton = true
 
 	enemyList = {}
 	friendlyList = {}
@@ -214,20 +220,23 @@ end
 
 function launchInterceptorOne()
 	theWake:removeCustom("LaunchFury1")
-    launchedFighter = launchFuryFromWake("Fury 1")
-    return launchedFighter
+	furyOneButton = false
+    furyOne = launchFuryFromWake("Fury 1")
+    return furyOne
 end
 
 function launchInterceptorTwo()
 	theWake:removeCustom("LaunchFury2")
-    launchedFighter = launchFuryFromWake("Fury 2")
-    return launchedFighter
+	furyTwoButton = false
+    furyTwo = launchFuryFromWake("Fury 2")
+    return furyTwo
 end
 
 function launchBomberOne()
 	theWake:removeCustom("LaunchStarhawk1")
-	launchedFighter = launchStarhawkFromWake("Starhawk 1")
-	return launchedFighter
+	starhawkOneButton = false
+	starhawkOne = launchStarhawkFromWake("Starhawk 1")
+	return starhawkOne
 end
 
 function launchFuryFromWake(callsign)
@@ -253,7 +262,16 @@ end
 
 function update(delta)
 
-	-- check for fighters
+	-- update vehicle launch buttons
+	if (not furyOne and not furyOneButton) then
+		theWake:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+	end
+	if (not furyTwo and not furyTwoButton) then
+		theWake:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
+	end
+	if (not starhawkOne and not starhawkOneButton) then
+		theWake:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
+	end
 
 
 	enemy_count = 0
