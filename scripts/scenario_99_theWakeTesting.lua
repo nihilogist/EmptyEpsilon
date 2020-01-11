@@ -59,11 +59,11 @@ function init()
 	-- Spawn a player Dauntless.
 	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
 	furyOne = nil
-	furyOneButton = true
+	furyOneButton = false
 	furyTwo = nil
-	furyTwoButton = true
+	furyTwoButton = false
 	starhawkOne = nil
-	starhawkOneButton = true
+	starhawkOneButton = false
 
 	enemyList = {}
 	friendlyList = {}
@@ -191,23 +191,6 @@ function init()
 		end
 	end
 
-	-- Spawn 0-3 random mine fields.
-	for cnt=1,random(0, 3) do
-		a = random(0, 360)
-		a2 = random(0, 360)
-		d = random(20000, 40000)
-		x, y = vectorFromAngle(a, d)
-
-		for nx=-1,1 do
-			for ny=-5,5 do
-				if random(0, 100) < 90 then
-					dx1, dy1 = vectorFromAngle(a2, (nx * 1000) + random(-100, 100))
-					dx2, dy2 = vectorFromAngle(a2 + 90, (ny * 1000) + random(-100, 100))
-					Mine():setPosition(x + dx1 + dx2, y + dy1 + dy2)
-				end
-			end
-		end
-	end
 
 	-- Spawn random neutral transports.
     Script():run("util_random_transports.lua")
@@ -219,21 +202,21 @@ function init()
 end
 
 function launchInterceptorOne()
-	theWake:removeCustom("LaunchFury1")
+	--theWake:removeCustom("LaunchFury1")
 	furyOneButton = false
     furyOne = launchFuryFromWake("Fury 1")
     return furyOne
 end
 
 function launchInterceptorTwo()
-	theWake:removeCustom("LaunchFury2")
+	--theWake:removeCustom("LaunchFury2")
 	furyTwoButton = false
     furyTwo = launchFuryFromWake("Fury 2")
     return furyTwo
 end
 
 function launchBomberOne()
-	theWake:removeCustom("LaunchStarhawk1")
+	--theWake:removeCustom("LaunchStarhawk1")
 	starhawkOneButton = false
 	starhawkOne = launchStarhawkFromWake("Starhawk 1")
 	return starhawkOne
@@ -260,19 +243,8 @@ function launchVehicleFromWake(vehicleClass, callsign)
     return launchedVehicle
 end
 
+
 function update(delta)
-
-	-- update vehicle launch buttons
-	if (not furyOne and not furyOneButton) then
-		theWake:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
-	end
-	if (not furyTwo and not furyTwoButton) then
-		theWake:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
-	end
-	if (not starhawkOne and not starhawkOneButton) then
-		theWake:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
-	end
-
 
 	enemy_count = 0
 	friendly_count = 0
