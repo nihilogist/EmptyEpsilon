@@ -13,7 +13,7 @@ They come in 3 different subclasses:
 
 template = ShipTemplate():setName("Dauntless Class Cruiser"):setClass("Corvette", "Destroyer"):setModel("battleship_destroyer_1_upgraded")
 template:setDescription([[This ship was built to address the desperate need for carriers in Battle fleet Gothic, and the Dauntless served its role as a cruiser/light carrier hybrid admirably well.]])
-template:setRadarTrace("radar_dread.png")
+template:setRadarTrace("radar_dauntless.png")
 template:setHull(750)
 template:setShields(200, 200, 200, 200)
 template:setSpeed(30, 3.5, 5)
