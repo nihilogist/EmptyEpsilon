@@ -8,6 +8,19 @@ HVLI::HVLI()
 {
 }
 
+void HVLI::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range)
+{
+    if (long_range) return;
+
+    sf::Sprite object_sprite;
+    textureManager.setTexture(object_sprite, "RadarMacrocannon.png");
+    object_sprite.setRotation(getRotation());
+    object_sprite.setPosition(position);
+    object_sprite.setColor(data.color);
+    object_sprite.setScale(0.25 + 0.25 * category_modifier, 0.25 + 0.25 * category_modifier);
+    window.draw(object_sprite);
+}
+
 void HVLI::hitObject(P<SpaceObject> object)
 {
     DamageInfo info(owner, DT_Kinetic, getPosition());

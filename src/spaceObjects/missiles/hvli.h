@@ -12,6 +12,7 @@ public:
     HVLI();
     
     virtual void hitObject(P<SpaceObject> object);
+    virtual void drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range);
 };
 
 #endif//HVLI_H

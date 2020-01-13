@@ -554,11 +554,11 @@ void GuiRadarView::drawObjects(sf::RenderTarget& window_normal, sf::RenderTarget
             }
 
             sf::Vector2f position = obj->getPosition();
-            PVector<Collisionable> obj_list = CollisionManager::queryArea(position - sf::Vector2f(5000, 5000), position + sf::Vector2f(5000, 5000));
+            PVector<Collisionable> obj_list = CollisionManager::queryArea(position - sf::Vector2f(10000, 10000), position + sf::Vector2f(10000, 10000));
             foreach(Collisionable, c_obj, obj_list)
             {
                 P<SpaceObject> obj2 = c_obj;
-                if (obj2 && (obj->getPosition() - obj2->getPosition()) < 5000.0f + obj2->getRadius())
+                if (obj2 && (obj->getPosition() - obj2->getPosition()) < 10000.0f + obj2->getRadius())
                 {
                     visible_objects.insert(*obj2);
                 }
