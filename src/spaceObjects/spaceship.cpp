@@ -383,7 +383,7 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
     // Otherwise, draw the ship-specific icon.
     if (my_spaceship && (getScannedStateFor(my_spaceship) == SS_NotScanned || getScannedStateFor(my_spaceship) == SS_FriendOrFoeIdentified))
     {
-        textureManager.setTexture(objectSprite, "RadarArrow.png");
+        textureManager.setTexture(objectSprite, "RadarBlip.png");
     }
     else
     {
