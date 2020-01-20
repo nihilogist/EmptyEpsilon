@@ -23,6 +23,9 @@ private:
     GuiKeyValueDisplay* heading_display;
     GuiKeyValueDisplay* velocity_display;
     GuiKeyValueDisplay* shields_display;
+    GuiKeyValueDisplay* plasmaDriveStatus;
+    GuiKeyValueDisplay* weaponsStatus;
+    GuiKeyValueDisplay* voidShieldStatus;
     
     TargetsContainer targets;
     GuiRadarView* radar;

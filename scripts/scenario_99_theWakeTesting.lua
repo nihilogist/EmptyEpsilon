@@ -57,7 +57,8 @@ end
 
 function init()
 	-- Spawn a player Dauntless.
-	theWake = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	lexTalionis = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	lexTalionis:setAutoCoolant(true)
 	furyOne = nil
 	furyOneButton = false
 	furyTwo = nil
@@ -196,29 +197,32 @@ function init()
     Script():run("util_random_transports.lua")
     
     
-	theWake:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
-	theWake:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
-	theWake:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
+	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+	lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
+	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 end
 
 function launchInterceptorOne()
-	--theWake:removeCustom("LaunchFury1")
+	--lexTalionis:removeCustom("LaunchFury1")
 	furyOneButton = false
-    furyOne = launchFuryFromWake("Fury 1")
+	furyOne = launchFuryFromWake("Fury 1")
+	furyOne:setAutoCoolant(true)
     return furyOne
 end
 
 function launchInterceptorTwo()
-	--theWake:removeCustom("LaunchFury2")
+	--lexTalionis:removeCustom("LaunchFury2")
 	furyTwoButton = false
-    furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo:setAutoCoolant(true)
     return furyTwo
 end
 
 function launchBomberOne()
-	--theWake:removeCustom("LaunchStarhawk1")
+	--lexTalionis:removeCustom("LaunchStarhawk1")
 	starhawkOneButton = false
 	starhawkOne = launchStarhawkFromWake("Starhawk 1")
+	starhawkOne:setAutoCoolant(true)
 	return starhawkOne
 end
 
@@ -234,8 +238,8 @@ end
 
 function launchVehicleFromWake(vehicleClass, callsign)
 	launchedVehicle = PlayerSpaceship():setFaction("Human Navy"):setTemplate(vehicleClass):setCallSign(callsign)
-	local x, y = theWake:getPosition()
-    local direction = theWake:getHeading()
+	local x, y = lexTalionis:getPosition()
+    local direction = lexTalionis:getHeading()
     setCirclePos(launchedVehicle, x, y, direction - 270, 100)
     launchedVehicle:setHeading(direction - 180)
     launchedVehicle:commandTargetRotation(direction - 270)

@@ -110,14 +110,19 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
     // Ship stats and combat maneuver at bottom right corner of left panel.
     (new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(100, 75);
 
+    // Energy boost displays
+    plasmaDriveStatus = new GuiKeyValueDisplay(left_panel, "PLASMA_DRIVE_STATUS", 0.45, "Engines", "");
+    plasmaDriveStatus->setIcon("gui/icons/system_warpdrive")->setTextSize(20)->setPosition(-20, -220, ABottomRight)->setSize(280, 40);
+    weaponsStatus = new GuiKeyValueDisplay(left_panel, "WEAPONS_STATUS", 0.45, "Weapons", "");
+    weaponsStatus->setIcon("gui/icons/lock")->setTextSize(20)->setPosition(-20, -180, ABottomRight)->setSize(280, 40);
     energy_display = new GuiKeyValueDisplay(left_panel, "ENERGY_DISPLAY", 0.45, "Energy", "");
-    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(240, 40);
+    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(280, 40);
     heading_display = new GuiKeyValueDisplay(left_panel, "HEADING_DISPLAY", 0.45, "Heading", "");
-    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(240, 40);
+    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(280, 40);
     velocity_display = new GuiKeyValueDisplay(left_panel, "VELOCITY_DISPLAY", 0.45, "Speed", "");
-    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(240, 40);
+    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(280, 40);
     shields_display = new GuiKeyValueDisplay(left_panel, "SHIELDS_DISPLAY", 0.45, "Shields", "");
-    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(240, 40);
+    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(280, 40);
 
     // Weapon tube controls.
     tube_controls = new GuiMissileTubeControls(left_panel, "MISSILE_TUBES");
@@ -145,11 +150,27 @@ void StarfighterPilotScreen::onDraw(sf::RenderTarget& window)
         heading_display->setValue(string(fmodf(my_spaceship->getRotation() + 360.0 + 360.0 - 270.0, 360.0), 1));
         float velocity = sf::length(my_spaceship->getVelocity()) / 1000 * 60;
         velocity_display->setValue(string(velocity, 1) + DISTANCE_UNIT_1K + "/min");
-
-
         shields_display->setValue(string(my_spaceship->getShieldPercentage(0)) + "% " + string(my_spaceship->getShieldPercentage(1)) + "%");
 
         targets.set(my_spaceship->getTarget());
+
+        // Update the Plasma Drive status panel
+        if (my_spaceship->systems[SYS_Impulse].power_level == 0.0) {
+            plasmaDriveStatus->setValue("Inactive");
+        } else if (my_spaceship->systems[SYS_Impulse].power_level > 1.5) {
+            plasmaDriveStatus->setValue("Boosted");
+        } else {
+            plasmaDriveStatus->setValue("Nominal");
+        }
+
+        // Update the Weapons status panel
+        if (my_spaceship->systems[SYS_BeamWeapons].power_level == 0.0) {
+            weaponsStatus->setValue("Inactive");
+        } else if (my_spaceship->systems[SYS_BeamWeapons].power_level > 1.5) {
+            weaponsStatus->setValue("Boosted");
+        } else {
+            weaponsStatus->setValue("Nominal");
+        }
     }
     GuiOverlay::onDraw(window);
 
@@ -250,5 +271,27 @@ void StarfighterPilotScreen::onHotkey(const HotkeyResult& key)
                 }
             }
         }
+    }
+
+    if (key.category == "ENGINEERING" && my_spaceship) {
+        if (key.hotkey == "DRIVES_OFF") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_Impulse, 0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_Maneuver, 0);
+        } else if (key.hotkey == "DRIVES_ON") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_Impulse, 1.0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_Maneuver, 1.0);
+        } else if (key.hotkey == "DRIVES_BOOST") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_Impulse, 2.0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_Maneuver, 2.0);
+        } else if (key.hotkey == "WEAPONS_OFF") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_BeamWeapons, 0.0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_MissileSystem, 0.0);
+        } else if (key.hotkey == "WEAPONS_ON") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_BeamWeapons, 1.0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_MissileSystem, 1.0);
+        } else if (key.hotkey == "WEAPONS_BOOST") {
+            my_spaceship->commandSetSystemPowerRequest(SYS_BeamWeapons, 2.0);
+            my_spaceship->commandSetSystemPowerRequest(SYS_MissileSystem, 2.0);
+        } 
     }
 }

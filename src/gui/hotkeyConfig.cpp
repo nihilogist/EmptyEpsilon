@@ -91,7 +91,12 @@ HotkeyConfig::HotkeyConfig()
     newKey("SELF_DESTRUCT_START", std::make_tuple("Start self-destruct", ""));
     newKey("SELF_DESTRUCT_CONFIRM", std::make_tuple("Confirm self-destruct", ""));
     newKey("SELF_DESTRUCT_CANCEL", std::make_tuple("Cancel self-destruct", ""));
-
+    newKey("DRIVES_OFF", std::make_tuple("Power down plasma drives", "M"));
+    newKey("DRIVES_ON", std::make_tuple("Power on plasma drives", "J"));
+    newKey("DRIVES_BOOST", std::make_tuple("Power down plasma drives", "U"));
+    newKey("WEAPONS_OFF", std::make_tuple("Power down weapons systems", "N"));
+    newKey("WEAPONS_ON", std::make_tuple("Power on weapons systems", "H"));
+    newKey("WEAPONS_BOOST", std::make_tuple("Power down weapons systems", "Y"));
 }
 
 static std::vector<std::pair<string, sf::Keyboard::Key> > sfml_key_names = {
