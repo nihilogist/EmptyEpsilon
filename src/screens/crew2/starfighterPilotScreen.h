@@ -17,7 +17,6 @@ private:
     GuiOverlay* background_gradient;
     GuiOverlay* background_crosses;
 
-    GuiViewport3D* viewport;
     GuiElement* left_panel;
 
     GuiKeyValueDisplay* energy_display;
@@ -28,9 +27,7 @@ private:
     TargetsContainer targets;
     GuiRadarView* radar;
     GuiRadarView* navRadar;
-    GuiRotationDial* missile_aim;
     GuiMissileTubeControls* tube_controls;
-    GuiToggleButton* lock_aim;
 public:
     StarfighterPilotScreen(GuiContainer* owner);
     

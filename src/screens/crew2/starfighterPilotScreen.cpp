@@ -30,27 +30,23 @@
 StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
 : GuiOverlay(owner, "STARFIGHTERPILOT_SCREEN", colorConfig.background)
 {
-    // Create a 3D viewport behind everything, to serve as the right-side panel
-    viewport = new GuiViewport3D(this, "3D_VIEW");
-    viewport->setPosition(500, 0, ATopLeft)->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
-
     // Create left panel for controls.
     left_panel = new GuiElement(this, "LEFT_PANEL");
-    left_panel->setPosition(0, 0, ATopLeft)->setSize(500, GuiElement::GuiSizeMax);
+    left_panel->setPosition(0, 0, ATopLeft)->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
     // Render the radar shadow and background decorations.
     //background_gradient = new GuiOverlay(left_panel, "BACKGROUND_GRADIENT", sf::Color::White);
     //background_gradient->setTextureCenter("gui/BackgroundGradientSingle");
 
-    //background_crosses = new GuiOverlay(left_panel, "BACKGROUND_CROSSES", sf::Color::White);
-    //background_crosses->setTextureTiled("gui/BackgroundCrosses");
+    background_crosses = new GuiOverlay(left_panel, "BACKGROUND_CROSSES", sf::Color::White);
+    background_crosses->setTextureTiled("gui/BackgroundCrosses");
 
     // Render the alert level color overlay.
     (new AlertLevelOverlay(this));
 
-    // 5U tactical radar with piloting features.
+    // 3U tactical radar with piloting features.
     radar = new GuiRadarView(left_panel, "TACTICAL_RADAR", 3000.0, &targets);
-    radar->setPosition(25, 100, ACenterLeft)->setSize(GuiElement::GuiSizeMatchHeight, 450);
+    radar->setPosition(0, 0, ACenter)->setSize(GuiElement::GuiSizeMatchHeight, 800);
     radar->setRangeIndicatorStepSize(1000.0)->shortRange()->enableGhostDots()->enableWaypoints()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
     radar->setCallbacks(
         [this](sf::Vector2f position) {
@@ -70,7 +66,7 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
         }
     );
 
-    navRadar = new GuiRadarView(left_panel, "NAVIGATION_RADAR", 10000.0, nullptr);
+    navRadar = new GuiRadarView(left_panel, "NAVIGATION_RADAR", 8000.0, nullptr);
     navRadar->setPosition(120, 60, ATopLeft)->setSize(GuiElement::GuiSizeMatchHeight, 250);
     navRadar->setRangeIndicatorStepSize(2000.0)->longRange()->enableWaypoints()->setStyle(GuiRadarView::Circular);
 
@@ -114,42 +110,31 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
     // Ship stats and combat maneuver at bottom right corner of left panel.
     (new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(100, 75);
 
-    energy_display = new GuiKeyValueDisplay(viewport, "ENERGY_DISPLAY", 0.45, "Energy", "");
-    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(180, 30);
-    heading_display = new GuiKeyValueDisplay(viewport, "HEADING_DISPLAY", 0.45, "Heading", "");
-    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(180, 30);
-    velocity_display = new GuiKeyValueDisplay(viewport, "VELOCITY_DISPLAY", 0.45, "Speed", "");
-    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(180, 30);
-    shields_display = new GuiKeyValueDisplay(viewport, "SHIELDS_DISPLAY", 0.45, "Shields", "");
-    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(180, 30);
-
-    // Unlocked missile aim dial and lock controls.
-    missile_aim = new GuiRotationDial(left_panel, "MISSILE_AIM", -90, 360 - 90, 0, [this](float value){
-        tube_controls->setMissileTargetAngle(value);
-    });
-    missile_aim->setPosition(0, 0, ACenter)->setSize(GuiElement::GuiSizeMatchHeight, 700);
+    energy_display = new GuiKeyValueDisplay(left_panel, "ENERGY_DISPLAY", 0.45, "Energy", "");
+    energy_display->setIcon("gui/icons/energy")->setTextSize(20)->setPosition(-20, -140, ABottomRight)->setSize(240, 40);
+    heading_display = new GuiKeyValueDisplay(left_panel, "HEADING_DISPLAY", 0.45, "Heading", "");
+    heading_display->setIcon("gui/icons/heading")->setTextSize(20)->setPosition(-20, -100, ABottomRight)->setSize(240, 40);
+    velocity_display = new GuiKeyValueDisplay(left_panel, "VELOCITY_DISPLAY", 0.45, "Speed", "");
+    velocity_display->setIcon("gui/icons/speed")->setTextSize(20)->setPosition(-20, -60, ABottomRight)->setSize(240, 40);
+    shields_display = new GuiKeyValueDisplay(left_panel, "SHIELDS_DISPLAY", 0.45, "Shields", "");
+    shields_display->setIcon("gui/icons/shields")->setTextSize(20)->setPosition(-20, -20, ABottomRight)->setSize(240, 40);
 
     // Weapon tube controls.
     tube_controls = new GuiMissileTubeControls(left_panel, "MISSILE_TUBES");
     tube_controls->setPosition(20, -20, ABottomLeft);
     radar->enableTargetProjections(tube_controls);
 
-    // Engine layout in top left corner of left panel.
-    GuiAutoLayout* engine_layout = new GuiAutoLayout(viewport, "ENGINE_LAYOUT", GuiAutoLayout::LayoutHorizontalLeftToRight);
-    engine_layout->setPosition(1000, 500, ATopLeft)->setSize(GuiElement::GuiSizeMax, 200);
+    // Engine info mid right
+    GuiAutoLayout* engine_layout = new GuiAutoLayout(left_panel, "ENGINE_LAYOUT", GuiAutoLayout::LayoutHorizontalLeftToRight);
+    engine_layout->setPosition(750, -300, ABottomRight)->setSize(GuiElement::GuiSizeMax, 300);
     (new GuiImpulseControls(engine_layout, "IMPULSE"))->setSize(650, GuiElement::GuiSizeMax);
 
-    // Docking, comms, and shields buttons across top.
-    (new GuiDockingButton(left_panel, "DOCKING"))->setPosition(20, 20, ATopLeft)->setSize(200, 40);
-    //(new GuiOpenCommsButton(left_panel, "OPEN_COMMS_BUTTON", &targets))->setPosition(270, 20, ATopLeft)->setSize(250, 50);
-    //(new GuiCommsOverlay(this))->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
-    (new GuiShieldsEnableButton(left_panel, "SHIELDS_ENABLE"))->setPosition(230, 20, ATopLeft)->setSize(230, 40);
+    // Docking and shields buttons on top right
+    (new GuiDockingButton(left_panel, "DOCKING"))->setPosition(-20, 80, ATopRight)->setSize(230, 40);
+    (new GuiShieldsEnableButton(left_panel, "SHIELDS_ENABLE"))->setPosition(-20, 130, ATopRight)->setSize(230, 40);
 
-    // Missile lock button near top right of left panel.
-    lock_aim = new AimLockButton(left_panel, "LOCK_AIM", tube_controls, missile_aim);
-    lock_aim->setPosition(20, 60, ATopLeft)->setSize(100, 40);
     
-    (new GuiCustomShipFunctions(this, singlePilot, ""))->setPosition(-20, 120, ATopRight)->setSize(250, GuiElement::GuiSizeMax);
+    (new GuiCustomShipFunctions(this, starfighterPilot, ""))->setPosition(-20, 120, ATopRight)->setSize(250, GuiElement::GuiSizeMax);
 }
 
 void StarfighterPilotScreen::onDraw(sf::RenderTarget& window)
@@ -164,23 +149,10 @@ void StarfighterPilotScreen::onDraw(sf::RenderTarget& window)
 
         shields_display->setValue(string(my_spaceship->getShieldPercentage(0)) + "% " + string(my_spaceship->getShieldPercentage(1)) + "%");
 
-        missile_aim->setVisible(tube_controls->getManualAim());
-
         targets.set(my_spaceship->getTarget());
     }
     GuiOverlay::onDraw(window);
 
-    // Responsively show/hide the 3D viewport.
-    if (viewport->getRect().width < viewport->getRect().height / 3.0f)
-    {
-        viewport->hide();
-        left_panel->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
-    }
-    else
-    {
-        viewport->show();
-        left_panel->setSize(500, GuiElement::GuiSizeMax);
-    }
 
     if (my_spaceship)
     {
@@ -277,16 +249,6 @@ void StarfighterPilotScreen::onHotkey(const HotkeyResult& key)
                     return;
                 }
             }
-        }
-        if (key.hotkey == "AIM_MISSILE_LEFT")
-        {
-            missile_aim->setValue(missile_aim->getValue() - 5.0f);
-            tube_controls->setMissileTargetAngle(missile_aim->getValue());
-        }
-        if (key.hotkey == "AIM_MISSILE_RIGHT")
-        {
-            missile_aim->setValue(missile_aim->getValue() + 5.0f);
-            tube_controls->setMissileTargetAngle(missile_aim->getValue());
         }
     }
 }
