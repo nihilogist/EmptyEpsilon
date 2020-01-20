@@ -17,6 +17,8 @@ enum ECrewPosition
     operationsOfficer, //science+comms
     //1 player crew
     singlePilot,
+    //2 crew starfighter
+    starfighterPilot,
     //extras
     damageControl,
     powerManagement,

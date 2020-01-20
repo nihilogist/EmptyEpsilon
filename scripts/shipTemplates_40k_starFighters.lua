@@ -26,9 +26,8 @@ variation:setDescription([[The Fury Interceptor is the most common type of starf
 variation:setHull(35)
 variation:setShields(22)
 variation:setSpeed(130, 35, 25)
-variation:setBeam(0, 30, 0, 900.0, 4.0, 2.5)
-variation:setTubes(1, 0.5)
-variation:setWeaponStorage("Nuke", 100)
+--                  Arc, Dir, Range, CycleTime, Dmg
+variation:setBeam(0, 30, 0, 1200.0, 1.0, 2)
 
 variation:setRepairCrewCount(1)
 variation:addRoomSystem(3, 0, 1, 1, "Maneuver");
@@ -69,7 +68,7 @@ variation:setModel("WespeScoutRed")
 variation:setDescription([[The Starhawk is the more effective replacement for the Marauder bomber following that model's reassignment by the Imperial Navy to serve solely as an atmospheric bomber.]])
 variation:setHull(60)
 variation:setShields(40)
-variation:setBeam(0, 30, 0, 900.0, 4.0, 2.5)
+variation:setBeam(0, 30, 0, 900.0, 2.0, 4.0)
 variation:setTubes(2, 10.0)
 variation:setWeaponStorage("Homing", 4)
 

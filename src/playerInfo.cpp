@@ -13,6 +13,7 @@
 #include "screens/crew4/operationsScreen.h"
 
 #include "screens/crew1/singlePilotScreen.h"
+#include "screens/crew2/starfighterPilotScreen.h"
 
 #include "screens/extra/damcon.h"
 #include "screens/extra/powerManagement.h"
@@ -153,6 +154,8 @@ void PlayerInfo::spawnUI()
             screen->addStationTab(new DatabaseScreen(screen), databaseView, getCrewPositionName(databaseView), getCrewPositionIcon(databaseView));
         if (crew_position[fighterBay])
             screen->addStationTab(new FighterBayScreen(screen), fighterBay, getCrewPositionName(fighterBay), getCrewPositionIcon(fighterBay));
+        if (crew_position[starfighterPilot])
+            screen->addStationTab(new StarfighterPilotScreen(screen), starfighterPilot, getCrewPositionName(starfighterPilot), getCrewPositionIcon(starfighterPilot));
         
         //Ship log screen, if you have comms, you have ships log. (note this is mostly replaced by the [at the bottom of the screen openable log]
         if (crew_position[singlePilot])
@@ -201,6 +204,7 @@ string getCrewPositionName(ECrewPosition position)
     case powerManagement: return "Power Management";
     case databaseView: return "Database";
     case fighterBay: return "Fighter Launch Bay";
+    case starfighterPilot: return "Starfighter: Pilot";
     default: return "ErrUnk: " + string(position);
     }
 }
@@ -218,6 +222,7 @@ string getCrewPositionIcon(ECrewPosition position)
     case engineeringAdvanced: return "";
     case operationsOfficer: return "";
     case singlePilot: return "";
+    case starfighterPilot: return "";
     case damageControl: return "";
     case powerManagement: return "";
     case databaseView: return "";

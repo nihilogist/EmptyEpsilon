@@ -436,6 +436,7 @@ void ShipSelectionScreen::updateCrewTypeOptions()
         crew_position_button[powerManagement]->show();
         crew_position_button[databaseView]->show();
         crew_position_button[fighterBay]->show();
+        crew_position_button[starfighterPilot]->show();
         break;
     case 3:
         main_screen_button->hide();
