@@ -10,8 +10,18 @@ imperium:setDescription([[The ships of the Great and Undaunted Imperial Navy are
 risingFlame = FactionInfo():setName("Rising Flame")
 risingFlame:setGMColor(180, 90, 90)
 risingFlame:setDescription([[The Rising Flame's navy is small, but their exceptional intelligence gathering capability means that they are often exactly where they need to be to strike hardest at the Imperiuim.]])
+
+unknown = FactionInfo():setName("Unknown Ship")
+unknown:setGMColor(80, 80, 180)
+unknown:setDescription([[The Imperium is vast, and not everything is charted.]])
+
 risingFlame:setEnemy(imperium)
 imperium:setEnemy(risingFlame)
+
+unknown:setEnemy(imperium)
+unknown:setEnemy(risingFlame)
+risingFlame:setEnemy(unknown)
+imperium:setEnemy(unknown)
 
 
 
