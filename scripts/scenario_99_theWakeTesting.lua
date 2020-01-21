@@ -25,20 +25,20 @@ function addWave(enemyList,type,a,d)
 	elseif type < 2.0 then
 		leader = setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-1, 1), d + random(-100, 100))
 		table.insert(enemyList, leader)
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
 	elseif type < 3.0 then
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
 	elseif type < 4.0 then
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
 	else
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
+		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
 	end
 end
 
@@ -57,7 +57,9 @@ end
 
 function init()
 	-- Spawn a player Dauntless.
-	lexTalionis = PlayerSpaceship():setFaction("Human Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	lexTalionis:setCallSign("Lex Talionis")
+	-- Currently testing with auto-coolant on. Remove.
 	lexTalionis:setAutoCoolant(true)
 	furyOne = nil
 	furyOneButton = false
@@ -68,27 +70,9 @@ function init()
 
 	enemyList = {}
 	friendlyList = {}
-	stationList = {}
-
-	-- Randomly distribute 3 allied stations throughout the region.
-	n = 0
-	station_1 = SpaceStation():setTemplate('Small Station'):setRotation(random(0, 360)):setFaction("Human Navy")
-	table.insert(stationList, station_1)
-	table.insert(friendlyList, setCirclePos(station_1, 0, 0, n * 360 / 3 + random(-30, 30), random(10000, 22000)))
-	n = 1
-	table.insert(stationList, station_2)
-	station_2 = SpaceStation():setTemplate('Medium Station'):setRotation(random(0, 360)):setFaction("Human Navy")
-	table.insert(friendlyList, setCirclePos(station_2, 0, 0, n * 360 / 3 + random(-30, 30), random(10000, 22000)))
-	n = 2
-	table.insert(stationList, station_3)
-	station_3 = SpaceStation():setTemplate('Large Station'):setRotation(random(0, 360)):setFaction("Human Navy")
-	table.insert(friendlyList, setCirclePos(station_3, 0, 0, n * 360 / 3 + random(-30, 30), random(10000, 22000)))
-
-	-- Start the players with 300 reputation.
-	friendlyList[1]:addReputationPoints(300.0)
 
 	-- Randomly scatter nebulae near the players' spawn point.
-	local x, y = friendlyList[1]:getPosition()
+	local x, y = lexTalionis:getPosition()
 	setCirclePos(Nebula(), x, y, random(0, 360), 6000)
 
 	for n=1, 5 do
@@ -112,28 +96,9 @@ function init()
 		addWave(enemyList,3,setWaveAngle(math.random(20), math.random(20)),setWaveDistance(math.random(5)))
 	end)
 
-
-	-- Let the GM spawn a random enemy wave.
-	addGMFunction("Random wave", function()
-		a = setWaveAngle(math.random(20), math.random(20))
-		d = setWaveDistance(math.random(20))
-		type = random(0, 4)
-		addWave(enemyList,type,a,d)
-	end)
-
-	-- Let the GM spawn random reinforcements. Their distance from the
-	-- players' spawn point is about half that of enemy waves.
-	addGMFunction("Random friendly", function()
-		a = setWaveAngle(math.random(20), math.random(20))
-		d = random(15000, 20000 + math.random(20) * 1500)
-		friendlyShip = {'Phobos T3','MU52 Hornet','Piranha F12'}
-		friendlyShipIndex = math.random(#friendlyShip)
-		table.insert(friendlyList, setCirclePos(CpuShip():setTemplate(friendlyShip[friendlyShipIndex]):setRotation(a):setFaction("Human Navy"):orderRoaming():setScanned(true), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-	end)
-
 	-- Let the GM declare the Humans (players) victorious.
 	addGMFunction("Win", function()
-		victory("Human Navy");
+		victory("Imperial Navy");
 	end)
 
 	-- Set the number of enemy waves based on the scenario variation.
@@ -174,15 +139,6 @@ function init()
 			dx2, dy2 = vectorFromAngle(a2 + 90, random(-20000, 20000))
 			posx = x + dx1 + dx2
 			posy = x + dy1 + dy2
-			-- Avoid spawning asteroids within 1U of the player start position or
-			-- 2U of any station.
-			if math.abs(posx) > 1000 and math.abs(posy) > 1000 then
-				for i,station in ipairs(stationList) do
-					if distance(station, posx, posy) > 2000 then
-						Asteroid():setPosition(posx, posy):setSize(random(100, 500))
-					end
-				end
-			end
 		end
 
 		for acnt=1,100 do
@@ -237,7 +193,7 @@ function launchStarhawkFromWake(callsign)
 end
 
 function launchVehicleFromWake(vehicleClass, callsign)
-	launchedVehicle = PlayerSpaceship():setFaction("Human Navy"):setTemplate(vehicleClass):setCallSign(callsign)
+	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
 	local x, y = lexTalionis:getPosition()
     local direction = lexTalionis:getHeading()
     setCirclePos(launchedVehicle, x, y, direction - 270, 100)
@@ -250,42 +206,4 @@ end
 
 function update(delta)
 
-	enemy_count = 0
-	friendly_count = 0
-
-	-- Count all surviving enemies and allies.
-	for _, enemy in ipairs(enemyList) do
-		if enemy:isValid() then
-			enemy_count = enemy_count + 1
-		end
-	end
-
-	for _, friendly in ipairs(friendlyList) do
-		if friendly:isValid() then
-			friendly_count = friendly_count + 1
-		end
-	end
-
-	-- If not playing the Empty variation, declare victory for the
-	-- Humans (players) once all enemies are destroyed. Note that players can win
-	-- even if they destroy the enemies by blowing themselves up.
-	--
-	-- In the Empty variation, the GM must use the Win button to declare
-	-- a Human victory.
-	if (enemy_count == 0 and getScenarioVariation() ~= "Empty") then
-		victory("Human Navy");
-	end
-
-	-- If all allies are destroyed, the Humans (players) lose.
-	if friendly_count == 0 then
-		victory("Kraylor");
-	else
-		-- As the battle continues, award reputation based on
-		-- the players' progress and number of surviving allies.
-		for _, friendly in ipairs(friendlyList) do
-			if friendly:isValid() then
-				friendly:addReputationPoints(delta * friendly_count * 0.1)
-			end
-		end
-	end
 end
