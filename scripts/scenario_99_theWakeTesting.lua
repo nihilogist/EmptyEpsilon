@@ -1,10 +1,7 @@
 -- Name: The Wake Testing
 -- Description: Basic scenario to test-drive aspects of play for The Wake.
 -- Type: Basic
--- Variation[Empty]: Places no enemies. GM-placed enemies only.
--- Variation[Easy]: Places fewer enemies. Recommended for inexperienced crews.
--- Variation[Hard]: Places more enemies. Recommended if you have multiple player-controlled ships.
--- Variation[Extreme]: Places many enemies. You're pretty surely overwhelmed.
+
 
 require("utils.lua")
 -- For this scenario, utils.lua provides:
@@ -85,51 +82,8 @@ function init()
 	end
 
 	-- GM functions to manually trigger enemy waves.
-	addGMFunction("Cobra Destroyer", function()
-		addWave(enemyList,0,setWaveAngle(math.random(20), math.random(20)),setWaveDistance(math.random(5)))
-	end)
 
-	addGMFunction("Cobra plus Fighters", function()
-		addWave(enemyList,1,setWaveAngle(math.random(20), math.random(20)),setWaveDistance(math.random(5)))
-	end)
-
-	addGMFunction("Fighter wave", function()
-		addWave(enemyList,2,setWaveAngle(math.random(20), math.random(20)),setWaveDistance(math.random(5)))
-	end)
-
-	addGMFunction("Three Cobras", function()
-		addWave(enemyList,3,setWaveAngle(math.random(20), math.random(20)),setWaveDistance(math.random(5)))
-	end)
-
-	-- Let the GM declare the Humans (players) victorious.
-	addGMFunction("Win", function()
-		victory("Imperial Navy");
-	end)
-
-	-- Set the number of enemy waves based on the scenario variation.
-	if getScenarioVariation() == "Extreme" then
-		enemy_group_count = 20
-	elseif getScenarioVariation() == "Hard" then
-		enemy_group_count = 8
-	elseif getScenarioVariation() == "Easy" then
-		enemy_group_count = 3
-	elseif getScenarioVariation() == "Empty" then
-		enemy_group_count = 0
-	else
-		enemy_group_count = 5
-	end
-
-	-- If not in the Empty variation, spawn the corresponding number of random
-	-- enemy waves at distributed random headings and semi-random distances
-	-- relative to the players' spawn point.
-	if enemy_group_count > 0 then
-		for cnt=1,enemy_group_count do
-			a = setWaveAngle(cnt, enemy_group_count)
-			d = setWaveDistance(enemy_group_count)
-			type = random(0, 4)
-			addWave(enemyList, type, a, d)
-		end
-	end
+	
 
 	-- Spawn 2-5 random asteroid belts.
 	for cnt=1,random(2, 5) do
@@ -152,10 +106,6 @@ function init()
 			VisualAsteroid():setPosition(x + dx1 + dx2, y + dy1 + dy2)
 		end
 	end
-
-
-	-- Spawn random neutral transports.
-    Script():run("util_random_transports.lua")
     
     
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
