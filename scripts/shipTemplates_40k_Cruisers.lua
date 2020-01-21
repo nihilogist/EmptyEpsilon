@@ -81,7 +81,6 @@ template:setRadarTrace("radar_dread.png")
 template:setHull(200)
 template:setShields(100)
 template:setSpeed(40, 6, 5)
-template:setJumpDrive(true)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
 template:setTubes(2, 10.0)
