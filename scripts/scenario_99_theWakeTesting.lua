@@ -10,48 +10,6 @@ require("utils.lua")
 --   setCirclePos(obj, x, y, angle, distance)
 --      Returns the object with its position set to the resulting coordinates.
 
--- Add an enemy wave.
--- enemyList: A table containing enemy ship objects.
--- type: A number; at each integer, determines a different wave of ships to add
---       to the enemyList. Any number is valid, but only 0.99-9.0 are meaningful.
--- a: The spawned wave's heading relative to the players' spawn point.
--- d: The spawned wave's distance from the players' spawn point.
-function addWave(enemyList,type,a,d)
-	if type < 1.0 then
-		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a, d))
-	elseif type < 2.0 then
-		leader = setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-1, 1), d + random(-100, 100))
-		table.insert(enemyList, leader)
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 0), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader,-400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderFlyFormation(leader, 400, 400), 0, 0, a + random(-1, 1), d + random(-100, 100)))
-	elseif type < 3.0 then
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-	elseif type < 4.0 then
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-	else
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Pirate Destroyer'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-		table.insert(enemyList, setCirclePos(CpuShip():setFaction("Rising Flame"):setTemplate('Fury Interceptor'):setRotation(a + 180):orderRoaming(), 0, 0, a + random(-5, 5), d + random(-100, 100)))
-	end
-end
-
--- Returns a semi-random heading.
--- cnt: A counter, generally between 1 and the number of enemy groups.
--- enemy_group_count: A number of enemy groups, generally set by the scenario type.
-function setWaveAngle(cnt,enemy_group_count)
-	return cnt * 360/enemy_group_count + random(-60, 60)
-end
-
--- Returns a semi-random distance.
--- enemy_group_count: A number of enemy groups, generally set by the scenario type.
-function setWaveDistance(enemy_group_count)
-	return random(35000, 40000 + enemy_group_count * 3000)
-end
-
 function init()
 	-- Spawn a player Dauntless.
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
@@ -69,45 +27,17 @@ function init()
 	friendlyList = {}
 
 	-- spawn one wreck
-	spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, 270, 6000)
+	--spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, 270, 6000)
 	-- and a corresponding ghost ship
-	spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderRoaming(), 0, 0, 90, 10000)
+	--spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderRoaming(), 0, 0, 90, 10000)
 
-	-- Randomly scatter nebulae near the players' spawn point.
-	local x, y = lexTalionis:getPosition()
-	setCirclePos(Nebula(), x, y, random(0, 360), 20000)
-
-	for n=1, 5 do
-		setCirclePos(Nebula(), 0, 0, random(0, 360), random(20000, 45000))
+	nonHauntedWreckNames = {"Spiteful", "Dux Cornovi", "Golden Farrel"}
+	nonHauntedWrecks = {}
+	for i,v in ipairs(nonHauntedWreckNames) do
+		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, random(0, 360), random(4000, 8000)))
 	end
-
-	-- GM functions to manually trigger enemy waves.
 
 	
-
-	-- Spawn 2-5 random asteroid belts.
-	for cnt=1,random(2, 5) do
-		a = random(0, 360)
-		a2 = random(0, 360)
-		adiff = math.abs(a2 - a)
-		d = random(3000, 40000)
-		x, y = vectorFromAngle(a, d)
-
-		for acnt=1,50 do
-			dx1, dy1 = vectorFromAngle(a2, random(-1000, 1000))
-			dx2, dy2 = vectorFromAngle(a2 + 90, random(-20000, 20000))
-			posx = x + dx1 + dx2
-			posy = x + dy1 + dy2
-		end
-
-		for acnt=1,100 do
-			dx1, dy1 = vectorFromAngle(a2, random(-1500, 1500))
-			dx2, dy2 = vectorFromAngle(a2 + 90, random(-20000, 20000))
-			VisualAsteroid():setPosition(x + dx1 + dx2, y + dy1 + dy2)
-		end
-	end
-    
-    
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
 	lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
 	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
@@ -161,20 +91,11 @@ end
 
 function update(delta)
 
-	-- Check to see if either of the two ships is scanned
-	if spitefulWreck:isValid() and spitefulWreck:isScannedByFaction("Imperial Navy") then
-		spitefulWreck:setCallSign("HIMVS Spiteful")
-	end
-	if spitefulGhost:isValid() and spitefulGhost:isScannedByFaction("Imperial Navy") then
-		spitefulGhost:setCallSign("HIMVS Spiteful")
-	end
-
-	
-
-	if (not spitefulWreck:isValid()) then
-		spitefulGhost:destroy()
-	else
-		spitefulGhost:setHull(200)
+	-- Check over the list of wrecks to see if any of them need to have their callsigns updated
+	for i,name in ipairs(nonHauntedWreckNames) do
+		if nonHauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
+			nonHauntedWrecks[i]:setCallSign(name)
+		end
 	end
 
 end
