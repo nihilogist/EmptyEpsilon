@@ -72,13 +72,13 @@ function init()
 	friendlyList = {}
 
 	-- spawn one wreck
-	spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setRotation(180):orderIdle(), 0, 0, 90, 6000)
+	spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, 270, 6000)
 	-- and a corresponding ghost ship
-	spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setRotation(180):orderRoaming(), 0, 0, 90, 20000)
+	spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderRoaming(), 0, 0, 90, 10000)
 
 	-- Randomly scatter nebulae near the players' spawn point.
 	local x, y = lexTalionis:getPosition()
-	setCirclePos(Nebula(), x, y, random(0, 360), 10000)
+	setCirclePos(Nebula(), x, y, random(0, 360), 20000)
 
 	for n=1, 5 do
 		setCirclePos(Nebula(), 0, 0, random(0, 360), random(20000, 45000))
@@ -211,8 +211,20 @@ end
 
 function update(delta)
 
+	-- Check to see if either of the two ships is scanned
+	if spitefulWreck:isValid() and spitefulWreck:isScannedByFaction("Imperial Navy") then
+		spitefulWreck:setCallSign("HIMVS Spiteful")
+	end
+	if spitefulGhost:isValid() and spitefulGhost:isScannedByFaction("Imperial Navy") then
+		spitefulGhost:setCallSign("HIMVS Spiteful")
+	end
+
+	
+
 	if (not spitefulWreck:isValid()) then
 		spitefulGhost:destroy()
+	else
+		spitefulGhost:setHull(200)
 	end
 
 end

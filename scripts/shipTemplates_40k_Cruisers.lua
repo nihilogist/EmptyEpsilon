@@ -124,7 +124,6 @@ template = ShipTemplate():setName("Unknown Destroyer"):setClass("Corvette", "Des
 template:setDescription([[The sensor readings this ship gives off are unlike anything the auspex has ever seen.]])
 template:setRadarTrace("radar_cobra_ghost.png")
 template:setHull(200)
-template:setShields(100)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
