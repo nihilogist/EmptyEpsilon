@@ -71,9 +71,14 @@ function init()
 	enemyList = {}
 	friendlyList = {}
 
+	-- spawn one wreck
+	spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setRotation(180):orderIdle(), 0, 0, 90, 6000)
+	-- and a corresponding ghost ship
+	spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setRotation(180):orderRoaming(), 0, 0, 90, 20000)
+
 	-- Randomly scatter nebulae near the players' spawn point.
 	local x, y = lexTalionis:getPosition()
-	setCirclePos(Nebula(), x, y, random(0, 360), 6000)
+	setCirclePos(Nebula(), x, y, random(0, 360), 10000)
 
 	for n=1, 5 do
 		setCirclePos(Nebula(), 0, 0, random(0, 360), random(20000, 45000))
@@ -205,5 +210,9 @@ end
 
 
 function update(delta)
+
+	if (not spitefulWreck:isValid()) then
+		spitefulGhost:destroy()
+	end
 
 end
