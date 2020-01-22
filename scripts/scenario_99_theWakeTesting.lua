@@ -34,8 +34,17 @@ function init()
 	nonHauntedWreckNames = {"Spiteful", "Dux Cornovi", "Golden Farrel"}
 	nonHauntedWrecks = {}
 	for i,v in ipairs(nonHauntedWreckNames) do
-		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, random(0, 360), random(4000, 8000)))
+		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(4000, 8000)))
 	end
+
+	hauntedWreckNames = {"Heart of Light", "Rhadamantine"}
+	hauntedWrecks = {}
+	ghostShips = {}
+	for i,name in ipairs(hauntedWreckNames) do
+		table.insert(hauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(8000, 12000)))
+		table.insert(ghostShips, setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderDefendTarget(hauntedWrecks[i]), 0, 0, random(0, 360), random(8000, 12000)))
+	end
+
 
 	
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
@@ -91,11 +100,37 @@ end
 
 function update(delta)
 
-	-- Check over the list of wrecks to see if any of them need to have their callsigns updated
+	-- Check over the list of wrecks to see if any of them need to be updated
 	for i,name in ipairs(nonHauntedWreckNames) do
 		if nonHauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
 			nonHauntedWrecks[i]:setCallSign(name)
 		end
 	end
+
+	-- Check over the list of haunted wrecks to see if any of them need to be updated
+	for i,name in ipairs(hauntedWreckNames) do
+		-- If they've been scanned, then update their callsign
+		if hauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
+			hauntedWrecks[i]:setCallSign(name)
+		end
+		-- If they've been destroyed then also destroy their ghost counterpart
+		if not hauntedWrecks[i]:isValid() then
+			ghostShips[i]:destroy()
+		end
+	end
+
+	-- Check over the list of ghost ships to see if any of them need to be updated
+	for i,name in ipairs(hauntedWreckNames) do
+		-- if they've been scanned then update their callsigns
+		if ghostShips[i]:isScannedByFaction("Imperial Navy") then
+			ghostShips[i]:setCallSign(name)
+		end
+		-- reset their health to 100
+		if ghostShips[i]:isValid() then
+			ghostShips[i]:setHull(100)
+		end
+	end
+
+
 
 end
