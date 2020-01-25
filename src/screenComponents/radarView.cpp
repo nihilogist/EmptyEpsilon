@@ -415,7 +415,8 @@ void GuiRadarView::drawTargetProjections(sf::RenderTarget& window)
 
             const MissileWeaponData& data = MissileWeaponData::getDataFor(my_spaceship->weapon_tube[n].getLoadType());
             // By default, the missile target angle is the direction that the weapon tube is pointing in.
-            float fire_angle = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection();
+            //float fire_angle = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection();
+            float fire_angle = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getTurretDirection();
             float missile_target_angle = fire_angle;
 
             // If missile can turn, then 

@@ -1523,7 +1523,16 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
         break;
     case CMD_REQUEST_MISSILE_TUBE_ANGLE:
         {
-
+            // retrieve the tube number and slider value from the packet
+            int8_t tubeNumber;
+            float requestedTurretAngle;
+            packet >> tubeNumber >> requestedTurretAngle;
+            // if the data is valid then apply the changes.
+            if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
+                // calculate the actual offset change
+                requestedTurretAngle = requestedTurretAngle * (weapon_tube[tubeNumber].getTurretArc() / 2);
+                weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
+            }
         }
     }
     

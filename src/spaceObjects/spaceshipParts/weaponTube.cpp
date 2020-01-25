@@ -63,6 +63,10 @@ float WeaponTube::getDirection()
     return direction;
 }
 
+float WeaponTube::getTurretDirection() {
+    return direction + this->getTurretOffsetActual();
+}
+
 
 
 void WeaponTube::startLoad(EMissileWeapons type)
@@ -186,7 +190,8 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->setFactionId(parent->getFactionId());
             missile->setPosition(fireLocation);
             double driftAngle = (rand() % int(this->getSalvoSpread())) - (this->getSalvoSpread() / 2); // Drift angle is defined by salvo spread
-            missile->setRotation(parent->getRotation() + direction + driftAngle);
+            // Calculate the direction from the turret as well
+            missile->setRotation(parent->getRotation() + this->getTurretDirection() + driftAngle);
             missile->target_angle = parent->getRotation() + direction;
             missile->category_modifier = getSizeCategoryModifier();
         }
@@ -256,8 +261,26 @@ void WeaponTube::forceUnload()
     }
 }
 
-void WeaponTube::update(float delta)
-{
+void WeaponTube::update(float delta) {
+    // Check to see if the turret needs to rotate -- first of all, only check if we have a turret
+    if (this->getTurretArc() > 0.1) {
+        // Firstly let's auto-correct any dodgy data in terms of turret requests
+        if (this->getTurretOffsetRequested() > (this->getTurretArc() / 2)) {
+            this->setTurretOffsetRequested(this->getTurretArc() / 2);
+        }
+
+        if (this->getTurretOffsetRequested() < (0 - (this->getTurretArc() / 2))) {
+            this->setTurretOffsetRequested(0 - (this->getTurretArc() / 2));
+        }
+
+        // Now calculate the turret direction change:
+        float turretDirectionChange = this->getTurretOffsetRequested() - this->getTurretOffsetActual();
+        // Now update the turret rotation by that delta
+        this->setTurretOffsetActual(this->getTurretOffsetActual() + turretDirectionChange);
+    }
+    // End rotation actions
+
+    // Take firing actions
     if (delay > 0.0)
     {
         delay -= delta * parent->getSystemEffectiveness(SYS_MissileSystem);
