@@ -95,7 +95,7 @@ variation:addDoor(2, 3, true);
 variation:addDoor(5, 1, false);
 variation:addDoor(5, 2, false);
 
-
+-- Pirate starfighters
 
 template = ShipTemplate():setName("Defensive Turret"):setClass("Starfighter", "Interceptor"):setModel("WespeScoutYellow")
 template:setRadarTrace("radar_fighter.png")
@@ -107,32 +107,14 @@ template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 30, 0, 700.0, 4.0, 2)
 
-variation = template:copy("Pirate Defense Turret"):setType("playership")
-variation:setModel("WespeScoutRed")
-variation:setDescription([[This defensive turret appears to be a badly-patched Fury Interceptor, with inactive plasma drives.]])
-variation:setBeam(0, 30, 0, 900.0, 4.0, 2.5)
-variation:setTubes(1, 0.5)
-variation:setWeaponStorage("Nuke", 100)
+template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
+template:setRadarTrace("radar_fighter.png")
+template:setDescription([[This in-system hauler vessel has been upgraded with weapons batteries, either for protection from pirates, or to become one.
 
-variation:setRepairCrewCount(1)
-variation:addRoomSystem(3, 0, 1, 1, "Maneuver");
-variation:addRoomSystem(1, 0, 2, 1, "BeamWeapons");
-
-variation:addRoomSystem(0, 1, 1, 2, "RearShield");
-variation:addRoomSystem(1, 1, 2, 2, "Reactor");
-variation:addRoomSystem(3, 1, 2, 1, "Warp");
-variation:addRoomSystem(3, 2, 2, 1, "JumpDrive");
-variation:addRoomSystem(5, 1, 1, 2, "FrontShield");
-
-variation:addRoomSystem(1, 3, 2, 1, "MissileSystem");
-variation:addRoomSystem(3, 3, 1, 1, "Impulse");
-
-variation:addDoor(2, 1, true);
-variation:addDoor(3, 1, true);
-variation:addDoor(1, 1, false);
-variation:addDoor(3, 1, false);
-variation:addDoor(3, 2, false);
-variation:addDoor(3, 3, true);
-variation:addDoor(2, 3, true);
-variation:addDoor(5, 1, false);
-variation:addDoor(5, 2, false);
+Whilst it may not pose a significant threat to Imperial Navy vessels on its own, a swarm of them can be a dangerous foe.]])
+template:setHull(10)
+template:setShields(0)
+template:setSpeed(50, 20, 10)
+template:setDefaultAI('fighter')
+--                  Arc, Dir, Range, CycleTime, Dmg
+template:setBeam(0, 30, 0, 500.0, 4.0, 2)

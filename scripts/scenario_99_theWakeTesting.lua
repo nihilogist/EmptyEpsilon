@@ -24,26 +24,25 @@ function init()
 	enemyList = {}
 	friendlyList = {}
 
-	-- spawn one wreck
-	--spitefulWreck = setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(180):orderIdle(), 0, 0, 270, 6000)
-	-- and a corresponding ghost ship
-	--spitefulGhost = setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderRoaming(), 0, 0, 90, 10000)
-
+	
 	nonHauntedWreckNames = {"Spiteful", "Dux Cornovi", "Golden Farrel"}
 	nonHauntedWrecks = {}
 	for i,v in ipairs(nonHauntedWreckNames) do
-		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(4000, 8000)))
+		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(10000, 20000)))
 	end
 
 	hauntedWreckNames = {"Heart of Light", "Rhadamantine"}
 	hauntedWrecks = {}
 	ghostShips = {}
 	for i,name in ipairs(hauntedWreckNames) do
-		table.insert(hauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(8000, 12000)))
-		table.insert(ghostShips, setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderDefendTarget(hauntedWrecks[i]), 0, 0, random(0, 360), random(8000, 12000)))
+		table.insert(hauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(15000, 20000)))
+		table.insert(ghostShips, setCirclePos(CpuShip():setTemplate('Unknown Destroyer'):setFaction("Unknown Ship"):setCallSign("Unknown Contact"):setRotation(180):orderDefendTarget(hauntedWrecks[i]), 0, 0, random(0, 360), random(15000, 20000)))
 	end
 
-
+	pirateFighterNames = {"Talon One", "Talon Two", "Talon Three", "Talon Four"}
+	for i,name in ipairs(pirateFighterNames) do
+		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Hauler'):setFaction("Rising Flame"):setCallSign(name):setRotation(180):orderRoaming(), 0, 0, random(0, 30), random(8000, 10000)))
+	end
 	
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
 	lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
