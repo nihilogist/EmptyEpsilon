@@ -32,6 +32,10 @@ template:setTubeSalvoSpread(0, 6)
 template:setTubeSalvoSpread(1, 6)
 template:setTubeSalvoSpread(2, 6)
 template:setTubeSalvoSpread(3, 6)
+template:setTubeBatterySize(0, 12)
+template:setTubeBatterySize(1, 12)
+template:setTubeBatterySize(2, 12)
+template:setTubeBatterySize(3, 12)
 template:setDockClasses("Starfighter")
 
 variation = template:copy("Regency Pattern Dauntless"):setType("playership")
@@ -46,6 +50,7 @@ variation:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "Hom
 variation:weaponTubeDisallowMissle(2, "Homing"):weaponTubeDisallowMissle(3, "Homing")
 variation:setTubeDirection(4, 0)
 variation:setTubeSalvoSpread(4, 4)
+variation:setTubeBatterySize(4, 5)
 variation:weaponTubeDisallowMissle(4, "HVLI")
 
 variation:addRoomSystem(1, 0, 2, 1, "Maneuver");

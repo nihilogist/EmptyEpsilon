@@ -20,6 +20,7 @@ WeaponTube::WeaponTube()
     tube_index = 0;
     size = MS_Medium;
     salvoSpread = 0;
+    batterySize = 1;
 }
 
 void WeaponTube::setParent(SpaceShip* parent)
@@ -95,12 +96,12 @@ void WeaponTube::fire(float target_angle)
     
     if (type_loaded == MW_HVLI)
     {
-        fire_count = 12;
+        fire_count = this->getBatterySize();
         state = WTS_Firing;
         delay = 0.0;
     }else if (type_loaded == MW_Homing){
         // Calculate the battery spread from the tube configuration
-        int salvoCount = 5;
+        int salvoCount = this->getBatterySize();
         float offsetAngle = 0 - (this->getSalvoSpread() / 2);
         for (int iterations = 0; iterations<salvoCount; iterations++) {
             double firing_angle = target_angle + offsetAngle;
@@ -420,5 +421,13 @@ void WeaponTube::setSalvoSpread(float salvoSpread) {
 
 float WeaponTube::getSalvoSpread() {
     return salvoSpread;
+}
+
+void WeaponTube::setBatterySize(int batterySize) {
+    this->batterySize = batterySize;
+}
+
+int WeaponTube::getBatterySize() {
+    return batterySize;
 }
     

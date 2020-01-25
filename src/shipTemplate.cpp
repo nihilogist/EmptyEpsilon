@@ -46,6 +46,8 @@ REGISTER_SCRIPT_CLASS(ShipTemplate)
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeSize);
     /// Allow the setting of a missile tubes salvo spread
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeSalvoSpread);
+    /// Allow the setting of a missile tube's battery size
+    REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeBatterySize);
     
     /// Set the amount of starting hull
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setHull);
@@ -179,6 +181,12 @@ void ShipTemplate::setTubeSalvoSpread(int index, float salvoSpread) {
     if (index < 0 || index >= max_weapon_tubes)
         return;
     weapon_tube[index].salvoSpread = salvoSpread;
+}
+
+void ShipTemplate::setTubeBatterySize(int index, int batterySize) {
+    if (index < 0 || index >= max_weapon_tubes)
+        return;
+    weapon_tube[index].batterySize = batterySize;
 }
 
 void ShipTemplate::setType(TemplateType type)

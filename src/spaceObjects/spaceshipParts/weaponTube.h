@@ -51,6 +51,9 @@ public:
 
     void setSalvoSpread(float salvoSpread);
     float getSalvoSpread();
+
+    void setBatterySize(int batterySize);
+    int getBatterySize();
     
     void forceUnload();
     
@@ -93,6 +96,7 @@ private:
     float delay;
     int fire_count;
     float salvoSpread;
+    int batterySize;
 };
 
 #endif//WEAPON_TUBE_H

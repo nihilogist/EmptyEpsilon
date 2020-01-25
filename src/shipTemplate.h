@@ -66,6 +66,7 @@ public:
         float direction;
         EMissileSizes size;
         float salvoSpread;
+        int batterySize;
     };
 private:
     static std::unordered_map<string, P<ShipTemplate> > templateMap;
@@ -149,6 +150,7 @@ public:
     void setTubeSize(int index, EMissileSizes size);
     void setTubeDirection(int index, float direction);
     void setTubeSalvoSpread(int index, float salvoSpread);
+    void setTubeBatterySize(int index, int batterySize);
 
 
     void setHull(float amount) { hull = amount; }
