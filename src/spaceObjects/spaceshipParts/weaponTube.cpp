@@ -181,7 +181,7 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->owner = parent;
             missile->setFactionId(parent->getFactionId());
             missile->setPosition(fireLocation);
-            double driftAngle = (rand() % 6) - 3; // Drift angle is between -3 and 3 degrees
+            double driftAngle = (rand() % int(this->getSalvoSpread())) - (this->getSalvoSpread() / 2); // Drift angle is defined by salvo spread
             missile->setRotation(parent->getRotation() + direction + driftAngle);
             missile->target_angle = parent->getRotation() + direction;
             missile->category_modifier = getSizeCategoryModifier();

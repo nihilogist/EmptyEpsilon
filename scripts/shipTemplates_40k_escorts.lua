@@ -6,8 +6,9 @@ template:setShields(100)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
-template:setTubes(2, 15.0)
-template:setWeaponStorage("Homing", 4)
+template:setTubes(1, 15.0)
+template:setTubeSalvoSpread(0, 2)
+template:setWeaponStorage("Homing", 3)
 
 
 
@@ -50,8 +51,6 @@ template:setHull(200)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
-template:setTubes(2, 10.0)
-template:setWeaponStorage("Homing", 4)
 
 
 
