@@ -29,6 +29,8 @@ template:setTubeSalvoSpread(0, 5)
 template:setTubeSalvoSpread(1, 5)
 template:setTubeBatterySize(0, 12)
 template:setTubeBatterySize(1, 12)
+template:setTubeTurretArc(0, 90)
+template:setTubeTurretArc(1, 90)
 template:setDockClasses("Starfighter")
 
 variation = template:copy("Regency Pattern Dauntless"):setType("playership")

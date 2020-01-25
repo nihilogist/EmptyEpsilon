@@ -3,6 +3,7 @@
 
 #include "gui/gui2_autolayout.h"
 #include "missileWeaponData.h"
+#include "gui/gui2_slider.h"
 
 class GuiButton;
 class GuiProgressbar;
@@ -18,6 +19,7 @@ private:
         GuiButton* fire_button;
         GuiProgressbar* loading_bar;
         GuiLabel* loading_label;
+        GuiSlider* turretControl;
     };
     std::vector<TubeRow> rows;
     class TypeRow {

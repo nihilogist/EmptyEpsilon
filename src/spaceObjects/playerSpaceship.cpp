@@ -182,6 +182,7 @@ static const int16_t CMD_ABORT_DOCK = 0x0026;
 static const int16_t CMD_SET_MAIN_SCREEN_OVERLAY = 0x0027;
 static const int16_t CMD_HACKING_FINISHED = 0x0028;
 static const int16_t CMD_CUSTOM_FUNCTION = 0x0029;
+static const int16_t CMD_REQUEST_MISSILE_TUBE_ANGLE = 0x002A;
 
 string alertLevelToString(EAlertLevel level)
 {
@@ -1520,7 +1521,13 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             }
         }
         break;
+    case CMD_REQUEST_MISSILE_TUBE_ANGLE:
+        {
+
+        }
     }
+    
+
 }
 
 // Client-side functions to send a command to the server.
@@ -1596,6 +1603,12 @@ void PlayerSpaceship::commandFireTubeAtTarget(int8_t tubeNumber, P<SpaceObject> 
       targetAngle = getRotation() + weapon_tube[tubeNumber].getDirection();
     
   commandFireTube(tubeNumber, targetAngle);
+}
+
+void PlayerSpaceship::commandTubeRequestTurretAngle(int8_t tubeNumber, float turretRequestedOffset) {
+    sf::Packet packet;
+    packet << CMD_REQUEST_MISSILE_TUBE_ANGLE << tubeNumber << turretRequestedOffset;
+    sendClientCommand(packet);
 }
 
 void PlayerSpaceship::commandSetShields(bool enabled)

@@ -7,6 +7,8 @@
 #include "gui/gui2_progressbar.h"
 #include "gui/gui2_label.h"
 #include "gui/gui2_togglebutton.h"
+#include "gui/gui2_slider.h"
+
 
 GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
 : GuiAutoLayout(owner, id, LayoutVerticalBottomToTop), load_type(MW_None), manual_aim(false), missile_target_angle(0)
@@ -15,11 +17,13 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
 
     rows.resize(max_weapon_tubes);
 
+    // Set up the controls that are needed for each tube row
     for (int n = max_weapon_tubes - 1; n >= 0; n--)
     {
         TubeRow row;
         row.layout = new GuiAutoLayout(this, id + "_ROW_" + string(n), LayoutHorizontalLeftToRight);
-        row.layout->setSize(GuiElement::GuiSizeMax, 50);
+        row.layout->setSize(GuiElement::GuiSizeMax, 50); // Max height is 50
+        // Create the Load button
         row.load_button = new GuiButton(row.layout, id + "_" + string(n) + "_LOAD_BUTTON", "Load", [this, n]() {
             if (!my_spaceship)
                 return;
@@ -36,6 +40,8 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
             }
         });
         row.load_button->setSize(130, 50);
+
+        // Create the Fire button
         row.fire_button = new GuiButton(row.layout, id + "_" + string(n) + "_FIRE_BUTTON", "Fire", [this, n]() {
             if (!my_spaceship)
                 return;
@@ -52,11 +58,24 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
             }
         });
         row.fire_button->setSize(200, 50);
+        // There's a low power / damage indicator as well
         (new GuiPowerDamageIndicator(row.fire_button, id + "_" + string(n) + "_PDI", SYS_MissileSystem, ACenterRight))->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
+        // Create the loading progress bar and label
         row.loading_bar = new GuiProgressbar(row.layout, id + "_" + string(n) + "_PROGRESS", 0, 1.0, 0);
         row.loading_bar->setColor(sf::Color(128, 128, 128))->setSize(200, 50);
         row.loading_label = new GuiLabel(row.loading_bar, id + "_" + string(n) + "_PROGRESS_LABEL", "Loading", 35);
         row.loading_label->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
+
+        // If this weapon has a turret available, then create a slider control for it.
+        if (my_spaceship->weapon_tube[n].getTurretArc() > 0.1) {
+            row.turretControl = new GuiSlider(row.layout, id + "_" + string(n) + "_TURRET", -1.0, 1.0, 0.0, [this, n](float value) {
+                if (my_spaceship) {
+                    my_spaceship->commandTubeRequestTurretAngle(n, value);
+                }
+            });
+            row.turretControl->addSnapValue(0.0, 0.1)->setSize(150, GuiElement::GuiSizeMax);
+        }
+        
         
         rows[n] = row;
     }
@@ -93,14 +112,18 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
         load_type_rows[n].layout->setVisible(my_spaceship->weapon_storage_max[n] > 0);
     }
     
+
+    // For every weapons tube on the ship...
     for (int n = 0; n < my_spaceship->weapon_tube_count; n++)
     {
         WeaponTube& tube = my_spaceship->weapon_tube[n];
         rows[n].layout->show();
+        // Show the correct icon for the tube.
         if (tube.canOnlyLoad(MW_Mine))
             rows[n].fire_button->setIcon("gui/icons/weapon-mine", ACenterLeft);
         else
             rows[n].fire_button->setIcon("gui/icons/missile", ACenterLeft, tube.getDirection());
+        // If the tube is empty then show the option to load it.
         if(tube.isEmpty())
         {
             rows[n].load_button->setEnable(tube.canLoad(load_type));
@@ -108,14 +131,14 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
             rows[n].fire_button->disable()->show();
             rows[n].fire_button->setText(tube.getTubeName() + ": Empty");
             rows[n].loading_bar->hide();
-        }else if(tube.isLoaded())
+        }else if(tube.isLoaded()) // If the tube is loaded then show the option to unload it.
         {
             rows[n].load_button->enable();
             rows[n].load_button->setText("Unload");
             rows[n].fire_button->enable()->show();
             rows[n].fire_button->setText(tube.getTubeName() + ": " + getMissileWeaponName(tube.getLoadType()));
             rows[n].loading_bar->hide();
-        }else if(tube.isLoading())
+        }else if(tube.isLoading()) // If the tube is loading then show the progress bar
         {
             rows[n].load_button->disable();
             rows[n].load_button->setText("Load");
@@ -124,7 +147,7 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
             rows[n].loading_bar->show();
             rows[n].loading_bar->setValue(tube.getLoadProgress());
             rows[n].loading_label->setText("Loading");
-        }else if(tube.isUnloading())
+        }else if(tube.isUnloading()) // If the tube is unloading, then show the progress bar
         {
             rows[n].load_button->disable();
             rows[n].load_button->setText("Unload");
@@ -133,7 +156,7 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
             rows[n].loading_bar->show();
             rows[n].loading_bar->setValue(tube.getUnloadProgress());
             rows[n].loading_label->setText("Unloading");
-        }else if(tube.isFiring())
+        }else if(tube.isFiring()) // If the tube is firing then indicate that it is firing.
         {
             rows[n].load_button->disable();
             rows[n].load_button->setText("Load");
@@ -142,6 +165,8 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
             rows[n].loading_bar->hide();
         }
     }
+
+    // Hide any rows that are not necessary.
     for(int n=my_spaceship->weapon_tube_count; n<max_weapon_tubes; n++)
         rows[n].layout->hide();
 
