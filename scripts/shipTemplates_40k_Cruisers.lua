@@ -39,7 +39,7 @@ variation:setTubes(5, 10.0) -- Amount of torpedo tubes, and loading time of the 
 variation:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "Homing")
 variation:weaponTubeDisallowMissle(2, "Homing"):weaponTubeDisallowMissle(3, "Homing")
 variation:setTubeDirection(4, 0)
-variation:setTubeSalvoSpread(4, 2)
+variation:setTubeSalvoSpread(4, 4)
 variation:weaponTubeDisallowMissle(4, "HVLI")
 
 variation:addRoomSystem(1, 0, 2, 1, "Maneuver");

@@ -99,8 +99,12 @@ void WeaponTube::fire(float target_angle)
         state = WTS_Firing;
         delay = 0.0;
     }else if (type_loaded == MW_Homing){
-        for (int iterations = 0; iterations<5; iterations++) {
-            double firing_angle = target_angle - 5 + (iterations * 2);
+        // Calculate the battery spread from the tube configuration
+        int salvoCount = 5;
+        float offsetAngle = 0 - (this->getSalvoSpread() / 2);
+        for (int iterations = 0; iterations<salvoCount; iterations++) {
+            double firing_angle = target_angle + offsetAngle;
+            offsetAngle += (this->getSalvoSpread() / (salvoCount - 1));
             spawnProjectile(firing_angle);    
         }
         state = WTS_Empty;
