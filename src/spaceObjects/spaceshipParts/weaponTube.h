@@ -54,6 +54,9 @@ public:
 
     void setBatterySize(int batterySize);
     int getBatterySize();
+
+    void setTurretArc(float turretArc);
+    float getTurretArc();
     
     void forceUnload();
     
@@ -97,6 +100,7 @@ private:
     int fire_count;
     float salvoSpread;
     int batterySize;
+    float turretArc;
 };
 
 #endif//WEAPON_TUBE_H

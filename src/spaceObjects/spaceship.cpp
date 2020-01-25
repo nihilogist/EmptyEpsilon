@@ -232,6 +232,7 @@ void SpaceShip::applyTemplateValues()
         weapon_tube[n].setSize(ship_template->weapon_tube[n].size);
         weapon_tube[n].setSalvoSpread(ship_template->weapon_tube[n].salvoSpread);
         weapon_tube[n].setBatterySize(ship_template->weapon_tube[n].batterySize);
+        weapon_tube[n].setTurretArc(ship_template->weapon_tube[n].turretArc);
         for(int m=0; m<MW_Count; m++)
         {
             if (ship_template->weapon_tube[n].type_allowed_mask & (1 << m))

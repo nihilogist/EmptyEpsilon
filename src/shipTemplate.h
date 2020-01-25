@@ -67,6 +67,7 @@ public:
         EMissileSizes size;
         float salvoSpread;
         int batterySize;
+        float turretArc;
     };
 private:
     static std::unordered_map<string, P<ShipTemplate> > templateMap;
@@ -151,6 +152,7 @@ public:
     void setTubeDirection(int index, float direction);
     void setTubeSalvoSpread(int index, float salvoSpread);
     void setTubeBatterySize(int index, int batterySize);
+    void setTubeTurretArc(int index, float turretArc);
 
 
     void setHull(float amount) { hull = amount; }

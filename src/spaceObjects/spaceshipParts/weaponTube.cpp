@@ -21,6 +21,7 @@ WeaponTube::WeaponTube()
     size = MS_Medium;
     salvoSpread = 0;
     batterySize = 1;
+    turretArc = 0;
 }
 
 void WeaponTube::setParent(SpaceShip* parent)
@@ -429,5 +430,13 @@ void WeaponTube::setBatterySize(int batterySize) {
 
 int WeaponTube::getBatterySize() {
     return batterySize;
+}
+
+void WeaponTube::setTurretArc(float turretArc) {
+    this->turretArc = turretArc;
+}
+
+float WeaponTube::getTurretArc() {
+    return turretArc;
 }
     
