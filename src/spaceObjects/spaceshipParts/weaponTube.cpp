@@ -63,6 +63,8 @@ float WeaponTube::getDirection()
     return direction;
 }
 
+
+
 void WeaponTube::startLoad(EMissileWeapons type)
 {
     if (!canLoad(type))
@@ -439,4 +441,21 @@ void WeaponTube::setTurretArc(float turretArc) {
 float WeaponTube::getTurretArc() {
     return turretArc;
 }
+
+void WeaponTube::setTurretOffsetActual(float turretOffsetActual) {
+    this->turretOffsetActual = turretOffsetActual;
+}
+
+float WeaponTube::getTurretOffsetActual() {
+    return turretOffsetActual;
+}
+
+void WeaponTube::setTurretOffsetRequested(float turretOffsetRequested) {
+    this->turretOffsetRequested = turretOffsetRequested;
+}
+
+float WeaponTube::getTurretOffsetRequested(){
+    return turretOffsetRequested;
+}
+
     

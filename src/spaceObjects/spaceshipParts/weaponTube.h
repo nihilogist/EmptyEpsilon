@@ -57,6 +57,12 @@ public:
 
     void setTurretArc(float turretArc);
     float getTurretArc();
+
+    void setTurretOffsetActual(float turretOffsetActual);
+    float getTurretOffsetActual();
+
+    void setTurretOffsetRequested(float turretOffsetRequested);
+    float getTurretOffsetRequested();
     
     void forceUnload();
     
@@ -100,7 +106,12 @@ private:
     int fire_count;
     float salvoSpread;
     int batterySize;
+    // The total arc of the turret of the missile tube, if there is one.
     float turretArc;
+    // The current offset of the missile tube from the standard direction.
+    float turretOffsetActual;
+    // The requested offset of the missile tube from the standard direction.
+    float turretOffsetRequested;
 };
 
 #endif//WEAPON_TUBE_H

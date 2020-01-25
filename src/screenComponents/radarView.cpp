@@ -400,18 +400,25 @@ void GuiRadarView::drawTargetProjections(sf::RenderTarget& window)
     sf::Vector2f radar_screen_center(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
     float scale = std::min(rect.width, rect.height) / 2.0f / distance;
 
+    // If we have missiles available
     if (my_spaceship && missile_tube_controls)
     {
+        // For every missile tube
         for(int n=0; n<my_spaceship->weapon_tube_count; n++)
         {
+            // Skip this tube if it's not loaded.
             if (!my_spaceship->weapon_tube[n].isLoaded())
                 continue;
+            
             sf::Vector2f fire_position = my_spaceship->getPosition() + sf::rotateVector(my_spaceship->ship_template->model_data->getTubePosition2D(n), my_spaceship->getRotation());
             sf::Vector2f fire_draw_position = radar_screen_center - (view_position - fire_position) * scale;
 
             const MissileWeaponData& data = MissileWeaponData::getDataFor(my_spaceship->weapon_tube[n].getLoadType());
+            // By default, the missile target angle is the direction that the weapon tube is pointing in.
             float fire_angle = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection();
             float missile_target_angle = fire_angle;
+
+            // If missile can turn, then 
             if (data.turnrate > 0.0f)
             {
                 if (missile_tube_controls->getManualAim())
@@ -506,6 +513,7 @@ void GuiRadarView::drawMissileTubes(sf::RenderTarget& window)
     if (my_spaceship)
     {
         sf::VertexArray a(sf::Lines, my_spaceship->weapon_tube_count * 2);
+        // draw each weapon tube
         for(int n=0; n<my_spaceship->weapon_tube_count; n++)
         {
             sf::Vector2f fire_position = my_spaceship->getPosition() + sf::rotateVector(my_spaceship->ship_template->model_data->getTubePosition2D(n), my_spaceship->getRotation());
