@@ -75,7 +75,7 @@ variation:addDoor(8, 4, false);
 --variation:addDoor(2, 2, false);
 --variation:addDoor(2, 5, false);
 
-template = ShipTemplate():setName("Pirate Destroyer"):setClass("Corvette", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
+template = ShipTemplate():setName("Pirate Destroyer"):setClass("Escort", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
 template:setDescription([[This ship appears to be based on the Cobra Class destroyer. Its armament has been heavily altered from the standard pattern.]])
 template:setRadarTrace("radar_cobra.png")
 template:setHull(200)
@@ -120,7 +120,7 @@ variation:addDoor(6, 4, false);
 variation:addDoor(8, 3, false);
 variation:addDoor(8, 4, false);
 
-template = ShipTemplate():setName("Unknown Destroyer"):setClass("Corvette", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
+template = ShipTemplate():setName("Unknown Destroyer"):setClass("Escort", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
 template:setDescription([[The sensor readings this ship gives off are unlike anything the auspex has ever seen.]])
 template:setRadarTrace("radar_cobra_ghost.png")
 template:setHull(200)
