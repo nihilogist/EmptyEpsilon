@@ -556,10 +556,10 @@ void SpaceShip::update(float delta)
             }
         }
         current_warp = 0.0;
-        if (impulse_request > 1.0)
+        if (impulse_request > 1.0) // restrict max speed
             impulse_request = 1.0;
-        if (impulse_request < -1.0)
-            impulse_request = -1.0;
+        if (impulse_request < -0.3) // restrict max reverse speed
+            impulse_request = -0.3;
         if (current_impulse < impulse_request)
         {
             if (impulse_max_speed > 0)
