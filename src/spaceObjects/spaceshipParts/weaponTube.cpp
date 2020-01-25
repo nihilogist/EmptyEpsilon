@@ -1,6 +1,7 @@
 #include "weaponTube.h"
 #include "spaceObjects/missiles/EMPMissile.h"
 #include "spaceObjects/missiles/homingMissile.h"
+#include "spaceObjects/missiles/seekerMissile.h"
 #include "spaceObjects/mine.h"
 #include "spaceObjects/missiles/nuke.h"
 #include "spaceObjects/missiles/hvli.h"
@@ -107,7 +108,7 @@ void WeaponTube::fire(float target_angle)
         spawnProjectile(target_angle);
         state = WTS_Empty;
         startLoad(MW_Nuke);
-    } else{
+    } else {
         spawnProjectile(target_angle);
         state = WTS_Empty;
         type_loaded = MW_None;
@@ -193,6 +194,17 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->category_modifier = getSizeCategoryModifier();
         }
         break;
+    case MW_Seeker:
+        {
+            P<SeekerMissile> missile = new SeekerMissile();
+            missile->owner = parent;
+            missile->setFactionId(parent->getFactionId());
+            missile->target_id = parent->target_id;
+            missile->setPosition(fireLocation);
+            missile->setRotation(parent->getRotation() + direction);
+            missile->target_angle = target_angle;
+            missile->category_modifier = getSizeCategoryModifier();
+        }
     default:
         break;
     }

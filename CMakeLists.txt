@@ -215,6 +215,7 @@ set(SOURCES
 	src/spaceObjects/missiles/homingMissile.cpp
 	src/spaceObjects/missiles/hvli.cpp
 	src/spaceObjects/missiles/nuke.cpp
+	src/spaceObjects/missiles/seekerMissile.cpp
 	src/spaceObjects/spaceStation.cpp
 	src/spaceObjects/spaceship.cpp
 	src/spaceObjects/wormHole.cpp
