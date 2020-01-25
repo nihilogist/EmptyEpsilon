@@ -12,10 +12,8 @@ require("utils.lua")
 
 function init()
 	-- Spawn a player Dauntless.
-	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless Light Cruiser"):setCallSign("The Wake")
+	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless")
 	lexTalionis:setCallSign("Lex Talionis")
-	-- Currently testing with auto-coolant on. Remove.
-	lexTalionis:setAutoCoolant(true)
 	furyOne = nil
 	furyOneButton = false
 	furyTwo = nil

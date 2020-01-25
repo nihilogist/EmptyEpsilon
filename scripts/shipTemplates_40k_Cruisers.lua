@@ -11,7 +11,7 @@ They come in 3 different subclasses:
 
 --[[----------------------Destroyers----------------------]]
 
-template = ShipTemplate():setName("Dauntless Class Cruiser"):setClass("Corvette", "Destroyer"):setModel("battleship_destroyer_1_upgraded")
+template = ShipTemplate():setName("Dauntless"):setClass("Cruiser", "Light Cruiser"):setModel("battleship_destroyer_1_upgraded")
 template:setDescription([[This ship was built to address the desperate need for carriers in Battle fleet Gothic, and the Dauntless served its role as a cruiser/light carrier hybrid admirably well.]])
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(750)
@@ -28,10 +28,10 @@ template:setTubeDirection(2,  90)
 template:setTubeDirection(3,  90)
 template:setDockClasses("Starfighter")
 
-variation = template:copy("Regency Pattern Dauntless Light Cruiser"):setType("playership")
+variation = template:copy("Regency Pattern Dauntless"):setType("playership")
 variation:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])
-variation:setShields(200, 200, 200, 200)
-variation:setHull(750)
+variation:setShields(200, 200)
+variation:setHull(1000)
 variation:setSpeed(30, 5, 15)
 variation:setWeaponStorage("Homing", 12)
 variation:setWeaponStorage("HVLI", 100)
@@ -83,7 +83,7 @@ template:setShields(100)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
-template:setTubes(2, 10.0)
+template:setTubes(2, 15.0)
 template:setWeaponStorage("Homing", 4)
 
 
