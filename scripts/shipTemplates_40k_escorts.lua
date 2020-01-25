@@ -6,8 +6,18 @@ template:setShields(100)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
-template:setTubes(1, 15.0)
-template:setWeaponStorage("Homing", 4)
+-- Two weapons batteries
+template:setTubes(2, 15.0)
+-- Battery 1: Twin-linked torpedo launcher
+template:weaponTubeDisallowMissle(0, "HVLI")
+template:setTubeBatterySize(0, 2)
+template:setTubeSalvoSpread(0, 5)
+-- Battery 2: Quad-linked macrocannon
+template:weaponTubeDisallowMissle(1, "Homing")
+template:setTubeBatterySize(1, 4)
+template:setTubeSalvoSpread(1, 5)
+template:setWeaponStorage("Homing", 3)
+template:setWeaponStorage("HVLI", 100)
 
 
 
@@ -49,9 +59,18 @@ template:setRadarTrace("radar_cobra_ghost.png")
 template:setHull(200)
 template:setSpeed(40, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
-template:setTubes(2, 10.0)
-template:setWeaponStorage("Homing", 4)
+-- Two weapons batteries
+template:setTubes(2, 15.0)
+-- Battery 1: Twin-linked torpedo launcher
+template:weaponTubeDisallowMissle(0, "HVLI")
+template:setTubeBatterySize(0, 2)
+template:setTubeSalvoSpread(0, 5)
+-- Battery 2: Quad-linked macrocannon
+template:weaponTubeDisallowMissle(1, "Homing")
+template:setTubeBatterySize(1, 4)
+template:setTubeSalvoSpread(1, 5)
+template:setWeaponStorage("Homing", 3)
+template:setWeaponStorage("HVLI", 100)
 
 
 
