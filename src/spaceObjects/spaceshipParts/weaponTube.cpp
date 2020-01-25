@@ -19,6 +19,7 @@ WeaponTube::WeaponTube()
     delay = 0.0;
     tube_index = 0;
     size = MS_Medium;
+    salvoSpread = 0;
 }
 
 void WeaponTube::setParent(SpaceShip* parent)
@@ -407,5 +408,13 @@ void WeaponTube::setSize(EMissileSizes size)
 EMissileSizes WeaponTube::getSize()
 {
     return size;
+}
+
+void WeaponTube::setSalvoSpread(float salvoSpread) {
+    this->salvoSpread = salvoSpread;
+}
+
+float WeaponTube::getSalvoSpread() {
+    return salvoSpread;
 }
     

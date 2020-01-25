@@ -48,6 +48,9 @@ public:
     
     void setSize(EMissileSizes size);
     EMissileSizes getSize();
+
+    void setSalvoSpread(float salvoSpread);
+    float getSalvoSpread();
     
     void forceUnload();
     
@@ -89,6 +92,7 @@ private:
     EWeaponTubeState state;
     float delay;
     int fire_count;
+    float salvoSpread;
 };
 
 #endif//WEAPON_TUBE_H
