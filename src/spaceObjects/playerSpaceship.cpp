@@ -1531,6 +1531,10 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
                 // calculate the actual offset change
                 requestedTurretAngle = requestedTurretAngle * (weapon_tube[tubeNumber].getTurretArc() / 2);
+                // We assume that left-hand turrets have their controls correct, and right hand ones need them reversed.
+                if (std::abs(sf::angleDifference(90.0f, weapon_tube[tubeNumber].getDirection())) < 45) {
+                    requestedTurretAngle = 0 - requestedTurretAngle;
+                }
                 weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
             }
         }
