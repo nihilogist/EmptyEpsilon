@@ -16,6 +16,9 @@ template:setTubeSalvoSpread(0, 5)
 template:weaponTubeDisallowMissle(1, "Homing")
 template:setTubeBatterySize(1, 4)
 template:setTubeSalvoSpread(1, 5)
+template:setTubeTurretArc(1, 270)
+template:setTubeTurretRotationSpeed(1, 0.6)
+-- Small stock of torpedos, much larger of macrocannon shells
 template:setWeaponStorage("Homing", 3)
 template:setWeaponStorage("HVLI", 100)
 
