@@ -68,7 +68,17 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
 
         // If this weapon has a turret available, then create a slider control for it.
         if (my_spaceship->weapon_tube[n].getTurretArc() > 0.1) {
-            row.turretControl = new GuiSlider(row.layout, id + "_" + string(n) + "_TURRET", -1.0, 1.0, 0.0, [this, n](float value) {
+            float weaponTubeMinimumOffset;
+            float weaponTubeMaximumOffset;
+            if (std::abs(sf::angleDifference(-90.0f, my_spaceship->weapon_tube[n].getDirection())) < 45) {
+                weaponTubeMinimumOffset = 0 - (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+                weaponTubeMaximumOffset = (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+            } else {
+                weaponTubeMinimumOffset = (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+                weaponTubeMaximumOffset = 0 - (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+            }
+            
+            row.turretControl = new GuiSlider(row.layout, id + "_" + string(n) + "_TURRET", weaponTubeMinimumOffset, weaponTubeMaximumOffset, 0.0, [this, n](float value) {
                 if (my_spaceship) {
                     my_spaceship->commandTubeRequestTurretAngle(n, value);
                 }
@@ -164,6 +174,12 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
             rows[n].fire_button->setText("Firing");
             rows[n].loading_bar->hide();
         }
+
+        // Update the slider for the turret rotation if there is a change to the requested value
+        if (tube.getTurretArc() > 0.0) {
+            rows[n].turretControl->setValue(tube.getTurretOffsetRequested());
+        }
+
     }
 
     // Hide any rows that are not necessary.
@@ -204,6 +220,13 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
                         target_angle = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection();
                 }
                 my_spaceship->commandFireTube(n, target_angle);
+            }
+            // Check for hotkeys for turret rotation
+            if (my_spaceship->weapon_tube[n].getTurretArc() > 0.0) {
+                if (key.hotkey == "TURRET_LEFT_TUBE_" + string(n+1))
+                    my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() + my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
+                if (key.hotkey == "TURRET_RIGHT_TUBE_" + string(n+1))
+                    my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() - my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
             }
         }
     }
