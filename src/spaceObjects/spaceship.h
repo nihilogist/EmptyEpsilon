@@ -181,6 +181,7 @@ public:
     virtual void update(float delta) override;
     virtual float getShieldRechargeRate(int shield_index) override;
     virtual float getShieldDamageFactor(DamageInfo& info, int shield_index) override;
+    virtual float getShieldPenetrationDamage(DamageInfo& info, int shield_index) override;
     float getJumpDriveRechargeRate() { return Tween<float>::linear(getSystemEffectiveness(SYS_JumpDrive), 0.0, 1.0, -0.25, 1.0); }
 
     /*!

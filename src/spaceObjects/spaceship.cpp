@@ -933,6 +933,14 @@ float SpaceShip::getShieldDamageFactor(DamageInfo& info, int shield_index)
     return shield_damage_factor * frequency_damage_factor;
 }
 
+float SpaceShip::getShieldPenetrationDamage(DamageInfo& info, int shield_index) {
+    if (info.type == DT_Torpedo) {
+        return 1.0f;
+    } else {
+        return 0.0f;
+    }
+}
+
 void SpaceShip::didAnOffensiveAction()
 {
     //We did an offensive action towards our target.

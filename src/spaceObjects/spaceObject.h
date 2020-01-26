@@ -9,9 +9,10 @@
 
 enum EDamageType
 {
-    DT_Energy,
-    DT_Kinetic,
-    DT_EMP
+    DT_Energy, // damage type of energy - such as Lance batteries or plasma macrocannons
+    DT_Kinetic, // damage type of kinetic - all solid projectiles, such as macrocannon shells
+    DT_EMP, // damage type of EMP - none in game at moment
+    DT_Torpedo // damage type of Torpedo - special damage type that bypasses shields
 };
 
 class DamageInfo

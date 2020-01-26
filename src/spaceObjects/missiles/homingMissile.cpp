@@ -10,7 +10,7 @@ HomingMissile::HomingMissile()
 
 void HomingMissile::hitObject(P<SpaceObject> object)
 {
-    DamageInfo info(owner, DT_Kinetic, getPosition());
+    DamageInfo info(owner, DT_Torpedo, getPosition());
     object->takeDamage(category_modifier * 35, info);
     P<ExplosionEffect> e = new ExplosionEffect();
     e->setSize(category_modifier * 30);

@@ -43,6 +43,8 @@ function init()
 	for i,name in ipairs(pirateFighterNames) do
 		table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Hauler'):setFaction("Rising Flame"):setCallSign(name):setRotation(180):orderRoaming(), 0, 0, random(0, 30), random(8000, 10000)))
 	end
+
+	table.insert(enemyList, setCirclePos(CpuShip():setTemplate('Pirate Destroyer'):setFaction("Rising Flame"):setCallSign("Death Incarnate"):setRotation(180):orderRoaming(), 0, 0, random(0, 30), random(5000, 6000)))
 	
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
 	lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)

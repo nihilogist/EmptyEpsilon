@@ -249,9 +249,24 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
         int shield_index = int((angle + arc / 2.0f) / arc);
         shield_index %= shield_count;
         
+        // Calculate the damage to the shields based on the tuning of the shield and the tuning of the beam weapon.
         float shield_damage = damage_amount * getShieldDamageFactor(info, shield_index);
-        damage_amount -= shield_level[shield_index];
+        // Calculate any shield penetration
+        float shieldPenetrationDamage =  damage_amount * getShieldPenetrationDamage(info, shield_index);
+        // Reduce the shield damage by the shield penetration damage
+        shield_damage -= shieldPenetrationDamage;
+        // If there is a shield up in that area, and there was no shield penetration damage
+        if (shield_level[shield_index] > 0.0 && shieldPenetrationDamage == 0.0) {
+            // then damage is reduced to 0
+            damage_amount = 0;
+        } else if (shield_level[shield_index] > 0.0 && shieldPenetrationDamage > 0.0) { // if there is a shield up in that area and there was shield penetration damage
+            // then the damage is equal to the shield penetration damage
+            damage_amount = shieldPenetrationDamage;
+        } // and if there were no shields, then damage remains unchanged.
+
+        // Reduce the shield level of the appropriate shield by the shield damage taken.
         shield_level[shield_index] -= shield_damage;
+
         if (shield_level[shield_index] < 0)
         {
             shield_level[shield_index] = 0.0;
@@ -309,6 +324,11 @@ void ShipTemplateBasedObject::takeHullDamage(float damage_amount, DamageInfo& in
 float ShipTemplateBasedObject::getShieldDamageFactor(DamageInfo& info, int shield_index)
 {
     return 1.0f;
+}
+
+float ShipTemplateBasedObject::getShieldPenetrationDamage(DamageInfo& info, int shield_index) {
+    // Default is that no damage gets past shields
+    return 0.0f;
 }
 
 float ShipTemplateBasedObject::getShieldRechargeRate(int shield_index)
