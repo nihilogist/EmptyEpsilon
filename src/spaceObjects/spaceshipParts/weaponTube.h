@@ -65,6 +65,9 @@ public:
 
     void setTurretOffsetRequested(float turretOffsetRequested);
     float getTurretOffsetRequested();
+
+    void setTurretRotationSpeed(float turretRotationSpeed);
+    float getTurretRotationSpeed();
     
     void forceUnload();
     
@@ -114,6 +117,8 @@ private:
     float turretOffsetActual;
     // The requested offset of the missile tube from the standard direction.
     float turretOffsetRequested;
+    // The maximum rotation speed of the missile tube turret
+    float turretRotationSpeed;
 };
 
 #endif//WEAPON_TUBE_H

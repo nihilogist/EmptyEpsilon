@@ -50,6 +50,8 @@ REGISTER_SCRIPT_CLASS(ShipTemplate)
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeBatterySize);
     /// Allow the setting of a missile tube's turret arc
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeTurretArc);
+    /// Allow the setting of the maximum rotation speed for a missile tube turret
+    REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setTubeTurretRotationSpeed);
     
     /// Set the amount of starting hull
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setHull);
@@ -195,6 +197,12 @@ void ShipTemplate::setTubeTurretArc(int index, float turretArc) {
     if (index < 0 || index >= max_weapon_tubes)
         return;
     weapon_tube[index].turretArc = turretArc;
+}
+
+void ShipTemplate::setTubeTurretRotationSpeed(int index, float turretRotationSpeed) {
+    if (index < 0 || index >= max_weapon_tubes)
+        return;
+    weapon_tube[index].turretRotationSpeed = turretRotationSpeed;
 }
 
 void ShipTemplate::setType(TemplateType type)

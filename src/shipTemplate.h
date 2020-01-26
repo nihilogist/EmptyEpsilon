@@ -68,6 +68,7 @@ public:
         float salvoSpread;
         int batterySize;
         float turretArc;
+        float turretRotationSpeed;
     };
 private:
     static std::unordered_map<string, P<ShipTemplate> > templateMap;
@@ -153,6 +154,7 @@ public:
     void setTubeSalvoSpread(int index, float salvoSpread);
     void setTubeBatterySize(int index, int batterySize);
     void setTubeTurretArc(int index, float turretArc);
+    void setTubeTurretRotationSpeed(int index, float turretRotationSpeed);
 
 
     void setHull(float amount) { hull = amount; }

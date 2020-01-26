@@ -275,6 +275,11 @@ void WeaponTube::update(float delta) {
 
         // Now calculate the turret direction change:
         float turretDirectionChange = this->getTurretOffsetRequested() - this->getTurretOffsetActual();
+        if (turretDirectionChange > this->getTurretRotationSpeed()) {
+            turretDirectionChange = this->getTurretRotationSpeed();
+        } else if (turretDirectionChange < (0 - this->getTurretRotationSpeed())) {
+            turretDirectionChange = 0 - this->getTurretRotationSpeed();
+        }
         // Now update the turret rotation by that delta
         this->setTurretOffsetActual(this->getTurretOffsetActual() + turretDirectionChange);
     }
@@ -479,6 +484,14 @@ void WeaponTube::setTurretOffsetRequested(float turretOffsetRequested) {
 
 float WeaponTube::getTurretOffsetRequested(){
     return turretOffsetRequested;
+}
+
+void WeaponTube::setTurretRotationSpeed(float turretRotationSpeed) {
+    this->turretRotationSpeed = turretRotationSpeed;
+}
+
+float WeaponTube::getTurretRotationSpeed() {
+    return turretRotationSpeed;
 }
 
     
