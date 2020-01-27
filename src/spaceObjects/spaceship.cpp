@@ -248,6 +248,7 @@ void SpaceShip::applyTemplateValues()
 
     ship_template->setCollisionData(this);
     model_info.setData(ship_template->model_data);
+    
 }
 
 #if FEATURE_3D_RENDERING

@@ -51,6 +51,8 @@ variation:setTubeDirection(2, 0)
 variation:setTubeSalvoSpread(2, 4)
 variation:setTubeBatterySize(2, 5)
 variation:weaponTubeDisallowMissle(2, "HVLI")
+-- We also set a small amount of armour on the ship
+variation:setArmour(4.0)
 
 variation:addRoomSystem(1, 0, 2, 1, "Maneuver");
 variation:addRoomSystem(1, 1, 2, 1, "BeamWeapons");

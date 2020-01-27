@@ -25,6 +25,7 @@ public:
     float shield_level[max_shield_count];
     float shield_max[max_shield_count];
     float hull_strength, hull_max;
+    float armour;
     float shield_hit_effect[max_shield_count];
     bool can_be_destroyed;
 
@@ -68,6 +69,9 @@ public:
     float getHullMax() { return hull_max; }
     void setHull(float amount) { if (amount < 0) return; hull_strength = amount; }
     void setHullMax(float amount) { if (amount < 0) return; hull_max = amount; hull_strength = std::max(hull_strength, hull_max); }
+
+    float getArmour() {return armour; }
+    void setArmour(float armour) { armour = armour; }
     virtual bool getShieldsActive() { return true; }
 
     ///Shield script binding functions

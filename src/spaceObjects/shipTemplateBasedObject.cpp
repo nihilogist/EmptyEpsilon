@@ -96,6 +96,7 @@ ShipTemplateBasedObject::ShipTemplateBasedObject(float collision_range, string m
     registerMemberReplication(&radar_trace);
     registerMemberReplication(&hull_strength, 0.5);
     registerMemberReplication(&hull_max);
+    registerMemberReplication(&armour);
 
     callsign = "[" + string(getMultiplayerId()) + "]";
     
@@ -266,19 +267,35 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
 
         // Reduce the shield level of the appropriate shield by the shield damage taken.
         shield_level[shield_index] -= shield_damage;
-
+        // Check for out-of-range values.
         if (shield_level[shield_index] < 0)
         {
             shield_level[shield_index] = 0.0;
         } else {
             shield_hit_effect[shield_index] = 1.0;
         }
+
+        
+        // Check for out of range damage.
+        if (damage_amount < 0.0)
+        {
+            damage_amount = 0.0;
+        }
+    }
+
+    // If the shipTemplateBasedObject has armour, then deduct that value from the damage as well 
+    LOG(INFO) << "Armour: " << armour << " and damage amount: " << damage_amount;
+    if (armour > 0.0) {
+        damage_amount -= armour;
+        // Check for out of range damage.
         if (damage_amount < 0.0)
         {
             damage_amount = 0.0;
         }
     }
     
+
+    // Finally, if there is possible hull damage left over, then delegate to taking hull damage.
     if (info.type != DT_EMP && damage_amount > 0.0)
     {
         takeHullDamage(damage_amount, info);
@@ -344,6 +361,7 @@ void ShipTemplateBasedObject::setTemplate(string template_name)
     type_name = template_name;
 
     hull_strength = hull_max = ship_template->hull;
+    armour = ship_template->armour;
     shield_count = ship_template->shield_count;
     for(int n=0; n<shield_count; n++)
         shield_level[n] = shield_max[n] = ship_template->shield_level[n];

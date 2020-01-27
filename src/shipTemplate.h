@@ -101,7 +101,10 @@ public:
     BeamTemplate beams[max_beam_weapons];
     int weapon_tube_count;
     TubeTemplate weapon_tube[max_weapon_tubes];
+    // Max hull points
     float hull;
+    // Armour value of ship
+    float armour;
     int shield_count;
     float shield_level[max_shield_count];
     float impulse_speed, turn_speed, warp_speed;
@@ -156,8 +159,10 @@ public:
     void setTubeTurretArc(int index, float turretArc);
     void setTubeTurretRotationSpeed(int index, float turretRotationSpeed);
 
-
+    // Set the hull of the ship
     void setHull(float amount) { hull = amount; }
+    // Set the armour value of the ship
+    void setArmour(float armour);
     void setShields(std::vector<float> values);
     void setSpeed(float impulse, float turn, float acceleration);
     void setCombatManeuver(float boost, float strafe);

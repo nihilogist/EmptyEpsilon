@@ -55,6 +55,8 @@ REGISTER_SCRIPT_CLASS(ShipTemplate)
     
     /// Set the amount of starting hull
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setHull);
+    /// Set the amount of all-around armour
+    REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setArmour);
     /// Set the shield levels, amount of parameters defines the amount of shields. (Up to a maximum of 8 shields)
     /// Example: setShieldData(400) setShieldData(100, 80) setShieldData(100, 50, 50)
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setShields);
@@ -105,6 +107,7 @@ ShipTemplate::ShipTemplate()
         weapon_tube[n].size = MS_Medium;
     }
     hull = 70;
+    armour = 0.0;
     shield_count = 0;
     for(int n=0; n<max_shield_count; n++)
         shield_level[n] = 0.0;
@@ -297,6 +300,10 @@ ESystem ShipTemplate::getSystemAtRoom(sf::Vector2i position)
 void ShipTemplate::setCollisionData(P<SpaceObject> object)
 {
     model_data->setCollisionData(object);
+}
+
+void ShipTemplate::setArmour(float armour) {
+    this->armour = armour;
 }
 
 void ShipTemplate::setShields(std::vector<float> values)
