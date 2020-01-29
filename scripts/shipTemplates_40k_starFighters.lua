@@ -117,7 +117,7 @@ template:setDescription([[This in-system hauler vessel has been upgraded with we
 Whilst it may not pose a significant threat to Imperial Navy vessels on its own, a swarm of them can be a dangerous foe.]])
 template:setHull(10)
 template:setShields(0)
-template:setSpeed(50, 20, 10)
+template:setSpeed(50, 25, 10)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 30, 0, 500.0, 4.0, 2)
+template:setBeam(0, 45, 0, 700.0, 3.0, 2)
