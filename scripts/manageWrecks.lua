@@ -7,3 +7,12 @@ function createWreckedShips()
     end
     return nonHauntedWreckNames, nonHauntedWrecks
 end
+
+function updateWreckedShipsCallsigns()
+    -- Check over the list of wrecks to see if any of them need to be updated
+	for i,name in ipairs(nonHauntedWreckNames) do
+		if nonHauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
+			nonHauntedWrecks[i]:setCallSign(name)
+		end
+	end
+end
