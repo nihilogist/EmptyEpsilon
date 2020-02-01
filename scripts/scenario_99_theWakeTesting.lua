@@ -5,6 +5,7 @@
 
 require("utils.lua")
 require("launchBayControls.lua")
+require("createWrecks.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -25,12 +26,7 @@ function init()
 	enemyList = {}
 	friendlyList = {}
 
-	
-	nonHauntedWreckNames = {"Spiteful", "Dux Cornovi", "Golden Farrel"}
-	nonHauntedWrecks = {}
-	for i,v in ipairs(nonHauntedWreckNames) do
-		table.insert(nonHauntedWrecks, setCirclePos(CpuShip():setTemplate('Wrecked Destroyer'):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(10000, 20000)))
-	end
+	nonHauntedWreckNames, nonHauntedWrecks = createWreckedShips()
 
 	hauntedWreckNames = {"Heart of Light", "Rhadamantine"}
 	hauntedWrecks = {}
