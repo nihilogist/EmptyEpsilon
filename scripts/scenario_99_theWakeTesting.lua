@@ -4,6 +4,7 @@
 
 
 require("utils.lua")
+require("launchBayControls.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -52,48 +53,21 @@ function init()
 end
 
 function launchInterceptorOne()
-	--lexTalionis:removeCustom("LaunchFury1")
-	furyOneButton = false
-	furyOne = launchFuryFromWake("Fury 1")
+	furyOne = launchVehicleFromShip(lexTalionis, "Mars-Pattern Fury Interceptor", "Fury-1")
 	furyOne:setAutoCoolant(true)
     return furyOne
 end
 
 function launchInterceptorTwo()
-	--lexTalionis:removeCustom("LaunchFury2")
-	furyTwoButton = false
-	furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo = launchVehicleFromShip(lexTalionis, "Mars-Pattern Fury Interceptor", "Fury-2")
 	furyTwo:setAutoCoolant(true)
     return furyTwo
 end
 
 function launchBomberOne()
-	--lexTalionis:removeCustom("LaunchStarhawk1")
-	starhawkOneButton = false
-	starhawkOne = launchStarhawkFromWake("Starhawk 1")
+	starhawkOne = launchVehicleFromShip(lexTalionis, "Calixis-Pattern Starhawk Bomber", "Starhawk-1")
 	starhawkOne:setAutoCoolant(true)
 	return starhawkOne
-end
-
-function launchFuryFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
-	return launchedFighter
-end
-
-function launchStarhawkFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
-	return launchedFighter
-end
-
-function launchVehicleFromWake(vehicleClass, callsign)
-	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
-	local x, y = lexTalionis:getPosition()
-    local direction = lexTalionis:getHeading()
-    setCirclePos(launchedVehicle, x, y, direction - 270, 100)
-    launchedVehicle:setHeading(direction - 180)
-    launchedVehicle:commandTargetRotation(direction - 270)
-    launchedVehicle:commandImpulse(0.5)
-    return launchedVehicle
 end
 
 
