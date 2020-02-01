@@ -33,8 +33,9 @@ function init()
 	-- Create the haunted wrecks in The Wake
 	hauntedWreckNames, hauntedWrecks = createHauntedWrecks()
 
-	-- Create the ghost ships
-	ghostShips = createAllGhostShips(hauntedWrecks)
+	-- Add a GM Function to create all the haunted ships
+	addGMFunction("Create Ghosts", createAllGhostShips)
+
 
 
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
@@ -63,32 +64,9 @@ end
 
 function update(delta)
 
+	-- Check over all the various unknown ships to see if they need to have their callsigns updated.
 	updateWreckedShipsCallsigns()
-
-	-- Check over the list of haunted wrecks to see if any of them need to be updated
-	for i,name in ipairs(hauntedWreckNames) do
-		-- If they've been scanned, then update their callsign
-		if hauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
-			hauntedWrecks[i]:setCallSign(name)
-		end
-		-- If they've been destroyed then also destroy their ghost counterpart
-		if not hauntedWrecks[i]:isValid() then
-			ghostShips[i]:destroy()
-		end
-	end
-
-	-- Check over the list of ghost ships to see if any of them need to be updated
-	for i,name in ipairs(hauntedWreckNames) do
-		-- if they've been scanned then update their callsigns
-		if ghostShips[i]:isScannedByFaction("Imperial Navy") then
-			ghostShips[i]:setCallSign(name)
-		end
-		-- reset their health to 100
-		if ghostShips[i]:isValid() then
-			ghostShips[i]:setHull(100)
-		end
-	end
-
-
+	updateHauntedWreckCallsigns()
+	updateGhostShipCallsigns()
 
 end

@@ -1,6 +1,6 @@
 -- Scripts to create and manage the haunted wrecks of The Wake
 function createHauntedWrecks()
-    hauntedWreckNames = {"Heart of Light"}
+    hauntedWreckNames = {"Heart of Light", "Rhadamantine"}
     hauntedWrecks = {}
     
     for i,name in ipairs(hauntedWreckNames) do
@@ -13,7 +13,6 @@ end
 function createAllGhostShips()
     ghostShips = {}
     for i,wreck in ipairs(hauntedWrecks) do
-        addGMMessage("Checking haunted wreck: " .. i)
         -- check if wreck is still valid
         if (hauntedWrecks[i]:isValid()) then
             -- if so, then get the position of the wreck
@@ -23,4 +22,22 @@ function createAllGhostShips()
         end
     end
     return ghostShips
+end
+
+function updateHauntedWreckCallsigns()
+    -- Check over the list of haunted wrecks to see if any of them need to be updated
+	for i,name in ipairs(hauntedWreckNames) do
+		if hauntedWrecks[i]:isScannedByFaction("Imperial Navy") then
+			hauntedWrecks[i]:setCallSign(name)
+		end
+	end
+end
+
+function updateGhostShipCallsigns()
+    -- Check over the list of haunted wrecks to see if any of them need to be updated
+	for i,name in ipairs(hauntedWreckNames) do
+		if ghostShips[i]:isScannedByFaction("Imperial Navy") then
+			ghostShips[i]:setCallSign(name)
+		end
+	end
 end
