@@ -1,16 +1,19 @@
 -- Script to create a set of wrecked ships.
 function createWreckedShips()
     nonHauntedWreckConfig = {
-        {"Spiteful", "Wrecked Destroyer", "Auspex return suggests a wrecked ship", "The wreck of a once-proud Cobra Destroyer, now darkened forever in the void of the Wake.", "The wreckage of the HIMVS Spiteful, a Cobra Destroyer listed as Still On Patrol."},
-        {"Dux Cornovi", "Wrecked Destroyer", "Auspex return suggests a wrecked ship", "The wreck of a once-proud Cobra Destroyer, now darkened forever in the void of the Wake.", "The wreckage of the HIMVS Dux Cornovi, a Cobra Destroyer listed as Still On Patrol."},
-        {"Golden Farrel", "Wrecked Destroyer", "Auspex return suggests a wrecked ship", "The wreck of a once-proud Cobra Destroyer, now darkened forever in the void of the Wake.", "The wreckage of the HIMVS Golden Farrel, a Cobra Destroyer listed as Still On Patrol."}
+        {"The Gorgon's Eye", 1200, 1500, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "Deepscan results: this is The Gorgon's Eye, a ship registered as Still On Patrol for two hundred terran years. She disappeared while investigating pirate activity."},
+        {"Dux Cornovi", -870, 780, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Dux Cornovi, a Cobra Destroyer listed as Still On Patrol."},
+        {"Golden Farrel", 400, -2200, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Golden Farrel, a Cobra Destroyer listed as Still On Patrol."}
     }
     
     -- Create the wrecks from the config data
     for i, wreckConfig in ipairs(nonHauntedWreckConfig) do
         local wreckClass = getWreckClass(wreckConfig)
         local wreckBaseDescription = getWreckUnscannedDescription(wreckConfig)
-        table.insert(wreckConfig, setCirclePos(CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), 0, 0, random(0, 360), random(10000, 20000)))
+        local wreckXPosition = getWreckXPosition(wreckConfig)
+        local wreckYPosition = getWreckYPosition(wreckConfig)
+        table.insert(wreckConfig, setCirclePos(CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), wreckXPosition, wreckYPosition, 0, 0))
+
     end
     
 end
@@ -40,29 +43,40 @@ function getWreckName(wreckConfig)
     return wreckConfig[1]
 end
 
-function getWreckClass(wreckConfig)
+function getWreckXPosition(wreckConfig)
     return wreckConfig[2]
 end
 
-function getWreckUnscannedDescription(wreckConfig)
+function getWreckYPosition(wreckConfig)
     return wreckConfig[3]
 end
 
-function getWreckScannedDescription(wreckConfig)
+function getWreckClass(wreckConfig)
     return wreckConfig[4]
 end
 
-function getWreckFullyScannedDescription(wreckConfig)
+function getWreckUnscannedDescription(wreckConfig)
     return wreckConfig[5]
 end
 
-function getWreckShip(wreckConfig)
+function getWreckScannedDescription(wreckConfig)
     return wreckConfig[6]
+end
+
+function getWreckFullyScannedDescription(wreckConfig)
+    return wreckConfig[7]
+end
+
+function getWreckShip(wreckConfig)
+    return wreckConfig[8]
 end
 
 
 -- What do we need in terms of stuff to define a ship?
 -- Name
+-- PositionX
+-- PositionY
+-- Rotation
 -- Class
 -- Description (unscanned)
 -- Description (scanned)
