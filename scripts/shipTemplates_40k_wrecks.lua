@@ -1,0 +1,17 @@
+template = ShipTemplate():setName("Wrecked Destroyer"):setClass("Escort", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
+template:setDescription([[The wreck of a once-proud Cobra Destroyer, now darkened forever in the void of the Wake.]])
+template:setRadarTrace("radar_cobra.png")
+template:setHull(70)
+template:setSpeed(0, 0, 0)
+
+template = ShipTemplate():setName("Wrecked Frigate"):setClass("Escort", "Frigate"):setModel("battleship_destroyer_4_upgraded")
+template:setDescription([[The wreck of a once-proud Sword Frigate, now darkened forever in the void of the Wake.]])
+template:setRadarTrace("radar_cobra.png")
+template:setHull(100)
+template:setSpeed(0, 0, 0)
+
+template = ShipTemplate():setName("Wrecked Cruiser"):setClass("Ship of the Line", "Cruiser"):setModel("battleship_destroyer_4_upgraded")
+template:setDescription([[The wreck of a once-proud Lunar Cruiser, now darkened forever in the void of the Wake.]])
+template:setRadarTrace("radar_cobra.png")
+template:setHull(150)
+template:setSpeed(0, 0, 0)

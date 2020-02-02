@@ -20,6 +20,7 @@ Player ships are in general large frigates to small corvette class
 require("shipTemplates_40k_Cruisers.lua")
 require("shipTemplates_40k_escorts.lua")
 require("shipTemplates_40k_starFighters.lua")
+require("shipTemplates_40k_wrecks.lua")
 --]]
 --For now, we add our old ship templates as well. These should be removed at some point.
 --require("shipTemplates_OLD.lua")

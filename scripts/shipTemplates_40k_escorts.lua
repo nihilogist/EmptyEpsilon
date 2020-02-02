@@ -109,8 +109,3 @@ variation:addDoor(6, 4, false);
 variation:addDoor(8, 3, false);
 variation:addDoor(8, 4, false);
 
-template = ShipTemplate():setName("Wrecked Destroyer"):setClass("Escort", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
-template:setDescription([[The wreck of a once-proud Cobra Destroyer, now darkened forever in the void of the Wake.]])
-template:setRadarTrace("radar_cobra.png")
-template:setHull(50)
-template:setSpeed(0, 0, 0)
