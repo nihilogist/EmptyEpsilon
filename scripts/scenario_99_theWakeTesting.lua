@@ -14,8 +14,9 @@ require("manageHauntedWrecks.lua")
 --      Returns the object with its position set to the resulting coordinates.
 
 function init()
+	imperialNavy = "Imperial Navy"
 	-- Spawn a player Dauntless.
-	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless")
+	lexTalionis = PlayerSpaceship():setFaction(imperialNavy):setTemplate("Regency Pattern Dauntless")
 	lexTalionis:setCallSign("Lex Talionis")
 	furyOne = nil
 	furyOneButton = false
@@ -23,6 +24,9 @@ function init()
 	furyTwoButton = false
 	starhawkOne = nil
 	starhawkOneButton = false
+
+	imperialNavyFactionId = 1
+	
 
 	enemyList = {}
 	friendlyList = {}
