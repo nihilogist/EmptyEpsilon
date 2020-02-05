@@ -17,7 +17,7 @@ BlackHole::BlackHole()
 {
     update_delta = 0.0;
     PathPlannerManager::getInstance()->addAvoidObject(this, 7000);
-    setRadarSignatureInfo(0.9, 0, 0);
+    setRadarSignatureInfo(0.0, 0, 0);
 }
 
 void BlackHole::update(float delta)
@@ -69,9 +69,9 @@ void BlackHole::collide(Collisionable* target, float collision_force)
 
     sf::Vector2f diff = getPosition() - target->getPosition();
     float distance = sf::length(diff);
-    // Add a random component to the force just for a laugh
-    float forceMultiplier = rand() % 10;
-    float force = (getRadius() * getRadius() * 20.0f * forceMultiplier) / (distance * distance * distance);
+    float force = (getRadius() * getRadius() * 50.0f) / (distance * distance * distance);
+
+
 
     target->setPosition(target->getPosition() - diff / distance * update_delta * force);
 }

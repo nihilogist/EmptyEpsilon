@@ -41,6 +41,8 @@ function init()
 	addGMFunction("Create Ghosts", createAllGhostShips)
 
 	BlackHole():setPosition(4500,4500)
+	BlackHole():setPosition(0,6000)
+	BlackHole():setPosition(-4500,4500)
 
 
 
