@@ -40,6 +40,8 @@ function init()
 	-- Add a GM Function to create all the haunted ships
 	addGMFunction("Create Ghosts", createAllGhostShips)
 
+	BlackHole():setPosition(4500,4500)
+
 
 
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)

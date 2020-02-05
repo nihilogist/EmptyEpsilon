@@ -1,7 +1,7 @@
 -- Script to create a set of wrecked ships.
 function createWreckedShips()
     nonHauntedWreckConfig = {
-        {"The Gorgon's Eye", 1200, 1500, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "Deepscan results: this is The Gorgon's Eye, a ship registered as Still On Patrol for two hundred terran years. She disappeared while investigating pirate activity."},
+        {"The Gorgon's Eye", 200, 1500, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "Deepscan results: this is The Gorgon's Eye, a ship registered as Still On Patrol for two hundred terran years. She disappeared while investigating pirate activity."},
         {"Dux Cornovi", -870, 780, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Dux Cornovi, a Cobra Destroyer listed as Still On Patrol."},
         {"Golden Farrel", 400, -2200, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Golden Farrel, a Cobra Destroyer listed as Still On Patrol."}
     }
