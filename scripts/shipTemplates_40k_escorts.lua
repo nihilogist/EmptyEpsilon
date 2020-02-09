@@ -3,15 +3,16 @@ template:setDescription([[This ship appears to be based on the Cobra Class destr
 template:setRadarTrace("radar_cobra.png")
 template:setHull(200)
 template:setShields(100)
-template:setSpeed(40, 6, 5)
+template:setSpeed(30, 6, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 270, 0, 2000.0, 10.0, 11)
+template:setBeam(0, 270, 0, 2000.0, 20.0, 30)
 -- Two weapons batteries
-template:setTubes(2, 15.0)
+template:setTubes(2, 20.0)
 -- Battery 1: Twin-linked torpedo launcher
 template:weaponTubeDisallowMissle(0, "HVLI")
 template:setTubeBatterySize(0, 2)
 template:setTubeSalvoSpread(0, 5)
+template:setTubeLoadTime(0, 100.0)
 -- Battery 2: Quad-linked macrocannon
 template:weaponTubeDisallowMissle(1, "Homing")
 template:setTubeBatterySize(1, 4)
@@ -24,7 +25,7 @@ template:setWeaponStorage("HVLI", 100)
 
 
 
-variation = template:copy("Pirate Destroyer"):setType("playership")
+variation = template:copy("Militia Destroyer"):setType("playership")
 variation:setDescription([[This ship appears to be based on the Cobra Class destroyer. Its armament has been heavily altered from the standard pattern]])
 variation:addRoomSystem(1, 0, 2, 1, "Maneuver");
 variation:addRoomSystem(1, 1, 2, 1, "BeamWeapons");
@@ -72,7 +73,7 @@ template:setTubeSalvoSpread(0, 5)
 template:weaponTubeDisallowMissle(1, "Homing")
 template:setTubeBatterySize(1, 4)
 template:setTubeSalvoSpread(1, 5)
-template:setWeaponStorage("Homing", 3)
+template:setWeaponStorage("Homing", 1)
 template:setWeaponStorage("HVLI", 100)
 
 

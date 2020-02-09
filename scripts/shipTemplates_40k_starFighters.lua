@@ -25,7 +25,7 @@ variation:setModel("WespeScoutRed")
 variation:setDescription([[The Fury Interceptor is the most common type of starfighter used by the Imperial Navy.]])
 variation:setHull(35)
 variation:setShields(22)
-variation:setSpeed(130, 35, 25)
+variation:setSpeed(100, 35, 25)
 --                  Arc, Dir, Range, CycleTime, Dmg
 variation:setBeam(0, 30, 0, 1200.0, 1.0, 2)
 variation:setTubes(1, 8)
@@ -103,12 +103,12 @@ variation:addDoor(5, 2, false);
 template = ShipTemplate():setName("Defensive Turret"):setClass("Starfighter", "Interceptor"):setModel("WespeScoutYellow")
 template:setRadarTrace("radar_fighter.png")
 template:setDescription([[This defensive turret appears to be a badly-patched Fury Interceptor, with inactive plasma drives.]])
-template:setHull(30)
+template:setHull(20)
 template:setShields(0)
 template:setSpeed(0, 30, 0)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 30, 0, 700.0, 4.0, 2)
+template:setBeam(0, 30, 0, 900.0, 8.0, 6)
 
 template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
 template:setRadarTrace("radar_fighter.png")
@@ -117,7 +117,7 @@ template:setDescription([[This in-system hauler vessel has been upgraded with we
 Whilst it may not pose a significant threat to Imperial Navy vessels on its own, a swarm of them can be a dangerous foe.]])
 template:setHull(10)
 template:setShields(0)
-template:setSpeed(50, 25, 10)
+template:setSpeed(70, 25, 10)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 45, 0, 700.0, 3.0, 2)
+template:setBeam(0, 45, 0, 900.0, 3.0, 2)
