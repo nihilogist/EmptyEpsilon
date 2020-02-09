@@ -177,7 +177,7 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
         }
 
         // Update the slider for the turret rotation if there is a change to the requested value
-        if (tube.getTurretArc() > 0.0) {
+        if (tube.getTurretArc() > 0.1f) {
             rows[n].turretControl->setValue(tube.getTurretOffsetRequested());
         }
 
