@@ -67,6 +67,7 @@ public:
         EMissileSizes size;
         float salvoSpread;
         int batterySize;
+        bool turreted;
         float turretArc;
         float turretRotationSpeed;
     };
@@ -156,6 +157,7 @@ public:
     void setTubeDirection(int index, float direction);
     void setTubeSalvoSpread(int index, float salvoSpread);
     void setTubeBatterySize(int index, int batterySize);
+    void setTubeIsTurreted(int index, bool turreted);
     void setTubeTurretArc(int index, float turretArc);
     void setTubeTurretRotationSpeed(int index, float turretRotationSpeed);
 

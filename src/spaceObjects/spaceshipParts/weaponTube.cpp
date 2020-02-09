@@ -467,15 +467,15 @@ int WeaponTube::getBatterySize() {
 }
 
 void WeaponTube::setTurretArc(float turretArc) {
-    if (turretArc > 2.0f) {
-        LOG(INFO) << "Setting weapon tube turret arc to: " << turretArc << " and isTurreted to true.";
-        this->turreted = true;
-    }
     this->turretArc = turretArc;
 }
 
 float WeaponTube::getTurretArc() {
     return turretArc;
+}
+
+void WeaponTube::setTurreted(bool turreted) {
+    this->turreted = turreted;
 }
 
 bool WeaponTube::isTurreted() {

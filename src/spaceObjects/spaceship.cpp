@@ -233,6 +233,7 @@ void SpaceShip::applyTemplateValues()
         weapon_tube[n].setSalvoSpread(ship_template->weapon_tube[n].salvoSpread);
         weapon_tube[n].setBatterySize(ship_template->weapon_tube[n].batterySize);
         weapon_tube[n].setTurretArc(ship_template->weapon_tube[n].turretArc);
+        weapon_tube[n].setTurreted(ship_template->weapon_tube[n].turreted);
         weapon_tube[n].setTurretRotationSpeed(ship_template->weapon_tube[n].turretRotationSpeed);
         for(int m=0; m<MW_Count; m++)
         {

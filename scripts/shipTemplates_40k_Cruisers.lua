@@ -45,8 +45,10 @@ variation:setWeaponStorage("HVLI", 100)
 variation:setTubes(3, 10.0) -- 3 weapons tubes
 -- Tubes 1 and 2 are 12 shot macrocannon batteries with 90 degree arcs
 variation:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "Homing")
+variation:setTubeIsTurreted(0, true):setTubeIsTurreted(1, true)
 variation:setTubeTurretArc(0, 90):setTubeTurretArc(1, 90)
 -- Tube 3 is a quin-linked torpedo launcher
+variation:setTubeIsTurreted(2, false)
 variation:setTubeDirection(2, 0)
 variation:setTubeSalvoSpread(2, 4)
 variation:setTubeBatterySize(2, 5)

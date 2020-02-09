@@ -59,6 +59,8 @@ public:
 
     void setTurretArc(float turretArc);
     float getTurretArc();
+
+    void setTurreted(bool turreted);
     bool isTurreted();
 
     void setTurretOffsetActual(float turretOffsetActual);
