@@ -235,6 +235,8 @@ void SpaceShip::applyTemplateValues()
         weapon_tube[n].setTurretArc(ship_template->weapon_tube[n].turretArc);
         weapon_tube[n].setTurreted(ship_template->weapon_tube[n].turreted);
         weapon_tube[n].setTurretRotationSpeed(ship_template->weapon_tube[n].turretRotationSpeed);
+        weapon_tube[n].setTurretOffsetRequested(0.0f);
+        weapon_tube[n].setTurretOffsetActual(0.0f);
         for(int m=0; m<MW_Count; m++)
         {
             if (ship_template->weapon_tube[n].type_allowed_mask & (1 << m))

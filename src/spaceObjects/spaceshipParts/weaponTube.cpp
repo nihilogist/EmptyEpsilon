@@ -36,6 +36,8 @@ void WeaponTube::setParent(SpaceShip* parent)
     parent->registerMemberReplication(&salvoSpread);
     parent->registerMemberReplication(&turreted);
     parent->registerMemberReplication(&turretArc);
+    parent->registerMemberReplication(&turretOffsetActual);
+    parent->registerMemberReplication(&turretOffsetRequested);
     
     parent->registerMemberReplication(&type_loaded);
     parent->registerMemberReplication(&state);
