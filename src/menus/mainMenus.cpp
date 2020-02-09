@@ -67,7 +67,7 @@ MainMenu::MainMenu()
     new GuiOverlay(this, "", colorConfig.background);
     (new GuiOverlay(this, "", sf::Color::White))->setTextureTiled("gui/BackgroundCrosses");
 
-    (new GuiImage(this, "LOGO", "logo_full"))->setPosition(0, title_y, ATopCenter)->setSize(logo_size_x, logo_size_y);
+    (new GuiImage(this, "LOGO", "episilon-gothic-logo"))->setPosition(0, title_y, ATopCenter)->setSize(logo_size_x, logo_size_y);
     (new GuiLabel(this, "VERSION", "Version: " + string(VERSION_NUMBER), 20))->setPosition(0, title_y + logo_size, ATopCenter)->setSize(0, 20);
 
     (new GuiButton(this, "START_SERVER", "Start server", [this]() {
