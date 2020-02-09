@@ -5,12 +5,12 @@ template:setHull(1000)
 template:setShields(200)
 template:setSpeed(30, 5, 15)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 90, 0, 5000.0, 20.0, 30)
+template:setBeam(0, 90, 0, 5000.0, 30.0, 60)
 
 template:setWeaponStorage("Homing", 12)
 template:setWeaponStorage("HVLI", 100)
 
-template:setTubes(3, 10.0) -- 3 weapons tubes
+template:setTubes(3, 15.0) -- 3 weapons tubes
 -- Tubes 1 and 2 are 12 shot macrocannon batteries with 90 degree arcs
 template:setTubeDirection(0, -90):setTubeDirection(1, 90)
 template:setWeaponTubeExclusiveFor(0, "HVLI"):setWeaponTubeExclusiveFor(1, "HVLI")
@@ -20,6 +20,7 @@ template:setTubeTurretArc(0, 90):setTubeTurretArc(1, 90)
 template:setTubeTurretRotationSpeed(0, 0.3):setTubeTurretRotationSpeed(1, 0.3)
 -- Tube 3 is a quin-linked torpedo launcher
 template:setTubeIsTurreted(2, false):setTubeDirection(2, 0):setTubeSalvoSpread(2, 4):setTubeBatterySize(2, 5):setWeaponTubeExclusiveFor(2, "Homing")
+template:setTubeLoadTime(2, 300)
 -- We also set a small amount of armour on the ship
 template:setArmour(4.0)
 template:setDockClasses("Starfighter")
