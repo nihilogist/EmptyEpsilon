@@ -59,6 +59,7 @@ public:
 
     void setTurretArc(float turretArc);
     float getTurretArc();
+    bool isTurreted();
 
     void setTurretOffsetActual(float turretOffsetActual);
     float getTurretOffsetActual();
@@ -111,6 +112,8 @@ private:
     int fire_count;
     float salvoSpread;
     int batterySize;
+    // Boolean value to indicate that the weapon has a turret.
+    bool turreted;
     // The total arc of the turret of the missile tube, if there is one.
     float turretArc;
     // The current offset of the missile tube from the standard direction.

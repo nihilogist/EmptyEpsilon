@@ -21,6 +21,7 @@ WeaponTube::WeaponTube()
     size = MS_Medium;
     salvoSpread = 0.0f;
     batterySize = 1;
+    turreted = false;
     turretArc = 0.0f;
 }
 
@@ -32,6 +33,9 @@ void WeaponTube::setParent(SpaceShip* parent)
     parent->registerMemberReplication(&load_time);
     parent->registerMemberReplication(&type_allowed_mask);
     parent->registerMemberReplication(&direction);
+    parent->registerMemberReplication(&salvoSpread);
+    parent->registerMemberReplication(&turreted);
+    parent->registerMemberReplication(&turretArc);
     
     parent->registerMemberReplication(&type_loaded);
     parent->registerMemberReplication(&state);
@@ -463,11 +467,19 @@ int WeaponTube::getBatterySize() {
 }
 
 void WeaponTube::setTurretArc(float turretArc) {
+    LOG(INFO) << "Setting weapon tube turret arc to: " << turretArc << " and isTurreted to true.";
+    if (turretArc > 2.0f) {
+        this->turreted = true;
+    }
     this->turretArc = turretArc;
 }
 
 float WeaponTube::getTurretArc() {
     return turretArc;
+}
+
+bool WeaponTube::isTurreted() {
+    return turreted;
 }
 
 void WeaponTube::setTurretOffsetActual(float turretOffsetActual) {

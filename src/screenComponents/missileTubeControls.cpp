@@ -67,7 +67,8 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
         row.loading_label->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
         // If this weapon has a turret available, then create a slider control for it. 
-        if (my_spaceship->weapon_tube[n].getTurretArc() > 0.1f) {
+        if (my_spaceship->weapon_tube[n].isTurreted()) {
+            LOG(INFO) << "Weapon tube: " << n << " is turreted: " << my_spaceship->weapon_tube[n].isTurreted();
             LOG(INFO) << "Weapon tube: " << n << " has turret arc: " << my_spaceship->weapon_tube[n].getTurretArc();
             float weaponTubeMinimumOffset;
             float weaponTubeMaximumOffset;
