@@ -19,9 +19,9 @@ WeaponTube::WeaponTube()
     delay = 0.0;
     tube_index = 0;
     size = MS_Medium;
-    salvoSpread = 0;
+    salvoSpread = 0.0f;
     batterySize = 1;
-    turretArc = 0;
+    turretArc = 0.0f;
 }
 
 void WeaponTube::setParent(SpaceShip* parent)
