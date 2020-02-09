@@ -35,9 +35,11 @@ end
 
 function updateGhostShipCallsigns()
     -- Check over the list of haunted wrecks to see if any of them need to be updated
-	for i,name in ipairs(hauntedWreckNames) do
-		if ghostShips[i]:isScannedByFaction("Imperial Navy") then
-			ghostShips[i]:setCallSign(name)
-		end
+    for i,name in ipairs(hauntedWreckNames) do
+        if not(ghostShips == nil) then
+            if ghostShips[i]:isScannedByFaction("Imperial Navy") then
+                ghostShips[i]:setCallSign(name)
+            end
+        end
 	end
 end

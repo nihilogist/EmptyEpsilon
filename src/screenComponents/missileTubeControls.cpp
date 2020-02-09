@@ -66,7 +66,7 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
         row.loading_label = new GuiLabel(row.loading_bar, id + "_" + string(n) + "_PROGRESS_LABEL", "Loading", 35);
         row.loading_label->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
-        // If this weapon has a turret available, then create a slider control for it.
+        // If this weapon has a turret available, then create a slider control for it. 
         if (my_spaceship->weapon_tube[n].getTurretArc() > 0.1) {
             float weaponTubeMinimumOffset;
             float weaponTubeMaximumOffset;
