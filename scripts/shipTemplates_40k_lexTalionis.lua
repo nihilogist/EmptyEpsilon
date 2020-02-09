@@ -13,7 +13,7 @@ template:setWeaponStorage("HVLI", 100)
 template:setTubes(3, 10.0) -- 3 weapons tubes
 -- Tubes 1 and 2 are 12 shot macrocannon batteries with 90 degree arcs
 template:setTubeDirection(0, -90):setTubeDirection(1, 90)
-template:weaponTubeDisallowMissle(0, "Homing"):weaponTubeDisallowMissle(1, "Homing")
+template:setWeaponTubeExclusiveFor(0, "HVLI"):setWeaponTubeExclusiveFor(1, "HVLI")
 template:setTubeSalvoSpread(0, 5):setTubeSalvoSpread(1, 5):setTubeBatterySize(0, 12):setTubeBatterySize(1, 12)
 template:setTubeIsTurreted(0, true):setTubeIsTurreted(1, true)
 template:setTubeTurretArc(0, 90):setTubeTurretArc(1, 90)

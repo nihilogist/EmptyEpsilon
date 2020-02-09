@@ -29,6 +29,10 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                 return;
             if (my_spaceship->weapon_tube[n].isEmpty())
             {
+                // If the tube is exclusively for one weapon type then load that
+                if (my_spaceship->weapon_tube[n].canOnlyLoad(MW_HVLI)) {
+                    load_type = MW_HVLI;
+                }
                 if (load_type != MW_None)
                 {
                     my_spaceship->commandLoadTube(n, load_type);
@@ -92,7 +96,7 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
         rows[n] = row;
     }
     
-    
+    // Set up the weapon selection buttons.
     for (int n = MW_Count-1; n >= 0; n--)
     {
         load_type_rows[n].layout = new GuiAutoLayout(this, id + "_ROW_" + string(n), LayoutHorizontalLeftToRight);
@@ -138,7 +142,13 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
         // If the tube is empty then show the option to load it.
         if(tube.isEmpty())
         {
-            rows[n].load_button->setEnable(tube.canLoad(load_type));
+            // For the macrocannon batteries, always allow loading if cannons are empty
+            if (tube.canOnlyLoad(MW_HVLI)) {
+                rows[n].load_button->setEnable(true);
+            } else {
+                rows[n].load_button->setEnable(tube.canLoad(load_type));
+            }
+            
             rows[n].load_button->setText("Load");
             rows[n].fire_button->disable()->show();
             rows[n].fire_button->setText(tube.getTubeName() + ": Empty");
