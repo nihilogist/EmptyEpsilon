@@ -107,6 +107,7 @@ ShipTemplate::ShipTemplate()
         weapon_tube[n].type_allowed_mask = (1 << MW_Count) - 1;
         weapon_tube[n].direction = 0;
         weapon_tube[n].size = MS_Medium;
+        weapon_tube[n].turreted = false;
     }
     hull = 70;
     armour = 0.0;
