@@ -21,7 +21,6 @@ function init()
 	starhawkOne = nil
 	starhawkOneButton = false
 
-    PlayerSpaceship():setTemplate("Regency Pattern Dauntless"):setPosition(0, 0)
     BlackHole():setPosition(4500, 4500)
     BlackHole():setPosition(0, 6000)
     BlackHole():setPosition(-4500, 4500)
