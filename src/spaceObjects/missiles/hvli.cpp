@@ -24,11 +24,11 @@ void HVLI::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float sc
 void HVLI::hitObject(P<SpaceObject> object)
 {
     DamageInfo info(owner, DT_Kinetic, getPosition());
-    float alive_for = MissileWeaponData::getDataFor(MW_HVLI).lifetime - lifetime;
-    if (alive_for > 2.0)
+    // float alive_for = MissileWeaponData::getDataFor(MW_HVLI).lifetime - lifetime;
+    // if (alive_for > 2.0)
         object->takeDamage(category_modifier * 6, info);
-    else
-        object->takeDamage(category_modifier * 6 * (alive_for / 2.0), info);
+    // else
+    //     object->takeDamage(category_modifier * 6 * (alive_for / 2.0), info);
     P<ExplosionEffect> e = new ExplosionEffect();
     e->setSize(category_modifier * 20);
     e->setPosition(getPosition());

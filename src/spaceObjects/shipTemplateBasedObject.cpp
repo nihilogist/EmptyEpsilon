@@ -257,7 +257,7 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
         // Reduce the shield damage by the shield penetration damage
         shield_damage -= shieldPenetrationDamage;
         // If there is a shield up in that area, and there was no shield penetration damage
-        if (shield_level[shield_index] > 0.0 && shieldPenetrationDamage == 0.0) {
+        if (shield_level[shield_index] > 1.0 && shieldPenetrationDamage == 0.0) {
             // then damage is reduced to 0
             damage_amount = 0;
         } else if (shield_level[shield_index] > 0.0 && shieldPenetrationDamage > 0.0) { // if there is a shield up in that area and there was shield penetration damage
