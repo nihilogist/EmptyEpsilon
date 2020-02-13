@@ -81,6 +81,7 @@ ShipTemplateBasedObject::ShipTemplateBasedObject(float collision_range, string m
         shield_level[n] = 0.0;
         shield_max[n] = 0.0;
         shield_hit_effect[n] = 0.0;
+        shieldRechargeDelay[n] = 0.0;
     }
     hull_strength = hull_max = 100.0;
 
@@ -92,6 +93,7 @@ ShipTemplateBasedObject::ShipTemplateBasedObject(float collision_range, string m
         registerMemberReplication(&shield_level[n], 0.5);
         registerMemberReplication(&shield_max[n]);
         registerMemberReplication(&shield_hit_effect[n], 0.5);
+        registerMemberReplication(&shieldRechargeDelay[n], 0.5);
     }
     registerMemberReplication(&radar_trace);
     registerMemberReplication(&hull_strength, 0.5);
@@ -203,12 +205,23 @@ void ShipTemplateBasedObject::update(float delta)
         model_info.setData(ship_template->model_data);
     }
 
+    // Perform shield recharges
     for(int n=0; n<shield_count; n++)
     {
+        // If any shield is at less than full capacity, see how much to recharge it by
         if (shield_level[n] < shield_max[n])
         {
-            shield_level[n] = std::min(shield_max[n], shield_level[n] + delta * getShieldRechargeRate(n));
+            // If we're still waiting on shield recharge, then don't recharge shield but reduce recharge delay
+            if (shieldRechargeDelay[n] > 0.0) {
+                LOG(INFO) << "Shield Recharge Delay start " << shieldRechargeDelay[n];
+                shieldRechargeDelay[n] = std::max(0.0f, shieldRechargeDelay[n] - (delta * getShieldRechargeRate(n)));
+                LOG(INFO) << "Shield Recharge Delay reduced to " << shieldRechargeDelay[n];
+            } else { // Else recharge the shield
+                shield_level[n] = std::min(shield_max[n], shield_level[n] + delta * getShieldRechargeRate(n));
+            }
         }
+
+        // Graphical effect reduction
         if (shield_hit_effect[n] > 0)
         {
             shield_hit_effect[n] -= delta;
@@ -250,11 +263,11 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
         int shield_index = int((angle + arc / 2.0f) / arc);
         shield_index %= shield_count;
         
-        // Calculate the damage to the shields based on the tuning of the shield and the tuning of the beam weapon.
+        // Calculate the damage to the shields based on the type of damage and the shield.
         float shield_damage = damage_amount * getShieldDamageFactor(info, shield_index);
-        // Calculate any shield penetration
+        // Calculate any shield penetration based on the type of damage
         float shieldPenetrationDamage =  damage_amount * getShieldPenetrationDamage(info, shield_index);
-        // Reduce the shield damage by the shield penetration damage
+        // Reduce the shield damage by the shield penetration damage, as that is going to bypass shields completely.
         shield_damage -= shieldPenetrationDamage;
         // If there is a shield up in that area, and there was no shield penetration damage
         if (shield_level[shield_index] > 1.0 && shieldPenetrationDamage == 0.0) {
@@ -267,10 +280,17 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
 
         // Reduce the shield level of the appropriate shield by the shield damage taken.
         shield_level[shield_index] -= shield_damage;
-        // Check for out-of-range values.
+
+        // If there was any shield damage, then add a shield recharge delay time
+        if (shield_damage > 0.0) {
+            shieldRechargeDelay[shield_index] = 3.0;
+        }
+
+        // Check to see if shield was broken
         if (shield_level[shield_index] < 0)
         {
             shield_level[shield_index] = 0.0;
+            shieldRechargeDelay[shield_index] = 25.0;
         } else {
             shield_hit_effect[shield_index] = 1.0;
         }

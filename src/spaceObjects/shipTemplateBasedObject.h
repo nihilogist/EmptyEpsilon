@@ -24,6 +24,7 @@ public:
     int shield_count;
     float shield_level[max_shield_count];
     float shield_max[max_shield_count];
+    float shieldRechargeDelay[max_shield_count];
     float hull_strength, hull_max;
     float armour;
     float shield_hit_effect[max_shield_count];
