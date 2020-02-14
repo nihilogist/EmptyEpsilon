@@ -150,7 +150,7 @@ void StarfighterPilotScreen::onDraw(sf::RenderTarget& window)
         heading_display->setValue(string(fmodf(my_spaceship->getRotation() + 360.0 + 360.0 - 270.0, 360.0), 1));
         float velocity = sf::length(my_spaceship->getVelocity()) / 1000 * 60;
         velocity_display->setValue(string(velocity, 1) + DISTANCE_UNIT_1K + "/min");
-        shields_display->setValue(string(my_spaceship->getShieldPercentage(0)) + "% " + string(my_spaceship->getShieldPercentage(1)) + "%");
+        shields_display->setValue(my_spaceship->getShieldText(0));
 
         targets.set(my_spaceship->getTarget());
 
