@@ -28,7 +28,6 @@ public:
     GuiOverlay* background_crosses;
 
     GuiElement* radar_view;
-    DatabaseViewComponent* database_view;
 
     TargetsContainer targets;
     GuiRadarView* science_radar;
@@ -48,7 +47,6 @@ public:
 
     GuiKeyValueDisplay* info_faction;
     GuiKeyValueDisplay* info_type;
-    GuiButton* info_type_button;
     GuiKeyValueDisplay* info_shields;
     GuiKeyValueDisplay* info_hull;
     GuiScrollText* info_description;

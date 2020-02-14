@@ -101,20 +101,6 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
     info_faction->setSize(GuiElement::GuiSizeMax, 30);
     info_type = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_TYPE", 0.4, "Type", "");
     info_type->setSize(GuiElement::GuiSizeMax, 30);
-    info_type_button = new GuiButton(info_type, "SCIENCE_TYPE_BUTTON", "DB", [this]() {
-        P<SpaceShip> ship = targets.get();
-        if (ship)
-        {
-            if (database_view->findAndDisplayEntry(ship->getTypeName()))
-            {
-                view_mode_selection->setSelectionIndex(1);
-                radar_view->hide();
-                background_gradient->hide();
-                database_view->show();
-            }
-        }
-    });
-    info_type_button->setTextSize(20)->setPosition(0, 1, ATopRight)->setSize(50, 28);
     info_shields = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_SHIELDS", 0.4, "Shields", "");
     info_shields->setSize(GuiElement::GuiSizeMax, 30);
     info_hull = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_HULL", 0.4, "Hull", "");
@@ -166,9 +152,6 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
     info_description = new GuiScrollText(info_sidebar, "SCIENCE_DESC", "");
     info_description->setTextSize(28)->setMargins(20, 20, 0, 0)->setSize(GuiElement::GuiSizeMax, 400)->hide();
 
-    // Prep and hide the database view.
-    database_view = new DatabaseViewComponent(this);
-    database_view->hide()->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
     // Probe view button
     probe_view_button = new GuiToggleButton(radar_view, "PROBE_VIEW", "Probe View", [this](bool value){
@@ -191,7 +174,7 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
             probe_radar->hide();
         }
     });
-    probe_view_button->setPosition(20, -120, ABottomLeft)->setSize(200, 50)->disable();
+    probe_view_button->setPosition(20, -120, ABottomLeft)->setSize(200, 50)->disable()->hide();
 
     // Draw the zoom slider.
     zoom_slider = new GuiSlider(radar_view, "", gameGlobalInfo->long_range_radar_range, 5000.0, gameGlobalInfo->long_range_radar_range, [this](float value)
@@ -207,9 +190,8 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
     view_mode_selection = new GuiListbox(this, "VIEW_SELECTION", [this](int index, string value) {
         radar_view->setVisible(index == 0);
         background_gradient->setVisible(index == 0);
-        database_view->setVisible(index == 1);
     });
-    view_mode_selection->setOptions({"Radar", "Database"})->setSelectionIndex(0)->setPosition(20, -20, ABottomLeft)->setSize(200, 100);
+    view_mode_selection->setOptions({"Radar"})->setSelectionIndex(0)->setPosition(20, -10, ABottomLeft)->setSize(200, 100)->hide();
 
     // Scanning dialog.
     new GuiScanningDialog(this, "SCANNING_DIALOG");
@@ -265,7 +247,6 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
     info_shield_frequency->setFrequency(-1)->hide();
     info_beam_frequency->setFrequency(-1)->hide();
     info_description->hide();
-    info_type_button->hide();
     sidebar_pager->hide();
 
     for(int n = 0; n < SYS_COUNT; n++)
@@ -333,7 +314,6 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
             {
                 info_faction->setValue(factionInfo[obj->getFactionId()]->getName());
                 info_type->setValue(ship->getTypeName());
-                info_type_button->show();
                 info_shields->setValue(ship->getShieldDataString());
                 info_hull->setValue(int(ship->getHull()));
             }
