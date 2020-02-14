@@ -83,6 +83,9 @@ public:
     void setShieldsMax(std::vector<float> amounts);
 
     int getShieldPercentage(int index) { if (index < 0 || index >= shield_count || shield_max[index] <= 0.0) return 0; return int(100 * shield_level[index] / shield_max[index]); }
+
+    // Returns a textual description of the shield state of the shield of the given index. 
+    string getShieldText(int index);
     ESystem getShieldSystemForShieldIndex(int index);
 
     ///Deprecated old script functions for shields

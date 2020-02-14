@@ -416,6 +416,22 @@ void ShipTemplateBasedObject::setShieldsMax(std::vector<float> amounts)
     }
 }
 
+
+string ShipTemplateBasedObject::getShieldText(int index) {
+    if (index < 0 || index >= shield_count) {
+        return "No shields";
+    }
+    int shieldPercentage = int(100 * shield_level[index] / shield_max[index]);
+    if (shieldPercentage > 80) {
+        return "Optimal";
+    } else if (shieldPercentage > 40) {
+        return "Holding";
+    } else if (shieldPercentage > 0) {
+        return "Failing";
+    }
+    return "Down";
+}
+
 ESystem ShipTemplateBasedObject::getShieldSystemForShieldIndex(int index)
 {
     if (shield_count < 2)

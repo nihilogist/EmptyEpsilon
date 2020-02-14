@@ -92,8 +92,7 @@ void WeaponsScreen::onDraw(sf::RenderTarget& window)
     if (my_spaceship)
     {
         energy_display->setValue(string(int(my_spaceship->energy_level)));
-        front_shield_display->setValue(string(my_spaceship->getShieldPercentage(0)) + "%");
-        //rear_shield_display->setValue(string(my_spaceship->getShieldPercentage(1)) + "%");
+        front_shield_display->setValue(my_spaceship->getShieldText(0));
         targets.set(my_spaceship->getTarget());
 
         missile_aim->setVisible(tube_controls->getManualAim());
