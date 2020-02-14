@@ -35,7 +35,11 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                     load_type = MW_HVLI;
                 } else if (my_spaceship->weapon_tube[n].canOnlyLoad(MW_Homing)) {
                     load_type = MW_Homing;
+                } else if (my_spaceship->weapon_tube[n].canOnlyLoad(MW_Seeker)) {
+                    load_type = MW_Seeker;
                 }
+
+
                 if (load_type != MW_None)
                 {
                     my_spaceship->commandLoadTube(n, load_type);
@@ -146,7 +150,7 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
         if(tube.isEmpty())
         {
             // For the macrocannon batteries, always allow loading if cannons are empty
-            if (tube.canOnlyLoad(MW_HVLI) || tube.canOnlyLoad(MW_Homing)) {
+            if (tube.canOnlyLoad(MW_HVLI) || tube.canOnlyLoad(MW_Homing) || tube.canOnlyLoad(MW_Seeker)) {
                 rows[n].load_button->setEnable(true);
             } else {
                 rows[n].load_button->setEnable(tube.canLoad(load_type));

@@ -28,7 +28,8 @@ variation:setShields(22)
 variation:setSpeed(100, 35, 25)
 --                  Arc, Dir, Range, CycleTime, Dmg
 variation:setBeam(0, 30, 0, 1200.0, 1.0, 2)
-variation:setTubes(1, 8)
+variation:setTubes(1, 5)
+variation:setWeaponTubeExclusiveFor(0, "Seeker")
 variation:setTubeDirection(0, 0)
 variation:setWeaponStorage("Seeker", 6)
 
