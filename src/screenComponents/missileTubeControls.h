@@ -4,6 +4,7 @@
 #include "gui/gui2_autolayout.h"
 #include "missileWeaponData.h"
 #include "gui/gui2_slider.h"
+#include "gui/gui2_keyvaluedisplay.h"
 
 class GuiButton;
 class GuiProgressbar;
@@ -26,6 +27,7 @@ private:
     public:
         GuiAutoLayout* layout;
         GuiToggleButton* button;
+        GuiKeyValueDisplay* ammunitionReserve;
     };
     TypeRow load_type_rows[MW_Count];
     EMissileWeapons load_type;

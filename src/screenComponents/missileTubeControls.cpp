@@ -23,7 +23,7 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
         TubeRow row;
         // Each 'row' is actually composed of two rows.
         row.layout = new GuiAutoLayout(this, id + "_ROW_" + string(n), LayoutHorizontalLeftToRight);
-        row.layout->setSize(GuiElement::GuiSizeMax, 50); // Max height is 50
+        row.layout->setSize(GuiElement::GuiSizeMax, 40); // Max height is 40
         // Create the Load button
         row.load_button = new GuiButton(row.layout, id + "_" + string(n) + "_LOAD_BUTTON", "Load", [this, n]() {
             if (!my_spaceship)
@@ -50,7 +50,8 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                 my_spaceship->commandUnloadTube(n);
             }
         });
-        row.load_button->setSize(130, 50);
+        row.load_button->setSize(100, 40);
+        row.load_button->setTextSize(20);
 
         // Create the Fire button
         row.fire_button = new GuiButton(row.layout, id + "_" + string(n) + "_FIRE_BUTTON", "Fire", [this, n]() {
@@ -68,12 +69,13 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                 my_spaceship->commandFireTube(n, target_angle);
             }
         });
-        row.fire_button->setSize(200, 50);
+        row.fire_button->setSize(220, 40);
+        row.fire_button->setTextSize(20);
         // There's a low power / damage indicator as well
         (new GuiPowerDamageIndicator(row.fire_button, id + "_" + string(n) + "_PDI", SYS_MissileSystem, ACenterRight))->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
         // Create the loading progress bar and label
         row.loading_bar = new GuiProgressbar(row.layout, id + "_" + string(n) + "_PROGRESS", 0, 1.0, 0);
-        row.loading_bar->setColor(sf::Color(128, 128, 128))->setSize(200, 50);
+        row.loading_bar->setColor(sf::Color(128, 128, 128))->setSize(210, 40);
         row.loading_label = new GuiLabel(row.loading_bar, id + "_" + string(n) + "_PROGRESS_LABEL", "Loading", 35);
         row.loading_label->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
@@ -96,7 +98,7 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                     my_spaceship->commandTubeRequestTurretAngle(n, value);
                 }
             });
-            row.turretControl->addSnapValue(0.0, 0.1)->setSize(150, GuiElement::GuiSizeMax);
+            row.turretControl->addSnapValue(0.0, 0.1)->setSize(160, GuiElement::GuiSizeMax);
         }
         
         
@@ -118,6 +120,8 @@ GuiMissileTubeControls::GuiMissileTubeControls(GuiContainer* owner, string id)
                 load_type_rows[idx].button->setValue(idx == load_type);
         });
         load_type_rows[n].button->setTextSize(28)->setSize(200, 40);
+        load_type_rows[n].ammunitionReserve = new GuiKeyValueDisplay(load_type_rows[n].layout, id + "_ROW_AMMUNITION_RESERVE_" + string(n), 0.7, getMissileWeaponName(EMissileWeapons(n)), "0");
+        load_type_rows[n].ammunitionReserve->setTextSize(25)->setSize(300, 40);
     }
     load_type_rows[MW_Homing].button->setIcon("gui/icons/weapon-homing.png");
     load_type_rows[MW_Mine].button->setIcon("gui/icons/weapon-mine.png");
@@ -132,6 +136,9 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
     for (int n = 0; n < MW_Count; n++)
     {
         load_type_rows[n].button->setText(getMissileWeaponName(EMissileWeapons(n)) + " [" + string(my_spaceship->weapon_storage[n]) + "/" + string(my_spaceship->weapon_storage_max[n]) + "]");
+        load_type_rows[n].button->setEnable(false);
+        load_type_rows[n].button->setVisible(false);
+        load_type_rows[n].ammunitionReserve->setValue(string(my_spaceship->weapon_storage[n]));
         load_type_rows[n].layout->setVisible(my_spaceship->weapon_storage_max[n] > 0);
     }
     
