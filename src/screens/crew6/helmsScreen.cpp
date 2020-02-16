@@ -14,6 +14,8 @@
 #include "gui/gui2_togglebutton.h"
 #include "gui/gui2_keyvaluedisplay.h"
 #include "gui/gui2_autolayout.h"
+#include "gui/gui2_progressbar.h"
+
 
 HelmsScreen::HelmsScreen(GuiContainer* owner)
 : GuiOverlay(owner, "HELMS_SCREEN", colorConfig.background)
@@ -32,6 +34,8 @@ HelmsScreen::HelmsScreen(GuiContainer* owner)
     
     combat_maneuver = new GuiCombatManeuver(this, "COMBAT_MANEUVER");
     combat_maneuver->setPosition(-20, -20, ABottomRight)->setSize(280, 215);
+    maneuverGauge = new GuiProgressbar(this, id + "_MANEUVER_GAUGE", 0.0, 1.0, 0.0);
+    maneuverGauge->setPosition(-20, -20, ABottomRight)->setSize(200, 50);
     
     radar->setPosition(0, 0, ACenter)->setSize(GuiElement::GuiSizeMatchHeight, 800);
     radar->setRangeIndicatorStepSize(1000.0)->shortRange()->enableGhostDots()->enableWaypoints()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
@@ -64,7 +68,8 @@ HelmsScreen::HelmsScreen(GuiContainer* owner)
         [this](float x_position) {
             if (my_spaceship)
             {
-                float angle = my_spaceship->getRotation() + x_position;
+                // Add some damping cause the turns seem very responsive.
+                float angle = my_spaceship->getRotation() + (x_position / 5);
                 my_spaceship->commandTargetRotation(angle);
             }
         },
@@ -94,8 +99,10 @@ HelmsScreen::HelmsScreen(GuiContainer* owner)
         [this](float r_position) {
             if (my_spaceship)
             {
-                my_spaceship->commandCombatManeuverStrafe(r_position/100);
-                combat_maneuver->setStrafeValue(r_position/100);
+                // Rudder position is deliniated between -1.0 and +1.0
+                my_spaceship->commandHighEnergyTurn(r_position/100);
+                float angle = my_spaceship->getRotation() + r_position;
+                my_spaceship->commandTargetRotation(angle);
             }
         });
     heading_hint = new GuiLabel(this, "HEADING_HINT", "", 30);
@@ -127,6 +134,8 @@ void HelmsScreen::onDraw(sf::RenderTarget& window)
         heading_display->setValue(string(my_spaceship->getHeading(), 1));
         float velocity = sf::length(my_spaceship->getVelocity()) / 1000 * 60;
         velocity_display->setValue(string(velocity, 1) + DISTANCE_UNIT_1K + "/min");
+
+        maneuverGauge->setValue(my_spaceship->combat_maneuver_charge);
         
         warp_controls->setVisible(my_spaceship->has_warp_drive);
         jump_controls->setVisible(my_spaceship->has_jump_drive);

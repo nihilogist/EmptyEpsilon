@@ -53,7 +53,7 @@ class SpaceShip : public ShipTemplateBasedObject
 {
 public:
     constexpr static int max_frequency = 20;
-    constexpr static float combat_maneuver_charge_time = 20.0f; /*< Amount of time it takes to fully charge the combat maneuver system */
+    constexpr static float combat_maneuver_charge_time = 60.0f; /*< Amount of time it takes to fully charge the combat maneuver system */
     constexpr static float combat_maneuver_boost_max_time = 3.0f; /*< Amount of time we can boost with a fully charged combat maneuver system */
     constexpr static float combat_maneuver_strafe_max_time = 3.0f; /*< Amount of time we can strafe with a fully charged combat maneuver system */
     constexpr static float warp_charge_time = 4.0f;
@@ -131,6 +131,7 @@ public:
 
     float combat_maneuver_strafe_request;
     float combat_maneuver_strafe_active;
+    float highEnergyTurnAmount;
 
     float combat_maneuver_boost_speed; /*< [config] Speed to indicate how fast we will fly forwards with a full boost */
     float combat_maneuver_strafe_speed; /*< [config] Speed to indicate how fast we will fly sideways with a full strafe */

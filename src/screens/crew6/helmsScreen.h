@@ -20,6 +20,7 @@ private:
     GuiElement* jump_controls;
     GuiLabel* heading_hint;
     GuiCombatManeuver* combat_maneuver;
+    GuiProgressbar* maneuverGauge;
 public:
     HelmsScreen(GuiContainer* owner);
     

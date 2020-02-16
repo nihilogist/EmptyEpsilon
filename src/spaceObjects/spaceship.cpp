@@ -114,6 +114,7 @@ SpaceShip::SpaceShip(string multiplayerClassName, float multiplayer_significant_
     combat_maneuver_strafe_active = 0.0;
     combat_maneuver_boost_speed = 0.0f;
     combat_maneuver_strafe_speed = 0.0f;
+    highEnergyTurnAmount = 0.0f;
     target_id = -1;
     beam_frequency = irandom(0, max_frequency);
     beam_system_target = SYS_None;
@@ -447,14 +448,6 @@ void SpaceShip::update(float delta)
         if (docking_state == DS_Docking)
         {
             destroy();
-            // if (!docking_target)
-            //     docking_state = DS_NotDocking;
-            // else
-            //     target_rotation = sf::vector2ToAngle(getPosition() - docking_target->getPosition());
-            // if (fabs(sf::angleDifference(target_rotation, getRotation())) < 10.0)
-            //     impulse_request = -1.0;
-            // else
-            //     impulse_request = 0.0;
         }
         if (docking_state == DS_Docked)
         {
@@ -482,15 +475,30 @@ void SpaceShip::update(float delta)
             warp_request = 0.0;
     }
 
-    float rotationDiff = sf::angleDifference(getRotation(), target_rotation);
+    // Handle the turning of the ship
+    // First, in the case that there is no high energy turn selected:
+    float rotationDiff = 0.0;
+    float currentTurnSpeed = turn_speed;
+    rotationDiff = sf::angleDifference(getRotation(), target_rotation);
 
-    if (rotationDiff > 1.0)
-        setAngularVelocity(turn_speed * getSystemEffectiveness(SYS_Maneuver));
-    else if (rotationDiff < -1.0)
-        setAngularVelocity(-turn_speed * getSystemEffectiveness(SYS_Maneuver));
-    else
-        setAngularVelocity(rotationDiff * turn_speed * getSystemEffectiveness(SYS_Maneuver));
+    // Cap the rotation differential to 1.0
+    if (rotationDiff > 1.0) {
+        rotationDiff = 1.0;
+    } else if (rotationDiff < -1.0) {
+        rotationDiff = -1.0;
+    }
 
+    // Adjust the turn speed based on high energy turn amount and if there is combat maneuver gauge left
+    if (highEnergyTurnAmount > 0.0 && combat_maneuver_charge > 0.0) {
+        currentTurnSpeed += (highEnergyTurnAmount * 6);
+    } else if (highEnergyTurnAmount < 0.0 && combat_maneuver_charge > 0.0) {
+        currentTurnSpeed -= (highEnergyTurnAmount * 6);
+    }
+    
+    setAngularVelocity(rotationDiff * currentTurnSpeed * getSystemEffectiveness(SYS_Maneuver));
+
+
+    // Handle Jump Drive
     if ((has_jump_drive && jump_delay > 0) || (has_warp_drive && warp_request > 0))
     {
         if (WarpJammer::isWarpJammed(getPosition()))
@@ -616,11 +624,12 @@ void SpaceShip::update(float delta)
     }
 
     // If the ship is making a combat maneuver ...
-    if (combat_maneuver_boost_active != 0.0 || combat_maneuver_strafe_active != 0.0)
+    if (combat_maneuver_boost_active != 0.0 || combat_maneuver_strafe_active != 0.0 || highEnergyTurnAmount != 0.0)
     {
         // ... consume its combat maneuver boost.
         combat_maneuver_charge -= fabs(combat_maneuver_boost_active) * delta / combat_maneuver_boost_max_time;
         combat_maneuver_charge -= fabs(combat_maneuver_strafe_active) * delta / combat_maneuver_strafe_max_time;
+        combat_maneuver_charge -= 0.1 * delta;
 
         // Use boost only if we have boost available.
         if (combat_maneuver_charge <= 0.0)
@@ -640,6 +649,7 @@ void SpaceShip::update(float delta)
         if (combat_maneuver_charge > 1.0)
             combat_maneuver_charge = 1.0;
     }
+
 
     // Add heat to systems consuming combat maneuver boost.
     addHeat(SYS_Impulse, fabs(combat_maneuver_boost_active) * delta * heat_per_combat_maneuver_boost);

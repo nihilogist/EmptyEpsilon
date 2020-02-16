@@ -238,8 +238,12 @@ public:
     void commandActivateSelfDestruct();
     void commandCancelSelfDestruct();
     void commandConfirmDestructCode(int8_t index, uint32_t code);
+    // Commands the ship to execute a combat maneuver to boost speed
     void commandCombatManeuverBoost(float amount);
+    // Commands the ship to execute a strafe maneuver to move directly sideways
     void commandCombatManeuverStrafe(float strafe);
+    // Commands the ship to execute a high energy turn
+    void commandHighEnergyTurn(float amount);
     void commandLaunchProbe(sf::Vector2f target_position);
     void commandScanDone();
     void commandScanCancel();

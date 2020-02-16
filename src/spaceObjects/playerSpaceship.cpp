@@ -183,6 +183,7 @@ static const int16_t CMD_SET_MAIN_SCREEN_OVERLAY = 0x0027;
 static const int16_t CMD_HACKING_FINISHED = 0x0028;
 static const int16_t CMD_CUSTOM_FUNCTION = 0x0029;
 static const int16_t CMD_REQUEST_MISSILE_TUBE_ANGLE = 0x002A;
+static const int16_t CMD_HIGH_ENERGY_TURN = 0x002B;
 
 string alertLevelToString(EAlertLevel level)
 {
@@ -1084,6 +1085,7 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
     switch(command)
     {
     case CMD_TARGET_ROTATION:
+        LOG(INFO) << "Target rotation set: " << target_rotation;
         packet >> target_rotation;
         break;
     case CMD_IMPULSE:
@@ -1532,7 +1534,15 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
                 weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
             }
         }
+        break;
+        case CMD_HIGH_ENERGY_TURN: {
+            // Execute code for high energy turn
+            float requestedHighEnergyTurnAmount;
+            packet >> requestedHighEnergyTurnAmount;
+            LOG(INFO) << "High energy turn requested: " << requestedHighEnergyTurnAmount;
+        }
     }
+    
     
 
 }
@@ -1803,6 +1813,13 @@ void PlayerSpaceship::commandCombatManeuverStrafe(float amount)
     combat_maneuver_strafe_request = amount;
     sf::Packet packet;
     packet << CMD_COMBAT_MANEUVER_STRAFE << amount;
+    sendClientCommand(packet);
+}
+
+void PlayerSpaceship::commandHighEnergyTurn(float amount) {
+    highEnergyTurnAmount = amount;
+    sf::Packet packet;
+    packet << CMD_HIGH_ENERGY_TURN << amount;
     sendClientCommand(packet);
 }
 

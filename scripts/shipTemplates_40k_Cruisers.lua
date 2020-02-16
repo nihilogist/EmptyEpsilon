@@ -16,7 +16,7 @@ template:setDescription([[This ship was built to address the desperate need for 
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(750)
 template:setShields(200, 200, 200, 200)
-template:setSpeed(30, 3.5, 5)
+template:setSpeed(30, 3, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 90, 0, 5000.0, 20.0, 30)
 template:setTubes(2, 10.0)
