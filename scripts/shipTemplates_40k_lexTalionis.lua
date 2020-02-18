@@ -1,4 +1,4 @@
-template = ShipTemplate():setName("Regency Pattern Dauntless"):setClass("Cruiser", "Light Cruiser"):setModel("battleship_destroyer_1_upgraded"):setType("playership")
+template = ShipTemplate():setName("Regency Pattern Dauntless"):setClass("Cruiser", "Light Cruiser"):setModel("space_station_5"):setType("playership")
 template:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(1000)
