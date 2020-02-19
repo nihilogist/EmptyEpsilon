@@ -1,5 +1,5 @@
 -- Name: Nebula Navigation
--- Description: Tests the Nebula maze
+-- Description: Tests the Nebula maze. Navigational chart is head 9.65U at 39.5 degrees from Terran Star. Then 6.71U at 178 degrees. Then continue on 87 degrees.
 -- Type: Basic
 
 
@@ -242,7 +242,7 @@ function init()
     Mine():setPosition(11523, -3542)
     Mine():setPosition(10220, -4072)
     Mine():setPosition(5916, 2849)
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Cruiser"):setCallSign("UTI2"):setPosition(357, 1559):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Cruiser"):setCallSign("Terran Star"):setPosition(-11, 3370):orderRoaming()
 
     
 
