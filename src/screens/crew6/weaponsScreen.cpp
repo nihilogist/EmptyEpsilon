@@ -31,7 +31,7 @@ WeaponsScreen::WeaponsScreen(GuiContainer* owner)
 
     radar = new GuiRadarView(this, "HELMS_RADAR", 10000.0, &targets);
     radar->setPosition(0, 0, ACenter)->setSize(GuiElement::GuiSizeMatchHeight, 800);
-    radar->setRangeIndicatorStepSize(1000.0)->shortRange()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
+    radar->setRangeIndicatorStepSize(1000.0)->shortRange()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular)->setFogOfWarStyle(GuiRadarView::NebulaFogOfWar);
     radar->setCallbacks(
         [this](sf::Vector2f position) {
             targets.setToClosestTo(position, 250, TargetsContainer::Targetable);
