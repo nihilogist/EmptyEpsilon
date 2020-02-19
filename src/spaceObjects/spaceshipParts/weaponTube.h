@@ -47,6 +47,9 @@ public:
     bool canOnlyLoad(EMissileWeapons type);
     void allowLoadOf(EMissileWeapons type);
     void disallowLoadOf(EMissileWeapons type);
+
+    // Returns the EMissileWeapons enum value that this tube is exclusive for, MW_None if not set.
+    EMissileWeapons isExclusiveFor();
     
     void setSize(EMissileSizes size);
     EMissileSizes getSize();

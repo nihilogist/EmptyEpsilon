@@ -232,8 +232,13 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
 
         for(int n=0; n<my_spaceship->weapon_tube_count; n++)
         {
-            if (key.hotkey == "LOAD_TUBE_" + string(n+1))
-                my_spaceship->commandLoadTube(n, load_type);
+            if (key.hotkey == "LOAD_TUBE_" + string(n+1)) {
+                if (my_spaceship->weapon_tube[n].isExclusiveFor() != MW_None) {
+                    my_spaceship->commandLoadTube(n, my_spaceship->weapon_tube[n].isExclusiveFor());
+                } else {
+                    my_spaceship->commandLoadTube(n, load_type);
+                }
+            }
             if (key.hotkey == "UNLOAD_TUBE_" + string(n+1))
                 my_spaceship->commandUnloadTube(n);
             if (key.hotkey == "FIRE_TUBE_" + string(n+1))

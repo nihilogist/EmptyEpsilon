@@ -371,6 +371,18 @@ EMissileWeapons WeaponTube::getLoadType()
     return type_loaded;
 }
 
+EMissileWeapons WeaponTube::isExclusiveFor() {
+    if (canOnlyLoad(MW_HVLI)) {
+        return MW_HVLI;
+    } else if (canOnlyLoad(MW_Homing)) {
+        return MW_Homing;
+    } else if (canOnlyLoad(MW_Seeker)) {
+        return MW_Seeker;
+    } else {
+        return MW_None;
+    }
+}
+
 string WeaponTube::getTubeName()
 {
     if (std::abs(sf::angleDifference(0.0f, direction)) <= 45)
