@@ -213,9 +213,7 @@ void ShipTemplateBasedObject::update(float delta)
         {
             // If we're still waiting on shield recharge, then don't recharge shield but reduce recharge delay
             if (shieldRechargeDelay[n] > 0.0) {
-                LOG(INFO) << "Shield Recharge Delay start " << shieldRechargeDelay[n];
                 shieldRechargeDelay[n] = std::max(0.0f, shieldRechargeDelay[n] - (delta * getShieldRechargeRate(n)));
-                LOG(INFO) << "Shield Recharge Delay reduced to " << shieldRechargeDelay[n];
             } else { // Else recharge the shield
                 shield_level[n] = std::min(shield_max[n], shield_level[n] + delta * getShieldRechargeRate(n));
             }
@@ -304,7 +302,6 @@ void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
     }
 
     // If the shipTemplateBasedObject has armour, then deduct that value from the damage as well 
-    LOG(INFO) << "Armour: " << armour << " and damage amount: " << damage_amount;
     if (armour > 0.0) {
         damage_amount -= armour;
         // Check for out of range damage.

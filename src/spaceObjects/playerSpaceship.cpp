@@ -1085,7 +1085,6 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
     switch(command)
     {
     case CMD_TARGET_ROTATION:
-        LOG(INFO) << "Target rotation set: " << target_rotation;
         packet >> target_rotation;
         break;
     case CMD_IMPULSE:
@@ -1539,7 +1538,6 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             // Execute code for high energy turn
             float requestedHighEnergyTurnAmount;
             packet >> requestedHighEnergyTurnAmount;
-            LOG(INFO) << "High energy turn requested: " << requestedHighEnergyTurnAmount;
         }
     }
     
