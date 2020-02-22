@@ -287,3 +287,13 @@ template<> int convert<EAIOrder>::returnType(lua_State* L, EAIOrder o)
     lua_pushstring(L, getAIOrderString(o).c_str());
     return 1;
 }
+
+float CpuShip::getDistanceToTarget() {
+    // if no target selected return 0
+    if (order_target == nullptr) {
+        return 0;
+    } else {
+        sf::Vector2f position_diff = order_target->getPosition() - getPosition();
+        return sf::length(position_diff);
+    }
+}

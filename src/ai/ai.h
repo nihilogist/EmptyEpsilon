@@ -77,6 +77,11 @@ protected:
      * Used for missiles, as they require some intelligence to fire.
      */
     float calculateFiringSolution(P<SpaceObject> target, int tube_index);
+
+    // Returns the currently preferred missile weapon to engage with.
+    EMissileWeapons getPreferredWeaponType();
+
+    
 };
 
 #endif//AI_H

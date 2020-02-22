@@ -1187,6 +1187,16 @@ std::unordered_map<string, string> SpaceShip::getGMInfo()
     return ret;
 }
 
+float SpaceShip::getAngleToTarget() {
+    P<SpaceObject> targetedObject = getTarget();
+    
+    if (targetedObject) {
+        return sf::angleDifference(getRotation(), sf::vector2ToAngle(targetedObject->getPosition() - getPosition()));
+    } else {
+        return 0.0;
+    }
+}
+
 string SpaceShip::getScriptExportModificationsOnTemplate()
 {
     // Exports attributes common to ships as Lua script function calls.

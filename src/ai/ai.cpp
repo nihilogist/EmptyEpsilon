@@ -94,11 +94,11 @@ static float getMissileWeaponStrength(EMissileWeapons type)
     switch(type)
     {
     case MW_Nuke:
-        return 250;
+        return 2;
     case MW_EMP:
-        return 150;
+        return 1;
     case MW_HVLI:
-        return 20;
+        return 6;
     default:
         return 35;
     }
@@ -137,7 +137,8 @@ void ShipAI::updateWeaponState(float delta)
             int index = getDirectionIndex(tube.getDirection(), 90);
             if (index >= 0)
             {
-                tube_strength_per_direction[index] += getMissileWeaponStrength(tube.getLoadType()) / tube.getLoadTimeConfig();
+                // tube_strength_per_direction[index] += getMissileWeaponStrength(tube.getLoadType()) / tube.getLoadTimeConfig();
+                tube_strength_per_direction[index] += tube.getTubeDamagePotential();
             }
         }
     }
@@ -418,16 +419,19 @@ void ShipAI::runOrders()
 
 void ShipAI::runAttack(P<SpaceObject> target)
 {
-    float attack_distance = 4000.0;
-    if (has_missiles && best_missile_type == MW_HVLI)
-        attack_distance = 2500.0;
+    // calculate the ideal attack range based on the preferred weapon
+    // float attack_distance = 4000.0;
+    float attack_distance = MissileWeaponData::getDataFor(getPreferredWeaponType()).engagementRange;
     if (has_beams)
         attack_distance = beam_weapon_range * 0.7;
 
+    // Get current range to target
     sf::Vector2f position_diff = target->getPosition() - owner->getPosition();
     float distance = sf::length(position_diff);
 
-    if (distance < 4500 && has_missiles)
+    // If within weapons radar range and has missiles
+
+    if (distance < 10000 && has_missiles)
     {
         for(int n=0; n<owner->weapon_tube_count; n++)
         {
@@ -639,28 +643,96 @@ bool ShipAI::betterTarget(P<SpaceObject> new_target, P<SpaceObject> current_targ
     return false;
 }
 
+EMissileWeapons ShipAI::getPreferredWeaponType() {
+    if (owner->weapon_tube_count == 0) {
+        return MW_None;
+    } else {
+        // get the range to the current target
+        float rangeToTarget = owner->getDistanceToTarget();
+        // check through the available ammo stores in range order
+        if (rangeToTarget > 6000 && owner->weapon_storage[MW_Homing] > 0) {
+            return MW_Homing;
+        } else if (owner->weapon_storage[MW_HVLI] > 0) {
+            return MW_HVLI;
+        }
+    }
+    return MW_None;
+}
+
 float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
 {
+
     if (P<ScanProbe>(target))   //Never fire missiles on scan probes
         return std::numeric_limits<float>::infinity();
     
     EMissileWeapons type = owner->weapon_tube[tube_index].getLoadType();
+    const MissileWeaponData& data = MissileWeaponData::getDataFor(type);
 
-    if (type == MW_HVLI)    //Custom HVLI targeting for AI, as the calculate firing solution
+    // calculate range to target:
+    
+
+    if (data.turnrate == 0.0)    // Custom targeting for any missiles that do not have a turn rate.
     {
-        const MissileWeaponData& data = MissileWeaponData::getDataFor(type);
-
-        sf::Vector2f target_position = target->getPosition();
-        float target_angle = sf::vector2ToAngle(target_position - owner->getPosition());
-        float fire_angle = owner->getRotation() + owner->weapon_tube[tube_index].getDirection();
         
-        float distance = sf::length(owner->getPosition() - target_position);
-        //HVLI missiles do not home or turn. So use a different targeting mechanism.
-        float angle_diff = sf::angleDifference(target_angle, fire_angle);
 
-        //Target is moving. Estimate where he will be when the missile hits.
+        // Set the target's position
+        sf::Vector2f target_position = target->getPosition();
+        // Get the current position of the parent
+        sf::Vector2f selfPosition = owner->getPosition();
+        // Calculate the current angle to target
+        // float target_angle = sf::vector2ToAngle(target_position - selfPosition);
+
+        // Get the current bearing of ourselves
+        float currentBearing = owner->getRotation();
+        // Get the bearing of the weapons tube under consideration
+        float tubeBearing = owner->weapon_tube[tube_index].getDirection();
+        
+        // Calculate the fire angle of the weapons tube under consideration
+        float fire_angle = currentBearing + tubeBearing;
+        
+        // Calculate the range to target
+        float distance = sf::length(selfPosition - target_position);
+
+        // If the range to the target exceeds the maximum engagement range then return no solution
+        if (distance > data.maximumRange) {
+            return std::numeric_limits<float>::infinity();
+        }
+
+        //Calculate the time to target
         float fly_time = distance / data.speed;
-        target_position += target->getVelocity() * fly_time;
+        // Calculate the target's position when time to target has elapsed.
+        sf::Vector2f correctedTargetPosition = target_position + target->getVelocity() * fly_time;
+
+        // Finally, use the new target position as the firing angle
+        float correctedTargetAngle = sf::vector2ToAngle(correctedTargetPosition - owner->getPosition());
+
+        // Calculate the difference between the angle to target and the angle of the tube
+        float angle_diff = sf::angleDifference(correctedTargetAngle, fire_angle);
+
+        // Absolute value of angle difference
+        float absoluteAngleDifference = fabs(angle_diff);
+
+        // Maximum turret deflection
+        float maximumTurretDeflection = owner->weapon_tube[tube_index].getMaximumTurretDeflection();
+
+        // If that difference is less than half of the turret's arc, then we're good to fire.
+        if (absoluteAngleDifference < maximumTurretDeflection) {
+            // Adjust the angle_diff by a random amount based on expected flight time.
+            float marksmanshipError;
+            float targetRawSpeed = sf::length(target->getVelocity());
+            if (type == MW_HVLI) {
+                marksmanshipError = random((0 - (fly_time * targetRawSpeed / 5)), fly_time * targetRawSpeed / 5);
+            } else if (type == MW_Homing) {
+                marksmanshipError = random((0 - (fly_time * targetRawSpeed / 20)), fly_time * targetRawSpeed / 20);
+            }
+            LOG(INFO) << "Firing with marksmanship error of " << string(marksmanshipError);
+            angle_diff += marksmanshipError;
+            // set the turret offset to what is needed to fire
+            owner->weapon_tube[tube_index].setTurretOffsetActual(0 - angle_diff);
+            owner->weapon_tube[tube_index].setTurretOffsetRequested(0 - angle_diff);
+            // LOG(INFO) << "Setting tube offset to " << string(0 - angle_diff) << " and returning fire angle of " << string(fire_angle) << " for tube " << string(tube_index) ;
+            return fire_angle;
+        }
 
         //If our "error" of hitting is less then double the radius of the target, fire.
         if (fabs(angle_diff) < 80.0 && distance * tanf(fabs(angle_diff) / 180.0f * M_PI) < target->getRadius() * 2.0)

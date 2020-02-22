@@ -33,7 +33,7 @@ template<> int convert<EMissileSizes>::returnType(lua_State* L, EMissileSizes es
 class MissileWeaponData
 {
 public:
-    MissileWeaponData(float speed, float turnrate, float lifetime, sf::Color color, float homing_range, string fire_sound);
+    MissileWeaponData(float speed, float turnrate, float lifetime, sf::Color color, float homing_range, string fire_sound, float defaultDamage, float engagementRange, float maximumRange);
     
     float speed; //meter/sec
     float turnrate; //deg/sec
@@ -43,6 +43,13 @@ public:
     float homing_range;
     
     string fire_sound;
+
+    // The default damage of the missile weapon
+    float defaultDamage;
+    // The ideal engagement range of the weapon.
+    float engagementRange;
+    // The maximum considered engagement range of the weapon
+    float maximumRange;
 
     static const MissileWeaponData& getDataFor(EMissileWeapons type);
 };

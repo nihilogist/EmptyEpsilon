@@ -79,18 +79,34 @@ public:
     
     void update(float delta);
 
+    // Returns true if the tube is empty, and false if not.
     bool isEmpty();
+    // Returns true if the tube is loaded, and false if the tube is not.
     bool isLoaded();
+    // Returns true if the tube is currently loading, and false if the tube is not.
     bool isLoading();
+    // Returns true if the tube is currently unloading, and false if the tube is not.
     bool isUnloading();
+    // Returns true if the tube is currently firing, and false if the tube is not.
     bool isFiring();
     
+    // Returns the current loading progress of the tube.
     float getLoadProgress();
+    // Returns the current unloading progress of the tube.
     float getUnloadProgress();
-
+    // Returns the weapon type that the tube is currently loaded with.
     EMissileWeapons getLoadType();
+
+    // Returns the tube's current considered damage potential, based on shot type, battery size, and loading progress.
+    float getTubeDamagePotential();
+    
+    // Returns true if the spaceship's current target is within arc of the weapon tube's turret.
+    bool isTargetInTurretArc();
     
     string getTubeName(); //Get the tube name based on the direction of the tube.
+
+    // Returns the maximum possible turret deflection
+    float getMaximumTurretDeflection();
 
     //Calculate a possible firing solution towards the target for this missile tube.
     //Will return the angle that the missile needs to turn to to possibly hit this target.
@@ -127,6 +143,9 @@ private:
     float turretOffsetRequested;
     // The maximum rotation speed of the missile tube turret
     float turretRotationSpeed;
+    // Returns true if the supplied argument would fall outside of the weapon tube's turret arc.
+    bool isTurretOffsetOutsideTurretArc(float turretOffset);
+    
 };
 
 #endif//WEAPON_TUBE_H

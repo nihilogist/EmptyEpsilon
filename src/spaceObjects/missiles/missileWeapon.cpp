@@ -17,6 +17,10 @@ MissileWeapon::MissileWeapon(string multiplayer_name, const MissileWeaponData& d
     launch_sound_played = false;
 }
 
+MissileWeaponData MissileWeapon::getMissileWeaponData() {
+    return data;
+}
+
 void MissileWeapon::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range)
 {
     if (long_range) return;

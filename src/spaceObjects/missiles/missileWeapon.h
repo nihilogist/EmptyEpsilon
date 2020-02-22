@@ -23,6 +23,9 @@ public:
 
     MissileWeapon(string multiplayer_name, const MissileWeaponData& data);
 
+    // Returns the configuration data for this missile type.
+    MissileWeaponData getMissileWeaponData();
+
     virtual void drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range);
     virtual void update(float delta);
 

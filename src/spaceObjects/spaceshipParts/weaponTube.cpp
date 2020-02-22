@@ -197,8 +197,10 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->setPosition(fireLocation);
             double driftAngle = (rand() % int(this->getSalvoSpread())) - (this->getSalvoSpread() / 2); // Drift angle is defined by salvo spread
             // Calculate the direction from the turret as well
-            missile->setRotation(parent->getRotation() + this->getTurretDirection() + driftAngle);
-            missile->target_angle = parent->getRotation() + direction;
+            float missileRotation = parent->getRotation() + this->getTurretDirection() + driftAngle;
+            float missileTargetAngle = parent->getRotation() + direction;
+            missile->setRotation(missileRotation);
+            missile->target_angle = missileTargetAngle;
             missile->category_modifier = getSizeCategoryModifier();
         }
         break;
@@ -371,6 +373,36 @@ EMissileWeapons WeaponTube::getLoadType()
     return type_loaded;
 }
 
+float WeaponTube::getTubeDamagePotential() {
+    // if the tube is loaded then return data based on salvo size and shot type
+    if (isLoaded()) { // if the tube has a weapon type loaded or loading, then return damage based on the salvo size.
+        float shotDamage = MissileWeaponData::getDataFor(getLoadType()).defaultDamage;
+        return shotDamage * getBatterySize();
+    } else if (isLoading()) { // return data based on based on salvo size and loading progress
+        float shotDamage = MissileWeaponData::getDataFor(getLoadType()).defaultDamage;
+        return shotDamage * getBatterySize() * getLoadProgress();
+    } else {
+        return 0.0;
+    }
+}
+
+
+bool WeaponTube::isTargetInTurretArc() {
+    // if the SpaceShip that this tube belongs to has no target then return false
+    if (parent->target_id < 0) {
+        return false;
+    } else { // find the angle to the target and see if it falls in the turret arc.
+        // Get the angle to the target:
+        float angleToTarget = parent->getAngleToTarget();
+        if (angleToTarget > getTurretDirection() - (getTurretArc() / 2) && angleToTarget < getTurretDirection() + (getTurretArc() / 2)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 EMissileWeapons WeaponTube::isExclusiveFor() {
     if (canOnlyLoad(MW_HVLI)) {
         return MW_HVLI;
@@ -497,7 +529,7 @@ bool WeaponTube::isTurreted() {
 }
 
 void WeaponTube::setTurretOffsetActual(float turretOffsetActual) {
-    this->turretOffsetActual = turretOffsetActual;
+        this->turretOffsetActual = turretOffsetActual;    
 }
 
 float WeaponTube::getTurretOffsetActual() {
@@ -505,7 +537,7 @@ float WeaponTube::getTurretOffsetActual() {
 }
 
 void WeaponTube::setTurretOffsetRequested(float turretOffsetRequested) {
-    this->turretOffsetRequested = turretOffsetRequested;
+        this->turretOffsetRequested = turretOffsetRequested;
 }
 
 float WeaponTube::getTurretOffsetRequested(){
@@ -518,6 +550,18 @@ void WeaponTube::setTurretRotationSpeed(float turretRotationSpeed) {
 
 float WeaponTube::getTurretRotationSpeed() {
     return turretRotationSpeed;
+}
+
+bool WeaponTube::isTurretOffsetOutsideTurretArc(float turretOffset) {
+    if (fabs(turretOffset) < (getMaximumTurretDeflection())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+float WeaponTube::getMaximumTurretDeflection() {
+    return getTurretArc() / 2;
 }
 
     
