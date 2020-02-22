@@ -5,7 +5,10 @@ template:setHull(1000)
 template:setShields(200)
 template:setSpeed(25, 3, 15)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 90, 0, 5000.0, 10.0, 60)
+template:setBeam(0, 2, 0, 5000.0, 30.0, 60)
+template:setBeamWeaponTurret(0, 90, 0, 0.2)
+template:setBeamWeaponEnergyPerFire(0, 5)
+template:setBeamWeaponHeatPerFire(0, 0.02)
 
 template:setWeaponStorage("Homing", 12)
 template:setWeaponStorage("HVLI", 500)
