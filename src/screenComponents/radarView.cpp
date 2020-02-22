@@ -593,11 +593,26 @@ void GuiRadarView::drawObjects(sf::RenderTarget& window_normal, sf::RenderTarget
         if (obj != *my_spaceship && rect.intersects(object_rect))
         {
             sf::RenderTarget* window = &window_normal;
-            if (!obj->canHideInNebula())
+            if (!obj->canHideInNebula()) {
                 window = &window_alpha;
+            }
             obj->drawOnRadar(*window, object_position_on_screen, scale, long_range);
-            if (show_callsigns && obj->getCallSign() != "")
+            if (show_callsigns && obj->getCallSign() != "") {
                 drawText(*window, sf::FloatRect(object_position_on_screen.x, object_position_on_screen.y - 15, 0, 0), obj->getCallSign(), ACenter, 15, bold_font);
+            }
+            // Check to see if the object is scanned
+            if (my_spaceship) {
+                if (obj->getScannedStateFor(my_spaceship) == SS_NotScanned || obj->getScannedStateFor(my_spaceship) == SS_FriendOrFoeIdentified) {
+                    // if not, then check to see if it is close enough to autoscan
+                    sf::Vector2f objectPosition = obj->getPosition();
+                    sf::Vector2f myPosition = my_spaceship->getPosition();
+                    float objectRange = sf::length(objectPosition - myPosition);
+                    if (objectRange < 2000) {
+                        obj->setScannedStateFor(my_spaceship, SS_SimpleScan);
+                    }
+                }
+                
+            } 
         }
     }
     if (my_spaceship)
