@@ -288,11 +288,11 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
 
             // Color beam arcs red.
             // TODO: Make this color configurable.
-            sf::Color color = sf::Color::Red;
+            sf::Color color = sf::Color(255, 10, 10, 180);
 
             // If the beam is cooling down, flash and fade the arc color.
             if (beam_weapons[n].getCooldown() > 0)
-                color = sf::Color(255, 255 * (beam_weapons[n].getCooldown() / beam_weapons[n].getCycleTime()), 0);
+                color = sf::Color(255, 255 * (beam_weapons[n].getCooldown() / beam_weapons[n].getCycleTime()), 0, 180);
 
             // Initialize variables from the beam's data.
             float beam_direction = beam_weapons[n].getDirection();
@@ -402,6 +402,9 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
     objectSprite.setRotation(getRotation());
     objectSprite.setPosition(position);
     double spriteScale = scale * 5;
+    if (spriteScale < 0.2) {
+        spriteScale = 0.2;
+    }
     objectSprite.setScale(spriteScale, spriteScale);
 
     if (my_spaceship == this)

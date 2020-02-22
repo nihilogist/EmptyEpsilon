@@ -26,6 +26,7 @@ public:
 
     void setSource(P<SpaceObject> source, sf::Vector3f offset);
     void setTarget(P<SpaceObject> target, sf::Vector2f hitLocation);
+    virtual void drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range) override;
 
     ///Set the texture used for this beam. Default is beam_orange.png
     void setTexture(string texture) {this->beam_texture = texture;}
