@@ -160,7 +160,7 @@ void WeaponTube::spawnProjectile(float target_angle)
             P<HomingMissile> missile = new HomingMissile();
             missile->owner = parent;
             missile->setFactionId(parent->getFactionId());
-            missile->target_id = parent->target_id;
+            //missile->target_id = parent->target_id;
             missile->setPosition(fireLocation);
             missile->setRotation(target_angle);
             missile->target_angle = target_angle;
