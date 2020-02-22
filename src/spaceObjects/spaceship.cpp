@@ -401,10 +401,9 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
 
     objectSprite.setRotation(getRotation());
     objectSprite.setPosition(position);
-    if (long_range)
-    {
-        objectSprite.setScale(0.7, 0.7);
-    }
+    double spriteScale = scale * 5;
+    objectSprite.setScale(spriteScale, spriteScale);
+
     if (my_spaceship == this)
     {
         objectSprite.setColor(sf::Color(192, 192, 255));

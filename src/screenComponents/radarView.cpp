@@ -534,6 +534,7 @@ void GuiRadarView::drawMissileTubes(sf::RenderTarget& window)
 void GuiRadarView::drawObjects(sf::RenderTarget& window_normal, sf::RenderTarget& window_alpha)
 {
     sf::Vector2f radar_screen_center(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
+    // Define the scale of the radar view: this is based on the size of the view window and the distance configuration.
     float scale = std::min(rect.width, rect.height) / 2.0f / distance;
 
     std::set<SpaceObject*> visible_objects;

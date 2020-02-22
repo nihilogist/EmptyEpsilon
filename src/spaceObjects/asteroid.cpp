@@ -54,7 +54,7 @@ void Asteroid::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, floa
         setRadius(size);
 
     sf::Sprite object_sprite;
-    textureManager.setTexture(object_sprite, "RadarBlip.png");
+    textureManager.setTexture(object_sprite, "RadarAsteroid.png");
     object_sprite.setRotation(getRotation());
     object_sprite.setPosition(position);
     object_sprite.setColor(sf::Color(255, 200, 100));
