@@ -162,7 +162,7 @@ void WeaponTube::spawnProjectile(float target_angle)
             missile->setFactionId(parent->getFactionId());
             missile->target_id = parent->target_id;
             missile->setPosition(fireLocation);
-            missile->setRotation(parent->getRotation() + direction);
+            missile->setRotation(target_angle);
             missile->target_angle = target_angle;
             missile->category_modifier = getSizeCategoryModifier();
         }
@@ -561,6 +561,9 @@ bool WeaponTube::isTurretOffsetOutsideTurretArc(float turretOffset) {
 }
 
 float WeaponTube::getMaximumTurretDeflection() {
+    if (!turreted) {
+        return 0.0f;
+    }
     return getTurretArc() / 2;
 }
 

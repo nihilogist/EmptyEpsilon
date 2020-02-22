@@ -15,7 +15,7 @@ function init()
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless")
     lexTalionis:setCallSign("Lex Talionis")
     
-    CpuShip():setFaction("Rising Flame"):setTemplate("Sword"):setCallSign("UTI7"):setPosition(8089, 150):orderRoaming():setWeaponStorage("Macro", 97)
+    CpuShip():setFaction("Rising Flame"):setTemplate("Pirate Destroyer"):setCallSign("UTI7"):setPosition(8089, 150):orderRoaming():setWeaponStorage("Macro", 97)
 
 
 

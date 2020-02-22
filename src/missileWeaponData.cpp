@@ -3,7 +3,7 @@
 MissileWeaponData missile_data[MW_Count] =
 {
     //                speed, turnrate, lifetime, color, homing_range
-    MissileWeaponData(180.0f, 10.f, 140.0f, sf::Color(255, 200, 0), 200.0, "sfx/rlaunch.wav", 35.0, 7000, 9000),/*MW_Homing -- now used for torpedoes*/
+    MissileWeaponData(180.0f, 0.f, 140.0f, sf::Color(255, 200, 0), 0.0, "sfx/rlaunch.wav", 35.0, 7000, 9000),/*MW_Homing -- now used for torpedoes*/
     MissileWeaponData(1500.0f, 0.f, 2.0f, sf::Color(255, 100, 32), 0.0, "sfx/laser_fire.wav", 2.0, 700, 1000),/*MW_Nuke -- now used for lascannon batteries*/
     MissileWeaponData(100.0f,  0.f, 10.0f, sf::Color(255, 255, 255), 0.0, "missile_launch.wav", 100.0, 500, 1000),/*MW_Mine, lifetime is used at time which the mine is ejecting from the ship*/
     MissileWeaponData(200.0f, 10.f, 27.0f, sf::Color(100, 32, 255), 500.0, "sfx/rlaunch.wav", 1.0, 1000, 1500),/*MW_EMP*/

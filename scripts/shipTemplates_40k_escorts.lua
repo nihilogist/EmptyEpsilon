@@ -110,3 +110,18 @@ variation:addDoor(6, 4, false);
 variation:addDoor(8, 3, false);
 variation:addDoor(8, 4, false);
 
+template = ShipTemplate():setName("Torpedo Ship"):setClass("Escort", "Destroyer"):setModel("battleship_destroyer_4_upgraded")
+template:setDescription([[This ship appears to be based on the Cobra Class destroyer. Its armament has been heavily altered from the standard pattern.]])
+template:setRadarTrace("radar_cobra.png")
+template:setHull(150)
+template:setShields(30)
+template:setSpeed(35, 5, 5)
+
+-- One tube only
+template:setTubes(1, 20.0)
+-- Battery 1: Twin-linked torpedo launcher
+template:weaponTubeDisallowMissle(0, "HVLI")
+template:setTubeBatterySize(0, 1)
+template:setTubeLoadTime(0, 20.0)
+-- Small stock of torpedos, much larger of macrocannon shells
+template:setWeaponStorage("Homing", 3)

@@ -437,9 +437,11 @@ void ShipAI::runAttack(P<SpaceObject> target)
         {
             if (owner->weapon_tube[n].isLoaded() && missile_fire_delay <= 0.0)
             {
+                float angleToSelectedTarget = sf::vector2ToAngle(target->getPosition() - owner->getPosition());
                 float target_angle = calculateFiringSolution(target, n);
                 if (target_angle != std::numeric_limits<float>::infinity())
                 {
+                    LOG(INFO) << "Angle to target: " << string(angleToSelectedTarget) << "; calculated firing solution at angle: " << string(target_angle);
                     owner->weapon_tube[n].fire(target_angle);
                     missile_fire_delay = owner->weapon_tube[n].getLoadTimeConfig() / owner->weapon_tube_count / 2.0;
                 }
@@ -680,7 +682,7 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
         // Get the current position of the parent
         sf::Vector2f selfPosition = owner->getPosition();
         // Calculate the current angle to target
-        // float target_angle = sf::vector2ToAngle(target_position - selfPosition);
+        float currentAngleToTarget = sf::vector2ToAngle(target_position - selfPosition);
 
         // Get the current bearing of ourselves
         float currentBearing = owner->getRotation();
@@ -706,17 +708,37 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
         // Finally, use the new target position as the firing angle
         float correctedTargetAngle = sf::vector2ToAngle(correctedTargetPosition - owner->getPosition());
 
+        
+
         // Calculate the difference between the angle to target and the angle of the tube
         float angle_diff = sf::angleDifference(correctedTargetAngle, fire_angle);
 
         // Absolute value of angle difference
         float absoluteAngleDifference = fabs(angle_diff);
 
+        // OK, now we need to figure out if the weapon tube is turreted or not:
+        if (!owner->weapon_tube[tube_index].isTurreted()) {
+            // If it's not turreted, then only return a value if it's pretty close to where we want to fire.
+            float targetRawSpeed = sf::length(target->getVelocity());
+            float marksmanshipError = random(1, 1 +(fly_time * targetRawSpeed / 20));
+            if (absoluteAngleDifference < marksmanshipError) {
+                LOG(INFO) << "Calculated firing solution. Current angle to target: " << string(currentAngleToTarget) << ". Corrected angle to target based on velocity: " << string(correctedTargetAngle);
+                LOG(INFO) << "Difference in angle of tube to solution: " << string(angle_diff) << " is less than marksmanship error of " << string(marksmanshipError);
+                return fire_angle;
+            } else {
+                return std::numeric_limits<float>::infinity();
+            }
+        }
+
+        
+
         // Maximum turret deflection
         float maximumTurretDeflection = owner->weapon_tube[tube_index].getMaximumTurretDeflection();
 
         // If that difference is less than half of the turret's arc, then we're good to fire.
         if (absoluteAngleDifference < maximumTurretDeflection) {
+            LOG(INFO) << "Calculating firing solution. Current angle to target: " << string(currentAngleToTarget) << ". Corrected angle to target based on velocity: " << string(correctedTargetAngle);
+            LOG(INFO) << "Difference in angle of tube to solution: " << string(angle_diff) << " versus maximum deflection of " << string(maximumTurretDeflection);
             // Adjust the angle_diff by a random amount based on expected flight time.
             float marksmanshipError;
             float targetRawSpeed = sf::length(target->getVelocity());
@@ -733,10 +755,6 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
             // LOG(INFO) << "Setting tube offset to " << string(0 - angle_diff) << " and returning fire angle of " << string(fire_angle) << " for tube " << string(tube_index) ;
             return fire_angle;
         }
-
-        //If our "error" of hitting is less then double the radius of the target, fire.
-        if (fabs(angle_diff) < 80.0 && distance * tanf(fabs(angle_diff) / 180.0f * M_PI) < target->getRadius() * 2.0)
-            return fire_angle;
         
         return std::numeric_limits<float>::infinity();
     }
