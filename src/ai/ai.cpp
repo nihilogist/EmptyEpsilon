@@ -746,7 +746,6 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
             // set the turret offset to what is needed to fire
             owner->weapon_tube[tube_index].setTurretOffsetActual(0 - angle_diff);
             owner->weapon_tube[tube_index].setTurretOffsetRequested(0 - angle_diff);
-            // LOG(INFO) << "Setting tube offset to " << string(0 - angle_diff) << " and returning fire angle of " << string(fire_angle) << " for tube " << string(tube_index) ;
             return fire_angle;
         }
         
