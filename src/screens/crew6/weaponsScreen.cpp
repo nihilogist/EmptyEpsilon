@@ -85,6 +85,16 @@ WeaponsScreen::WeaponsScreen(GuiContainer* owner)
     }
 
     (new GuiCustomShipFunctions(this, weaponsOfficer, ""))->setPosition(-20, 120, ATopRight)->setSize(250, GuiElement::GuiSizeMax);
+
+    // Add the weapons screen zoom slider
+    zoomSlider = new GuiSlider(this, "", 10000.0, 5000.0, 10000.0, [this](float value)
+    {
+        zoomLabel->setText("Zoom: " + string(10000.0 / value, 1) + "x");
+        radar->setDistance(value);
+    });
+    zoomSlider->setPosition(-20, 60, ATopRight)->setSize(250, 50);
+    zoomLabel = new GuiLabel(zoomSlider, "", "Zoom: 1.0x", 30);
+    zoomLabel->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 }
 
 void WeaponsScreen::onDraw(sf::RenderTarget& window)

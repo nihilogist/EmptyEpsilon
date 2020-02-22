@@ -6,6 +6,8 @@
 
 class GuiKeyValueDisplay;
 class GuiLabel;
+class GuiSlider;
+class GuiRadarView;
 
 class HelmsScreen : public GuiOverlay
 {
@@ -21,6 +23,9 @@ private:
     GuiLabel* heading_hint;
     GuiCombatManeuver* combat_maneuver;
     GuiProgressbar* maneuverGauge;
+    GuiSlider* zoomSlider;
+    GuiLabel* zoomLabel;
+    GuiRadarView* radar;
 public:
     HelmsScreen(GuiContainer* owner);
     

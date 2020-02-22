@@ -15,10 +15,11 @@
 #include "gui/gui2_keyvaluedisplay.h"
 #include "gui/gui2_autolayout.h"
 #include "gui/gui2_progressbar.h"
+#include "gui/gui2_slider.h"
 
 
 HelmsScreen::HelmsScreen(GuiContainer* owner)
-: GuiOverlay(owner, "HELMS_SCREEN", colorConfig.background)
+: GuiOverlay(owner, "HELMS_SCREEN", colorConfig.background) 
 {
     // Render the radar shadow and background decorations.
     background_gradient = new GuiOverlay(this, "BACKGROUND_GRADIENT", sf::Color::White);
@@ -30,7 +31,7 @@ HelmsScreen::HelmsScreen(GuiContainer* owner)
     // Render the alert level color overlay.
     (new AlertLevelOverlay(this));
 
-    GuiRadarView* radar = new GuiRadarView(this, "HELMS_RADAR", 8000.0, nullptr);
+    radar = new GuiRadarView(this, "HELMS_RADAR", 8000.0, nullptr);
     
     combat_maneuver = new GuiCombatManeuver(this, "COMBAT_MANEUVER");
     combat_maneuver->setPosition(-20, -20, ABottomRight)->setSize(280, 215);
@@ -124,6 +125,17 @@ HelmsScreen::HelmsScreen(GuiContainer* owner)
     (new GuiDockingButton(this, "DOCKING"))->setPosition(20, -20, ABottomLeft)->setSize(280, 50);
 
     (new GuiCustomShipFunctions(this, helmsOfficer, ""))->setPosition(-20, 120, ATopRight)->setSize(250, GuiElement::GuiSizeMax);
+
+    // Add a zoom slider
+    // Draw the zoom slider.
+    zoomSlider = new GuiSlider(this, "", 8000.0, 3000.0, 8000.0, [this](float value)
+    {
+        zoomLabel->setText("Zoom: " + string(8000.0 / value, 1) + "x");
+        radar->setDistance(value);
+    });
+    zoomSlider->setPosition(-20, 60, ATopRight)->setSize(250, 50);
+    zoomLabel = new GuiLabel(zoomSlider, "", "Zoom: 1.0x", 30);
+    zoomLabel->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 }
 
 void HelmsScreen::onDraw(sf::RenderTarget& window)
