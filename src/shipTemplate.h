@@ -136,10 +136,12 @@ public:
     void setMesh(string model, string color_texture, string specular_texture, string illumination_texture);
     void setEnergyStorage(float energy_amount);
     void setRepairCrewCount(int amount);
-
+ 
     void setBeam(int index, float arc, float direction, float range, float cycle_time, float damage);
     void setBeamWeapon(int index, float arc, float direction, float range, float cycle_time, float damage);
     void setBeamWeaponTurret(int index, float arc, float direction, float rotation_rate);
+    // Sets the targeting ability for the beam weapon.
+    void setBeamWeaponTargetingDetails(int index, float maxTargetSpeed, float maxReliableTargetSpeed);
 
     /**
      * Convenience function to set the texture of a beam by index.

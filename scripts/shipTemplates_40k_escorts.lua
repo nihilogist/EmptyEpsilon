@@ -6,6 +6,7 @@ template:setShields(30)
 template:setSpeed(35, 5, 5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 270, 0, 2000.0, 20.0, 30)
+template:setBeamWeaponTargetingDetails(0, 40, 20)
 -- Two weapons batteries
 template:setTubes(2, 20.0)
 -- Battery 1: Twin-linked torpedo launcher
@@ -15,7 +16,7 @@ template:setTubeSalvoSpread(0, 5)
 template:setTubeLoadTime(0, 100.0)
 -- Battery 2: Quad-linked macrocannon
 template:weaponTubeDisallowMissle(1, "Homing")
-template:setTubeBatterySize(1, 4)
+template:setTubeBatterySize(1, 2)
 template:setTubeSalvoSpread(1, 5)
 template:setTubeTurretArc(1, 270)
 template:setTubeTurretRotationSpeed(1, 0.6)
