@@ -51,6 +51,12 @@ public:
 
     float getHeatPerFire();
     void setHeatPerFire(float heat);
+
+    float getMaximumTargetSpeed();
+    void setMaximumTargetSpeed(float maxTargetSpeed);
+
+    float getMaximumReliableTargetSpeed();
+    void setMaximumReliableTargetSpeed(float maxReliableTargetSpeed);
     
     BeamTemplate& operator=(const BeamTemplate& other);
 
@@ -66,6 +72,10 @@ protected:
     float damage;
     float energy_per_beam_fire;
     float heat_per_beam_fire;
+    // The maximum speed of target that the beam can lock onto
+    float maximumTargetSpeed;
+    // The maximum speed of target that the beam can reliably lock onto
+    float maximumReliableTargetSpeed;
 };
 
 #endif//BEAM_TEMPLATE_H

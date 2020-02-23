@@ -14,6 +14,9 @@ BeamTemplate::BeamTemplate()
 
     energy_per_beam_fire = 3.0;
     heat_per_beam_fire = 0.02;
+
+    maximumTargetSpeed = 0.0;
+    maximumReliableTargetSpeed = 0.0;
 }
 
 string BeamTemplate::getBeamTexture()
@@ -159,6 +162,30 @@ float BeamTemplate::getHeatPerFire()
 void BeamTemplate::setHeatPerFire(float heat)
 {
     heat_per_beam_fire = heat;
+}
+
+float BeamTemplate::getMaximumTargetSpeed() {
+    return maximumTargetSpeed;
+}
+
+void BeamTemplate::setMaximumTargetSpeed(float maxTargetSpeed) {
+    if (maxTargetSpeed < 0.0) {
+        maxTargetSpeed = 0.0;
+    }
+    maximumTargetSpeed = maxTargetSpeed;
+}
+
+float BeamTemplate::getMaximumReliableTargetSpeed() {
+    return maximumReliableTargetSpeed;
+}
+
+void BeamTemplate::setMaximumReliableTargetSpeed(float maxReliableTargetSpeed) {
+    if (maxReliableTargetSpeed < 0.0) {
+        maxReliableTargetSpeed = 0.0;
+    } else if (maxReliableTargetSpeed > maximumTargetSpeed) {
+        maxReliableTargetSpeed = maximumTargetSpeed;
+    }
+    maximumReliableTargetSpeed = maxReliableTargetSpeed;
 }
 
 BeamTemplate& BeamTemplate::operator=(const BeamTemplate& other)

@@ -31,6 +31,8 @@ REGISTER_SCRIPT_CLASS(ShipTemplate)
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setBeamWeapon);
     /// Setup a beam's turret.
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setBeamWeaponTurret);
+    /// Setup a beam weapon's targeting ability
+    REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setBeamWeaponTargetingDetails);
     /// Setup a beam weapon texture
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setBeamTexture);
     REGISTER_SCRIPT_CLASS_FUNCTION(ShipTemplate, setBeamWeaponEnergyPerFire);
@@ -261,6 +263,16 @@ void ShipTemplate::setBeamWeapon(int index, float arc, float direction, float ra
     beams[index].setRange(range);
     beams[index].setCycleTime(cycle_time);
     beams[index].setDamage(damage);
+    // beams[index].setMaximumTargetSpeed(maxTargetSpeed);
+    // beams[index].setMaximumReliableTargetSpeed(maxReliableTargetSpeed);
+}
+
+void ShipTemplate::setBeamWeaponTargetingDetails(int index, float maxTargetSpeed, float maxReliableTargetSpeed) {
+    if (index < 0 || index > max_beam_weapons) {
+        return;
+    }
+    beams[index].setMaximumTargetSpeed(maxTargetSpeed);
+    beams[index].setMaximumReliableTargetSpeed(maxReliableTargetSpeed);
 }
 
 void ShipTemplate::setBeamWeaponTurret(int index, float arc, float direction, float rotation_rate)

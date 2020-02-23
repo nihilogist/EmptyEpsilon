@@ -13,7 +13,7 @@ require("utils.lua")
 function init()
     -- Spawn two player Furies
     angelOne = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Mars-Pattern Fury Interceptor"):setCallSign("Angel One")
-    angelTwo = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Mars-Pattern Fury Interceptor"):setCallSign("Angel Two")
+    angelTwo = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Mars-Pattern Fury Interceptor"):setCallSign("Angel Two"):setPosition(-30, 40)
 	
 
 	enemyList = {}

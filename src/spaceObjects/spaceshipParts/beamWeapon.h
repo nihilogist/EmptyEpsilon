@@ -45,6 +45,16 @@ public:
     float getHeatPerFire();
     void setHeatPerFire(float heat);
 
+    // the maximum reliable target speed for the beam weapon
+    float getMaximumReliableTargetSpeed();
+    // sets the maximum reliable target speed for the beam weapon (between 0 and the max target speed)
+    void setMaximumReliableTargetSpeed(float maxReliableTargetSpeed);
+
+    // The maximum target speed for the beam weapon
+    float getMaximumTargetSpeed();
+    // Sets the maximum target speed for the beam weapon
+    void setMaximumTargetSpeed(float maxTargetSpeed);
+
     void setPosition(sf::Vector3f position);
     sf::Vector3f getPosition();
     
@@ -69,6 +79,10 @@ protected:
     float damage;//Server side only
     float energy_per_beam_fire;//Server side only
     float heat_per_beam_fire;//Server side only
+    // Maximum speed that the beam weapon can reliably lock onto
+    float maximumReliableTargetSpeed;
+    // Maximum speed that the beam weapon can conceivably lock onto
+    float maximumTargetSpeed;
     //Beam runtime state
     float cooldown;
     string beam_texture;

@@ -17,6 +17,8 @@ BeamWeapon::BeamWeapon()
     energy_per_beam_fire = 3.0;
     heat_per_beam_fire = 0.02;
     parent = nullptr;
+    maximumReliableTargetSpeed = 10;
+    maximumTargetSpeed = 20;
 }
 
 void BeamWeapon::setParent(SpaceShip* parent)
@@ -32,6 +34,8 @@ void BeamWeapon::setParent(SpaceShip* parent)
     parent->registerMemberReplication(&turret_rotation_rate);
     parent->registerMemberReplication(&cycle_time);
     parent->registerMemberReplication(&cooldown, 0.5);
+    parent->registerMemberReplication(&maximumTargetSpeed);
+    parent->registerMemberReplication(&maximumReliableTargetSpeed);
 }
 
 void BeamWeapon::setArc(float arc)
@@ -132,6 +136,36 @@ float BeamWeapon::getHeatPerFire()
 void BeamWeapon::setHeatPerFire(float heat)
 {
     heat_per_beam_fire = heat;
+}
+
+float BeamWeapon::getMaximumReliableTargetSpeed() {
+    return maximumReliableTargetSpeed;
+}
+
+void BeamWeapon::setMaximumReliableTargetSpeed(float maxReliableTargetSpeed) {
+    if (maxReliableTargetSpeed < 0.0) {
+        maxReliableTargetSpeed = 0.0;
+    } else if (maxReliableTargetSpeed > maximumTargetSpeed) {
+        maxReliableTargetSpeed = maximumTargetSpeed;
+    }
+    maximumReliableTargetSpeed = maxReliableTargetSpeed;
+}
+
+float BeamWeapon::getMaximumTargetSpeed() {
+    return maximumTargetSpeed;
+}
+
+void BeamWeapon::setMaximumTargetSpeed(float maxTargetSpeed) {
+    if (maxTargetSpeed < 0.0) {
+        maximumTargetSpeed = 0.0;
+    } else {
+        maximumTargetSpeed = maxTargetSpeed;
+    }
+    // Now ensure that the max reliable target speed is also updated if necessary
+    if (maximumReliableTargetSpeed < maximumTargetSpeed) {
+        maximumReliableTargetSpeed = maximumTargetSpeed;
+    }
+
 }
 
 void BeamWeapon::setPosition(sf::Vector3f position)
@@ -249,8 +283,30 @@ void BeamWeapon::fire(P<SpaceObject> target, ESystem system_target)
     effect->beam_fire_sound = "sfx/laser_fire.wav";
     effect->beam_fire_sound_power = damage / 6.0f;
 
-    DamageInfo info(parent, DT_Energy, hit_location);
-    info.frequency = parent->beam_frequency; // Beam weapons now always use frequency of the ship.
-    info.system_target = system_target;
-    target->takeDamage(damage, info);
+    // Get the speed of the target and determine if we hit or not.
+    sf::Vector2f targetVelocity = target->getVelocity();
+    float targetRawSpeed = sf::length(targetVelocity);
+
+    // Assume hits
+    bool lanceHits = true;
+    if (targetRawSpeed > maximumTargetSpeed) { // If maximum speed exceeded then the lance misses.
+        lanceHits = false;
+    } else if (targetRawSpeed > maximumReliableTargetSpeed) { // if it falls in the 'inbetween range' then there's a chance of hit.
+        float speedDifference = targetRawSpeed - maximumReliableTargetSpeed;
+        float speedRange = maximumTargetSpeed - maximumReliableTargetSpeed;
+        float percentageChanceOfMiss = speedDifference / speedRange;
+        float dieRoll = random(0.0, 1.0);
+        if (random(0.0, 1.0) < percentageChanceOfMiss) {
+            lanceHits = false;
+        }
+    }
+
+    // Only take damage if the lance hits
+    if (lanceHits) {
+        DamageInfo info(parent, DT_Energy, hit_location);
+        info.frequency = parent->beam_frequency; // Beam weapons now always use frequency of the ship.
+        info.system_target = system_target;
+        target->takeDamage(damage, info);
+    }
+    
 }
