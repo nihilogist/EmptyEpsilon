@@ -6,6 +6,7 @@
 class BeamEffect : public SpaceObject, public Updatable
 {
     float lifetime;
+    float initialLifetime;
     int32_t sourceId;
     int32_t target_id;
     sf::Vector3f sourceOffset;
@@ -17,6 +18,7 @@ public:
     string beam_texture;
     string beam_fire_sound;
     float beam_fire_sound_power;
+    void setLifetime(float duration);
     BeamEffect();
 
 #if FEATURE_3D_RENDERING

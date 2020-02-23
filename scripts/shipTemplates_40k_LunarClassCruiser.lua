@@ -9,7 +9,9 @@ template:setSpeed(20, 2.5, 5)
 
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 90, 90, 5000.0, 30.0, 120)
+template:setBeamWeaponTargetingDetails(0, 40, 25)
 template:setBeam(1, 90, -90, 5000.0, 30.0, 120)
+template:setBeamWeaponTargetingDetails(1, 40, 25)
 
 template:setTubes(4, 14.0)
 template:setWeaponStorage("HVLI", 100)

@@ -24,6 +24,7 @@ BeamEffect::BeamEffect()
 {
     setCollisionRadius(1.0);
     lifetime = 1.0;
+    initialLifetime = 1.0;
     sourceId = -1;
     target_id = -1;
     beam_texture = "beam_orange.png";
@@ -137,6 +138,11 @@ void BeamEffect::setSource(P<SpaceObject> source, sf::Vector3f offset)
     update(0);
 }
 
+void BeamEffect::setLifetime(float duration) {
+    lifetime = duration;
+    initialLifetime = duration;
+}
+
 void BeamEffect::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range) {
     P<SpaceObject> source, target;
     if (game_server) {
@@ -159,8 +165,8 @@ void BeamEffect::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, fl
     // Now try to draw the beam
     sf::Color color = sf::Color(255, 50, 100, 255);
     sf::VertexArray a(sf::LinesStrip, 2);
-    a[0].color = sf::Color(color.r, color.g, color.b, lifetime * 255);;
-    a[1].color = sf::Color(color.r, color.g, color.b, lifetime * 255);;
+    a[0].color = sf::Color(color.r, color.g, color.b, (lifetime / initialLifetime) * 255);;
+    a[1].color = sf::Color(color.r, color.g, color.b, (lifetime / initialLifetime) * 180);;
 
     // Drop the pen onto the beam's origin
     a[0].position = position; 

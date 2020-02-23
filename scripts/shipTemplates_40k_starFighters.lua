@@ -112,6 +112,7 @@ template:setSpeed(0, 30, 0)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 30, 0, 900.0, 8.0, 6)
+template:setBeamWeaponTargetingDetails(0, 100, 60)
 
 template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
 template:setRadarTrace("radar_fury.png")
@@ -124,3 +125,4 @@ template:setSpeed(70, 25, 10)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 45, 0, 900.0, 3.0, 2)
+template:setBeamWeaponTargetingDetails(0, 130, 40)

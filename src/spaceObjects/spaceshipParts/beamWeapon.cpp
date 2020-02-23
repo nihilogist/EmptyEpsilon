@@ -280,6 +280,7 @@ void BeamWeapon::fire(P<SpaceObject> target, ESystem system_target)
     effect->setSource(parent, position);
     effect->setTarget(target, hit_location);
     effect->beam_texture = beam_texture;
+    effect->setLifetime(1 + log10(damage));
     effect->beam_fire_sound = "sfx/laser_fire.wav";
     effect->beam_fire_sound_power = damage / 6.0f;
 
@@ -295,11 +296,12 @@ void BeamWeapon::fire(P<SpaceObject> target, ESystem system_target)
         float speedDifference = targetRawSpeed - maximumReliableTargetSpeed;
         float speedRange = maximumTargetSpeed - maximumReliableTargetSpeed;
         float percentageChanceOfMiss = speedDifference / speedRange;
-        float dieRoll = random(0.0, 1.0);
         if (random(0.0, 1.0) < percentageChanceOfMiss) {
             lanceHits = false;
         }
     }
+
+    
 
     // Only take damage if the lance hits
     if (lanceHits) {
