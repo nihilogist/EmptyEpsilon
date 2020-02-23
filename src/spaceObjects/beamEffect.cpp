@@ -133,7 +133,39 @@ void BeamEffect::setSource(P<SpaceObject> source, sf::Vector3f offset)
 {
     sourceId = source->getMultiplayerId();
     sourceOffset = offset;
+    setPosition(source->getPosition());
     update(0);
+}
+
+void BeamEffect::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range) {
+    P<SpaceObject> source, target;
+    if (game_server) {
+        source = game_server->getObjectById(sourceId);
+        target = game_server->getObjectById(target_id);
+    } else {
+        source = game_client->getObjectById(sourceId);
+        target = game_client->getObjectById(target_id);
+    }
+    if (!target) {
+        return;
+    }
+    // Get the positions of the source and target:
+    sf::Vector2f sourcePosition = source->getPosition();
+    sf::Vector2f targetPosition = target->getPosition();
+    // Calculate the vector between them
+    sf::Vector2f routeSourceToTarget = (targetPosition - sourcePosition) * scale;
+
+
+    // Now try to draw the beam
+    sf::Color color = sf::Color(255, 50, 100, 255);
+    sf::VertexArray a(sf::LinesStrip, 2);
+    a[0].color = sf::Color(color.r, color.g, color.b, lifetime * 255);;
+    a[1].color = sf::Color(color.r, color.g, color.b, lifetime * 255);;
+
+    // Drop the pen onto the beam's origin
+    a[0].position = position; 
+    a[1].position = position + routeSourceToTarget;
+    window.draw(a);
 }
 
 void BeamEffect::setTarget(P<SpaceObject> target, sf::Vector2f hitLocation)

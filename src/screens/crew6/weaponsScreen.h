@@ -9,6 +9,8 @@ class GuiMissileTubeControls;
 class GuiKeyValueDisplay;
 class GuiToggleButton;
 class GuiRotationDial;
+class GuiLabel;
+class GuiSlider;
 
 class WeaponsScreen : public GuiOverlay
 {
@@ -24,6 +26,8 @@ private:
     GuiMissileTubeControls* tube_controls;
     GuiRotationDial* missile_aim;
     GuiToggleButton* lock_aim;
+    GuiSlider* zoomSlider;
+    GuiLabel* zoomLabel;
 public:
     WeaponsScreen(GuiContainer* owner);
     

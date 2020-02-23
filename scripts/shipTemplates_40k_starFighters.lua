@@ -11,7 +11,7 @@ Starfighters come in 3 subclasses:
 * Bomber: Slowest of all starfighters, but pack a large punch in a small package. Usually come without any lasers, but the largers bombers have been known to deliver nukes.
 ----------------------------------------------------------]]
 template = ShipTemplate():setName("Fury Interceptor"):setClass("Starfighter", "Interceptor"):setModel("WespeScoutYellow")
-template:setRadarTrace("radar_fighter.png")
+template:setRadarTrace("radar_fury.png")
 template:setDescription([[The Fury Interceptor is the most common type of starfighter used by the Imperial Navy.]])
 template:setHull(30)
 template:setShields(20)
@@ -27,7 +27,8 @@ variation:setHull(35)
 variation:setShields(22)
 variation:setSpeed(100, 35, 25)
 --                  Arc, Dir, Range, CycleTime, Dmg
-variation:setBeam(0, 30, 0, 1200.0, 1.0, 2)
+variation:setBeam(0, 1, 0, 1200.0, 1.0, 3)
+variation:setBeamWeaponTurret(0, 30, 0, 0.3)
 variation:setTubes(1, 5)
 variation:setWeaponTubeExclusiveFor(0, "Seeker")
 variation:setTubeDirection(0, 0)
@@ -58,7 +59,7 @@ variation:addDoor(5, 2, false);
 
 
 template = ShipTemplate():setName("Starhawk Bomber"):setClass("Starfighter", "Bomber"):setModel("WespeScoutYellow")
-template:setRadarTrace("radar_fighter.png")
+template:setRadarTrace("radar_fury.png")
 template:setDescription([[The Starhawk is the more effective replacement for the Marauder bomber following that model's reassignment by the Imperial Navy to serve solely as an atmospheric bomber.]])
 template:setHull(50)
 template:setShields(40)
@@ -102,7 +103,7 @@ variation:addDoor(5, 2, false);
 -- Pirate starfighters
 
 template = ShipTemplate():setName("Defensive Turret"):setClass("Starfighter", "Interceptor"):setModel("WespeScoutYellow")
-template:setRadarTrace("radar_fighter.png")
+template:setRadarTrace("radar_fury.png")
 template:setDescription([[This defensive turret appears to be a badly-patched Fury Interceptor, with inactive plasma drives.]])
 template:setHull(20)
 template:setShields(0)
@@ -112,7 +113,7 @@ template:setDefaultAI('fighter')
 template:setBeam(0, 30, 0, 900.0, 8.0, 6)
 
 template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
-template:setRadarTrace("radar_fighter.png")
+template:setRadarTrace("radar_fury.png")
 template:setDescription([[This in-system hauler vessel has been upgraded with weapons batteries, either for protection from pirates, or to become one.
 
 Whilst it may not pose a significant threat to Imperial Navy vessels on its own, a swarm of them can be a dangerous foe.]])

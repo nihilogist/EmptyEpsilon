@@ -441,7 +441,6 @@ void ShipAI::runAttack(P<SpaceObject> target)
                 float target_angle = calculateFiringSolution(target, n);
                 if (target_angle != std::numeric_limits<float>::infinity())
                 {
-                    LOG(INFO) << "Angle to target: " << string(angleToSelectedTarget) << "; calculated firing solution at angle: " << string(target_angle);
                     owner->weapon_tube[n].fire(target_angle);
                     missile_fire_delay = owner->weapon_tube[n].getLoadTimeConfig() / owner->weapon_tube_count / 2.0;
                 }
@@ -722,8 +721,6 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
             float targetRawSpeed = sf::length(target->getVelocity());
             float marksmanshipError = random(1, 1 +(fly_time * targetRawSpeed / 20));
             if (absoluteAngleDifference < marksmanshipError) {
-                LOG(INFO) << "Calculated firing solution. Current angle to target: " << string(currentAngleToTarget) << ". Corrected angle to target based on velocity: " << string(correctedTargetAngle);
-                LOG(INFO) << "Difference in angle of tube to solution: " << string(angle_diff) << " is less than marksmanship error of " << string(marksmanshipError);
                 return fire_angle;
             } else {
                 return std::numeric_limits<float>::infinity();
@@ -737,8 +734,6 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
 
         // If that difference is less than half of the turret's arc, then we're good to fire.
         if (absoluteAngleDifference < maximumTurretDeflection) {
-            LOG(INFO) << "Calculating firing solution. Current angle to target: " << string(currentAngleToTarget) << ". Corrected angle to target based on velocity: " << string(correctedTargetAngle);
-            LOG(INFO) << "Difference in angle of tube to solution: " << string(angle_diff) << " versus maximum deflection of " << string(maximumTurretDeflection);
             // Adjust the angle_diff by a random amount based on expected flight time.
             float marksmanshipError;
             float targetRawSpeed = sf::length(target->getVelocity());
@@ -747,12 +742,10 @@ float ShipAI::calculateFiringSolution(P<SpaceObject> target, int tube_index)
             } else if (type == MW_Homing) {
                 marksmanshipError = random((0 - (fly_time * targetRawSpeed / 20)), fly_time * targetRawSpeed / 20);
             }
-            LOG(INFO) << "Firing with marksmanship error of " << string(marksmanshipError);
             angle_diff += marksmanshipError;
             // set the turret offset to what is needed to fire
             owner->weapon_tube[tube_index].setTurretOffsetActual(0 - angle_diff);
             owner->weapon_tube[tube_index].setTurretOffsetRequested(0 - angle_diff);
-            // LOG(INFO) << "Setting tube offset to " << string(0 - angle_diff) << " and returning fire angle of " << string(fire_angle) << " for tube " << string(tube_index) ;
             return fire_angle;
         }
         

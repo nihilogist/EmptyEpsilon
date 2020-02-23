@@ -2,7 +2,7 @@
 
 template = ShipTemplate():setName("Lunar"):setClass("Cruiser", "Medium Cruiser"):setModel("swordClassFrigate")
 template:setDescription([[A staple design of the Imperial Navy, the Sword-class frigate has a reputation as a dependable escort vessel.]])
-template:setRadarTrace("radar_dauntless.png")
+template:setRadarTrace("radar_lunar.png")
 template:setHull(800)
 template:setShields(300)
 template:setSpeed(20, 2.5, 5)

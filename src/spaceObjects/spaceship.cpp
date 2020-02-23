@@ -288,11 +288,11 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
 
             // Color beam arcs red.
             // TODO: Make this color configurable.
-            sf::Color color = sf::Color::Red;
+            sf::Color color = sf::Color(255, 10, 10, 180);
 
             // If the beam is cooling down, flash and fade the arc color.
             if (beam_weapons[n].getCooldown() > 0)
-                color = sf::Color(255, 255 * (beam_weapons[n].getCooldown() / beam_weapons[n].getCycleTime()), 0);
+                color = sf::Color(255, 255 * (beam_weapons[n].getCooldown() / beam_weapons[n].getCycleTime()), 0, 180);
 
             // Initialize variables from the beam's data.
             float beam_direction = beam_weapons[n].getDirection();
@@ -345,8 +345,8 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
 
             // Draw the turret's bounds, at half the transparency of the beam's.
             // TODO: Make this color configurable.
-            a[0].color = sf::Color(color.r, color.g, color.b, color.a / 2);
-            a[1].color = sf::Color(color.r, color.g, color.b, color.a / 2);
+            a[0].color = sf::Color(color.r, color.g, color.b, color.a / 1.5);
+            a[1].color = sf::Color(color.r, color.g, color.b, color.a / 1.5);
 
             // Draw the turret's left bound. (We're reusing the beam's origin.)
             a[1].position = beam_offset + position + sf::vector2FromAngle(getRotation() + (turret_direction + turret_arc / 2.0f)) * beam_range * scale;
@@ -363,7 +363,7 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
             sf::VertexArray turret_line(sf::LinesStrip, turret_points);
             for(int i = 0; i < turret_points; i++)
             {
-                turret_line[i].color = sf::Color(color.r, color.g, color.b, color.a / 2);
+                turret_line[i].color = sf::Color(color.r, color.g, color.b, color.a / 1.5);
                 turret_line[i].position = beam_offset + position + sf::vector2FromAngle(getRotation() + (turret_direction - turret_arc / 2.0f + 10 * i)) * beam_range * scale;
             }
             turret_line[turret_points-1].position = beam_offset + position + sf::vector2FromAngle(getRotation() + (turret_direction + turret_arc / 2.0f)) * beam_range * scale;
@@ -401,10 +401,12 @@ void SpaceShip::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, flo
 
     objectSprite.setRotation(getRotation());
     objectSprite.setPosition(position);
-    if (long_range)
-    {
-        objectSprite.setScale(0.7, 0.7);
+    double spriteScale = scale * 5;
+    if (spriteScale < 0.2) {
+        spriteScale = 0.2;
     }
+    objectSprite.setScale(spriteScale, spriteScale);
+
     if (my_spaceship == this)
     {
         objectSprite.setColor(sf::Color(192, 192, 255));

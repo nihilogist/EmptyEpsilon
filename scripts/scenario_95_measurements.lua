@@ -1,4 +1,4 @@
--- Name: The Arena
+-- Name: Config and measure
 -- Description: Friday Night - 2000 till 2300
 -- Type: A small zone of wrecks and no enemies.
 
@@ -15,7 +15,10 @@ function init()
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless")
     lexTalionis:setCallSign("Lex Talionis")
     
-    CpuShip():setFaction("Rising Flame"):setTemplate("Wrecked Cruiser"):setCallSign("UTI7"):setPosition(4089, 150):orderRoaming():setWeaponStorage("Macro", 97)
+    Asteroid():setPosition(-300, -300)
+    Asteroid():setPosition(300, -300)
+    Asteroid():setPosition(0, -300)
+
 
 
 

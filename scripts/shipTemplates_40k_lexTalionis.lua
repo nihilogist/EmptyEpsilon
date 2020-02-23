@@ -1,11 +1,14 @@
-template = ShipTemplate():setName("Regency Pattern Dauntless"):setClass("Cruiser", "Light Cruiser"):setModel("space_station_5"):setType("playership")
+template = ShipTemplate():setName("Regency Pattern Dauntless"):setClass("Cruiser", "Light Cruiser"):setModel("dauntlessLightCruiser"):setType("playership")
 template:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(1000)
 template:setShields(200)
 template:setSpeed(25, 3, 15)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 90, 0, 5000.0, 30.0, 60)
+template:setBeam(0, 2, 0, 5000.0, 30.0, 60)
+template:setBeamWeaponTurret(0, 90, 0, 0.2)
+template:setBeamWeaponEnergyPerFire(0, 5)
+template:setBeamWeaponHeatPerFire(0, 0.02)
 
 template:setWeaponStorage("Homing", 12)
 template:setWeaponStorage("HVLI", 500)
