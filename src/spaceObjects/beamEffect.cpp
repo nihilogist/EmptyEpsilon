@@ -146,6 +146,9 @@ void BeamEffect::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, fl
         source = game_client->getObjectById(sourceId);
         target = game_client->getObjectById(target_id);
     }
+    if (!target) {
+        return;
+    }
     // Get the positions of the source and target:
     sf::Vector2f sourcePosition = source->getPosition();
     sf::Vector2f targetPosition = target->getPosition();
