@@ -57,7 +57,7 @@ void Asteroid::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, floa
     textureManager.setTexture(object_sprite, "RadarAsteroid.png");
     object_sprite.setRotation(getRotation());
     object_sprite.setPosition(position);
-    object_sprite.setColor(sf::Color(255, 200, 100));
+    object_sprite.setColor(sf::Color(133, 93, 29));
     float size = getRadius() * scale / object_sprite.getTextureRect().width * 2;
     if (size < 0.2)
         size = 0.2;
@@ -82,9 +82,10 @@ void Asteroid::collide(Collisionable* target, float force)
     destroy();
 }
 
-void Asteroid::setSize(float size)
+void Asteroid::setSize(float setSize)
 {
-    setRadius(size);
+    size = setSize;
+    setRadius(setSize);
 }
 
 /// An asteroid in space. Outside of hit range, just for visuals.

@@ -230,6 +230,7 @@ set(SOURCES
 	src/spaceObjects/beamEffect.cpp
 	src/spaceObjects/electricExplosionEffect.cpp
 	src/spaceObjects/supplyDrop.cpp
+	src/spaceObjects/warpAnomaly.cpp
 	src/spaceObjects/warpJammer.cpp
 	src/spaceObjects/scanProbe.cpp
 	src/spaceObjects/artifact.cpp
