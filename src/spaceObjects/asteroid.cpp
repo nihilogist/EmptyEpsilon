@@ -21,6 +21,7 @@ Asteroid::Asteroid()
     rotation_speed = random(0.1, 0.8);
     z = random(-50, 50);
     size = getRadius();
+    integrity = size / 2;
     model_number = irandom(1, 10);
     setRadarSignatureInfo(0.05, 0, 0);
 
@@ -67,8 +68,12 @@ void Asteroid::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, floa
 
 void Asteroid::collide(Collisionable* target, float force)
 {
-    if (!isServer())
+    // If we're not on the server then we don't care.
+    if (!isServer()) {
         return;
+    }
+        
+    //
     P<SpaceObject> hit_object = P<Collisionable>(target);
     if (!hit_object || !hit_object->canBeTargetedBy(nullptr))
         return;
@@ -86,6 +91,22 @@ void Asteroid::setSize(float setSize)
 {
     size = setSize;
     setRadius(setSize);
+}
+
+void Asteroid::takeDamage(float damageAmount, DamageInfo info) {
+    // We actually don't care that much about the damage info, just the amount
+    integrity -= damageAmount;
+    // if the integrity ends up as zero or less then the asteroid explodes.
+    if (integrity <= 0.0) {
+        P<ExplosionEffect> e = new ExplosionEffect();
+        e->setSize(getRadius());
+        e->setPosition(getPosition());
+        destroy();
+    }
+}
+
+bool Asteroid::canBeTargetedBy(P<SpaceObject> other) {
+    return true;
 }
 
 /// An asteroid in space. Outside of hit range, just for visuals.

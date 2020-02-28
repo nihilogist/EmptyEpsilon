@@ -1,26 +1,21 @@
 -- Script to create a set of wrecked ships.
-function createWreckedShips()
-    nonHauntedWreckConfig = {
-        {"The Gorgon's Eye", 200, 1500, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "Deepscan results: this is The Gorgon's Eye, a ship registered as Still On Patrol for two hundred terran years. She disappeared while investigating pirate activity."},
-        {"Dux Cornovi", -870, 780, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Dux Cornovi, a Cobra Destroyer listed as Still On Patrol."},
-        {"Golden Farrel", 400, -2200, "Wrecked Destroyer", "Passive Auspex returns indicate an unpowered voidship", "Auspex returns indicate this is the wreck of a Cobra-class Destroyer.", "The wreckage of the HIMVS Golden Farrel, a Cobra Destroyer listed as Still On Patrol."}
-    }
+function createWreckedShips(shipwrecks)
     
     -- Create the wrecks from the config data
-    for i, wreckConfig in ipairs(nonHauntedWreckConfig) do
+    for i, wreckConfig in ipairs(shipwrecks) do
         local wreckClass = getWreckClass(wreckConfig)
         local wreckBaseDescription = getWreckUnscannedDescription(wreckConfig)
         local wreckXPosition = getWreckXPosition(wreckConfig)
         local wreckYPosition = getWreckYPosition(wreckConfig)
-        table.insert(wreckConfig, setCirclePos(CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle(), wreckXPosition, wreckYPosition, 0, 0))
+        table.insert(wreckConfig, CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle():setPosition(wreckXPosition, wreckYPosition))
 
     end
     
 end
 
-function updateWreckedShipsCallsigns()
+function updateWreckedShipsCallsigns(shipwreckDetails)
     -- Check over the wreck configuration to see if any of them need to have their descriptions updated
-    for i,wreckConfig in ipairs(nonHauntedWreckConfig) do
+    for i,wreckConfig in ipairs(shipwreckDetails) do
         -- get the wrecked ship
         local wreckedShip = getWreckShip(wreckConfig)
         -- check if it is valid (not detonated)

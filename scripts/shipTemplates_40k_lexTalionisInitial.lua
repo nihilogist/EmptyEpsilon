@@ -3,23 +3,20 @@ template:setDescription([[This ship dates from the Regency era in the Prosperita
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(1000)
 template:setShields(200)
-template:setSpeed(15, 3, 1)
+template:setSpeed(10, 3, 0.5)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 90, 0, 1000.0, 30.0, 60)
 
 template:setWeaponStorage("HVLI", 500)
 
-template:setTubes(3, 15.0) -- 3 weapons tubes
+template:setTubes(1, 60.0) -- 3 weapons tubes
 -- Tubes 1 and 2 are 12 shot macrocannon batteries with 90 degree arcs
-template:setTubeDirection(0, -90):setTubeDirection(1, 90)
-template:setWeaponTubeExclusiveFor(0, "HVLI"):setWeaponTubeExclusiveFor(1, "HVLI")
-template:setTubeSalvoSpread(0, 5):setTubeSalvoSpread(1, 5):setTubeBatterySize(0, 12):setTubeBatterySize(1, 12)
-template:setTubeIsTurreted(0, true):setTubeIsTurreted(1, true)
-template:setTubeTurretArc(0, 90):setTubeTurretArc(1, 90)
-template:setTubeTurretRotationSpeed(0, 0.3):setTubeTurretRotationSpeed(1, 0.3)
--- Tube 3 is a quin-linked torpedo launcher
-template:setTubeIsTurreted(2, false):setTubeDirection(2, 0):setTubeSalvoSpread(2, 4):setTubeBatterySize(2, 5):setWeaponTubeExclusiveFor(2, "Homing")
-template:setTubeLoadTime(2, 240)
+template:setTubeDirection(0, -90)
+template:setWeaponTubeExclusiveFor(0, "HVLI")
+template:setTubeSalvoSpread(0, 5):setTubeBatterySize(0, 12)
+template:setTubeIsTurreted(0, true)
+template:setTubeTurretArc(0, 90)
+template:setTubeTurretRotationSpeed(0, 0.1)
 -- We also set a small amount of armour on the ship
 template:setArmour(4.0)
 

@@ -1,0 +1,7 @@
+template = ShipTemplate():setName("Tug Ship"):setClass("Utility", "Tug"):setModel("lightFreighter")
+template:setRadarTrace("radar_light_freighter.png")
+template:setDescription([[This tug ship is often used by techpriests to move around shipyards.]])
+template:setHull(30)
+template:setShields(0)
+template:setSpeed(30, 10, 1)
+template:setDefaultAI('fighter')

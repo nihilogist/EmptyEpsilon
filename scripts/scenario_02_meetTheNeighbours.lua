@@ -1,6 +1,6 @@
--- Name: Lex Talionis
--- Description: Basic scenario to test-drive aspects of play for The Wake.
--- Type: Basic
+-- Name: Meet the Neighbours
+-- Description: Friday night, 2300-0000
+-- Type: Pirate Space Station and environs.
 
 
 require("utils.lua")

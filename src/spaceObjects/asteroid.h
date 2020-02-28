@@ -10,6 +10,8 @@ public:
     float z;
     float size;
     int model_number;
+    // The structural integrity of the asteroid.
+    float integrity;
 
     Asteroid();
     
@@ -18,6 +20,10 @@ public:
     virtual void drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range);
 
     virtual void collide(Collisionable* target, float force) override;
+
+    virtual void takeDamage(float damageAmount, DamageInfo info) override;
+
+    virtual bool canBeTargetedBy(P<SpaceObject> other) override;
     
     void setSize(float size);
     
