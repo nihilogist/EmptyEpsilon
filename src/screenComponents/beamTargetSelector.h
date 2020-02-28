@@ -7,6 +7,7 @@ class GuiBeamTargetSelector : public GuiSelector
 {
 public:
     GuiBeamTargetSelector(GuiContainer* owner, string id);
+    bool isSystemViableTarget(ESystem system);
     
     virtual void onHotkey(const HotkeyResult& key) override;
 };

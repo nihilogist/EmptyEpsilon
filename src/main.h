@@ -12,6 +12,7 @@ extern float camera_yaw;
 extern float camera_pitch;
 extern sf::Font* main_font;
 extern sf::Font* bold_font;
+extern sf::Font* serifFont;
 extern RenderLayer* backgroundLayer;
 extern RenderLayer* objectLayer;
 extern RenderLayer* effectLayer;

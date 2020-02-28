@@ -37,6 +37,7 @@ float camera_yaw;
 float camera_pitch;
 sf::Font* main_font;
 sf::Font* bold_font;
+sf::Font* serifFont;
 RenderLayer* backgroundLayer;
 RenderLayer* objectLayer;
 RenderLayer* effectLayer;
@@ -228,6 +229,10 @@ int main(int argc, char** argv)
     P<ResourceStream> bold_font_stream = getResourceStream("gui/fonts/PfefferSimpelgotisch fett.otf");
     bold_font = new sf::Font();
     bold_font->loadFromStream(**bold_font_stream);
+
+    P<ResourceStream> serifFontStream = getResourceStream("gui/fonts/FePIrm27C.otf");
+    serifFont = new sf::Font();
+    serifFont->loadFromStream(**serifFontStream);
 
     {
         P<ScriptObject> modelDataScript = new ScriptObject("model_data.lua");
