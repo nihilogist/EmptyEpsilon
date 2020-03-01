@@ -1,85 +1,47 @@
--- Name: Meet the Neighbours
--- Description: Friday night, 2300-0000
--- Type: Pirate Space Station and environs.
+-- Name: Objective Sighted
+-- Description: Saturday 1600-1900
+-- Type: A small zone of wrecks and no enemies.
 
 
 require("utils.lua")
--- require("launchBayControls.lua")
-
+-- For this scenario, utils.lua provides:
+--   vectorFromAngle(angle, length)
+--      Returns a relative vector (x, y coordinates)
+--   setCirclePos(obj, x, y, angle, distance)
+--      Returns the object with its position set to the resulting coordinates.
 
 function init()
 	-- Spawn a player Dauntless.
-    lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("LexTalionisInitial"):setPosition(-8000, -2000)
-	lexTalionis:setCallSign("Lex Talionis")
-	furyOne = nil
-	furyOneButton = false
-	furyTwo = nil
-	furyTwoButton = false
-	starhawkOne = nil
-    starhawkOneButton = false
+	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setHeading(250):setPosition(36648, -22515)
+    lexTalionis:setCallSign("Lex Talionis")
+    addGMFunction("Next Scene", gotoTheWarmaster)
+
     
     createSmallAsteroids()
     createBoundaries()
     createEnemies()
-    addGMFunction("Next Scene", gotoMeetTheNeighbours)
 
     SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
 
-	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
-	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
-end
 
-function gotoMeetTheNeighbours()
-    setScenario("scenario_03_Naptime.lua", nil)
-end
 
-function launchInterceptorOne()
-	--lexTalionis:removeCustom("LaunchFury1")
-	furyOneButton = false
-	furyOne = launchFuryFromWake("Fury 1")
-	furyOne:setAutoCoolant(true)
-    return furyOne
-end
-
-function launchBomberOne()
-	--lexTalionis:removeCustom("LaunchStarhawk1")
-	starhawkOneButton = false
-	starhawkOne = launchStarhawkFromWake("Starhawk 1")
-	starhawkOne:setAutoCoolant(true)
-	return starhawkOne
-end
-
-function launchFuryFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
-	return launchedFighter
-end
-
-function launchStarhawkFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
-	return launchedFighter
-end
-
-function launchVehicleFromWake(vehicleClass, callsign)
-	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
-	local x, y = lexTalionis:getPosition()
-    local direction = lexTalionis:getHeading()
-    setCirclePos(launchedVehicle, x, y, direction - 270, 310)
-    launchedVehicle:setHeading(direction - 180)
-    launchedVehicle:commandTargetRotation(direction - 270)
-    launchedVehicle:commandImpulse(0.5)
-    return launchedVehicle
+	
 end
 
 
 function update(delta)
 
+
+end
+
+function gotoTheWarmaster()
+    setScenario("scenario_07_theWarmaster.lua", nil)
 end
 
 function createEnemies()
-   -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(7378, 3714):setHeading(30):orderRoaming()
-   -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(6878, 3714):setHeading(30):orderRoaming()
-end
-
+    -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(7378, 3714):setHeading(30):orderRoaming()
+    -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(6878, 3714):setHeading(30):orderRoaming()
+ end
 
 function createSmallAsteroids()
 
@@ -134,7 +96,6 @@ function createBoundaries()
     Nebula():setPosition(37930, -21509)
     Nebula():setPosition(34825, -17205)
     Nebula():setPosition(38358, -27869)
-    BlackHole():setPosition(22783, -19942)
     BlackHole():setPosition(29867, -7625)
     BlackHole():setPosition(33377, -700)
     BlackHole():setPosition(31207, 4756)
@@ -156,7 +117,6 @@ function createBoundaries()
     Nebula():setPosition(26179, 14034)
     Nebula():setPosition(25628, 6038)
     Nebula():setPosition(28407, -1965)
-    Nebula():setPosition(22907, -8929)
     Nebula():setPosition(30495, -11026)
     Nebula():setPosition(25271, -16961)
     Nebula():setPosition(24528, -22680)
@@ -166,7 +126,6 @@ function createBoundaries()
     Nebula():setPosition(-4262, -15350)
     Nebula():setPosition(-8950, -9605)
     Nebula():setPosition(-18608, 3120)
-    Nebula():setPosition(17616, -15315)
     BlackHole():setPosition(29547, -26774)
     BlackHole():setPosition(23076, -29349)
     BlackHole():setPosition(17133, -30934)

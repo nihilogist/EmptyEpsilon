@@ -1,0 +1,5 @@
+template = ShipTemplate():setName("Khara Station"):setModel("space_station_4"):setType("station")
+template:setDescription([[These spaceborne communities often represent permanent bases in a sector. Stations of this size can be military installations, commercial hubs, deep-space settlements, and small shipyards. Only a concentrated attack can penetrate a large station's shields, and its hull can withstand all but the most powerful weaponry.]])
+template:setHull(5000)
+template:setShields(100)
+template:setRadarTrace("RadarStation.png")

@@ -6,7 +6,7 @@ template:setShields(200)
 template:setSpeed(25, 3, 15)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 2, 0, 5000.0, 30.0, 60)
-template:setBeamWeaponTurret(0, 90, 0, 0.2)
+template:setBeamWeaponTurret(0, 270, 0, 0.1)
 template:setBeamWeaponTargetingDetails(0, 60, 20)
 template:setBeamWeaponEnergyPerFire(0, 5)
 template:setBeamWeaponHeatPerFire(0, 0.02)

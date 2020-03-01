@@ -2,14 +2,18 @@ template = ShipTemplate():setName("LexTalionisInitial"):setClass("Cruiser", "Lig
 template:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(1000)
-template:setShields(200)
-template:setSpeed(10, 3, 0.5)
+template:setShields(50)
+template:setSpeed(18, 1, 0.5)
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 90, 0, 1000.0, 30.0, 60)
+template:setBeam(0, 2, 0, 5000.0, 30.0, 60)
+template:setBeamWeaponTurret(0, 270, 0, 0.05)
+template:setBeamWeaponTargetingDetails(0, 60, 20)
+template:setBeamWeaponEnergyPerFire(0, 5)
+template:setBeamWeaponHeatPerFire(0, 0.02)
 
-template:setWeaponStorage("HVLI", 500)
+template:setWeaponStorage("HVLI", 12)
 
-template:setTubes(1, 60.0) -- 3 weapons tubes
+template:setTubes(1, 45.0) -- 3 weapons tubes
 -- Tubes 1 and 2 are 12 shot macrocannon batteries with 90 degree arcs
 template:setTubeDirection(0, -90)
 template:setWeaponTubeExclusiveFor(0, "HVLI")
