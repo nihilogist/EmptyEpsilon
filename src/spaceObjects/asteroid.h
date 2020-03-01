@@ -27,7 +27,7 @@ public:
     
     void setSize(float size);
     
-    virtual string getExportLine() { return "Asteroid():setPosition(" + string(getPosition().x, 0) + ", " + string(getPosition().y, 0) + ")"; }
+    virtual string getExportLine() { return "Asteroid():setPosition(" + string(getPosition().x, 0) + ", " + string(getPosition().y, 0) + "):setSize(" + string(size, 0) + ")"; }
 };
 
 class VisualAsteroid : public SpaceObject

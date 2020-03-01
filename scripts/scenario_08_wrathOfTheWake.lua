@@ -15,6 +15,7 @@ function init()
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(34118, 926)
     lexTalionis:setCallSign("Lex Talionis")
     addGMFunction("Next Scene", gotoTeaAndMedals)
+    createScenario()
 
 
 
