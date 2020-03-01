@@ -1,6 +1,7 @@
 #include "playerInfo.h"
 #include "gameGlobalInfo.h"
 #include "weaponsScreen.h"
+#include "screenComponents/viewport3d.h"
 
 #include "screenComponents/missileTubeControls.h"
 #include "screenComponents/aimLock.h"
@@ -19,6 +20,10 @@
 WeaponsScreen::WeaponsScreen(GuiContainer* owner)
 : GuiOverlay(owner, "WEAPONS_SCREEN", colorConfig.background)
 {
+    // Create a 3D viewport behind everything, to serve as the right-side panel
+    viewport = new GuiViewport3D(this, "3D_VIEW");
+    viewport->setPosition(500, 0, ATopLeft)->setSize(1, 1);
+
     // Render the radar shadow and background decorations.
     background_gradient = new GuiOverlay(this, "BACKGROUND_GRADIENT", sf::Color::White);
     background_gradient->setTextureCenter("gui/BackgroundGradient");

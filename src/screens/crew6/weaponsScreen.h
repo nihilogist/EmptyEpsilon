@@ -11,6 +11,7 @@ class GuiToggleButton;
 class GuiRotationDial;
 class GuiLabel;
 class GuiSlider;
+class GuiViewport3D;
 
 class WeaponsScreen : public GuiOverlay
 {
@@ -28,6 +29,7 @@ private:
     GuiToggleButton* lock_aim;
     GuiSlider* zoomSlider;
     GuiLabel* zoomLabel;
+    GuiViewport3D* viewport; // try to hack positional audio in
 public:
     WeaponsScreen(GuiContainer* owner);
     

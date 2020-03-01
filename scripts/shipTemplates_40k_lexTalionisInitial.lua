@@ -3,7 +3,7 @@ template:setDescription([[This ship dates from the Regency era in the Prosperita
 template:setRadarTrace("radar_dauntless.png")
 template:setHull(1000)
 template:setShields(50)
-template:setSpeed(18, 1, 0.5)
+template:setSpeed(20, 1, 0.2)
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 2, 0, 5000.0, 30.0, 60)
 template:setBeamWeaponTurret(0, 270, 0, 0.05)
