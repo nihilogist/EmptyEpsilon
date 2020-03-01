@@ -12,11 +12,12 @@ require("utils.lua")
 
 function init()
 	-- Spawn a player Dauntless.
-	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(78, 54981)
+	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(0, 0):setHeading(0)
     lexTalionis:setCallSign("Lex Talionis")
     addGMFunction("Next Scene", gotoWrathOfTheWake)
 
     createScenario()
+
 
 
 
@@ -37,6 +38,8 @@ end
 
 function createScenario()
     CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Battleship"):setCallSign("BR2"):setPosition(2, 60267):orderRoaming()
+    warpAnomaly = WarpAnomaly()
+    warpAnomaly:setPosition(3, 60267)
     Asteroid():setPosition(5402, 34315)
     Asteroid():setPosition(17940, 16416)
     Asteroid():setPosition(-19055, 21888)
