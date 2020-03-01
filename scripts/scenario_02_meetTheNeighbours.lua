@@ -4,13 +4,17 @@
 
 
 require("utils.lua")
+require("manageNPCShips.lua")
 -- require("launchBayControls.lua")
 
 
 function init()
 	-- Spawn a player Dauntless.
     lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("LexTalionisInitial"):setPosition(-8000, -2000)
-	lexTalionis:setCallSign("Lex Talionis")
+    lexTalionis:setCallSign("Lex Talionis")
+    -- spawn the station
+    kharaStation = SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
+
 	furyOne = nil
 	furyOneButton = false
 	furyTwo = nil
@@ -20,14 +24,59 @@ function init()
     
     createSmallAsteroids()
     createBoundaries()
-    createEnemies()
+
+    createNPCShipConfig()
+
+    createNPCShips(npcConfiguration)
+
     addGMFunction("Next Scene", gotoMeetTheNeighbours)
 
-    SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
+    
+
+    startInitialOrders()
 
 	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
 	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 end
+
+function createNPCShipConfig()
+    npcConfiguration = {
+        --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
+        {"Malevolence", -451, 2942, 270, "Merchant Raider", "The Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Stormspike", -1176, 3451, 270, "Armed Merchantman", "The Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Khara-Lighter 001", 8014, -4135, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Khara-Lighter 009", 6920, -5261, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Khara-Lighter 0A1", 5827, -6625, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Khara-Lighter 00F", 13926, -2522, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Khara-Lighter 01A", 9876, -2749, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Ark of Plenty", 11590, -4650, 0, "Q Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"St Sebastian's Properity", 10027, -4495, 0, "Q Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Cornucopia", 12561, -3486, 0, "Armed Merchantman", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Bearclaw", 16132, -3974, 0, "Armed Merchantman", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Mazar's Revenge", 8640, -7610, 0, "Pirate Destroyer", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Sabre's Point", 7492, -9318, 0, "Sword", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
+        {"Flamberge", 10638, -10477, 0, "Sword", "Kirill", "Unscanned", "Scanned", "Deepscanned"}
+    }
+end
+
+function startInitialOrders()
+    getShip(npcConfiguration[1]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[2]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[3]):orderIdle()
+    getShip(npcConfiguration[4]):orderIdle()
+    getShip(npcConfiguration[5]):orderIdle()
+    getShip(npcConfiguration[6]):orderIdle()
+    getShip(npcConfiguration[7]):orderIdle()
+    getShip(npcConfiguration[8]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[9]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[10]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[11]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[12]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[13]):orderDefendTarget(kharaStation)
+    getShip(npcConfiguration[14]):orderDefendTarget(kharaStation)
+end
+
 
 function gotoMeetTheNeighbours()
     setScenario("scenario_03_Naptime.lua", nil)
@@ -73,11 +122,6 @@ end
 
 function update(delta)
 
-end
-
-function createEnemies()
-   -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(7378, 3714):setHeading(30):orderRoaming()
-   -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(6878, 3714):setHeading(30):orderRoaming()
 end
 
 

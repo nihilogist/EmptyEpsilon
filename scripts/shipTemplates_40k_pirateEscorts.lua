@@ -10,11 +10,11 @@ template:setSpeed(20, 2, 1)
 -- Single weapons battery
 template:setTubes(1, 20.0)
 -- Battery 2: dorsal macrocannon
-template:weaponTubeDisallowMissle(1, "Homing")
-template:setTubeBatterySize(1, 2)
-template:setTubeSalvoSpread(1, 8)
-template:setTubeTurretArc(1, 270)
-template:setTubeTurretRotationSpeed(1, 0.6)
+template:setWeaponTubeExclusiveFor(0, "HVLI")
+template:setTubeBatterySize(0, 2)
+template:setTubeSalvoSpread(0, 8)
+template:setTubeTurretArc(0, 270)
+template:setTubeTurretRotationSpeed(0, 0.6)
 -- Ammunition
 template:setWeaponStorage("HVLI", 100)
 
