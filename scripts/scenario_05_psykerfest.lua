@@ -4,6 +4,7 @@
 
 
 require("utils.lua")
+require("manageNPCShips.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -15,6 +16,11 @@ function init()
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless")
     lexTalionis:setCallSign("Lex Talionis")
     addGMFunction("Next Scene", gotoObjectiveSighted)
+
+
+    createNPCShipConfig()
+
+    createNPCShips(npcConfiguration)
 
     
     createCultShips()
@@ -34,34 +40,33 @@ function update(delta)
 
 end
 
+function createNPCShipConfig() 
+    npcConfiguration = {
+        --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        --{"Callsign", 0, 0, 0, "Template", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
+        {"Hallowed Mirror", 12282, -10060, 202, "Falchion", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Feathered Glass", 11874, -10671, 202, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Tears of Change", 37514, -8558, 0, "Q Ship", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Everpromise", 40398, -6309, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Fate's Warning", 39088, -7513, 0, "Q Ship", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Architect's Blade", 5014, 8686, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Scythe", 4629, 9665, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Freedom of Thought", 6776, -114, 230, "Merchant Raider", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Clarity of Angels", -4525, -568, 90, "Armed Merchantman", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
+        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
+    }
+end
+
 function gotoObjectiveSighted()
     setScenario("scenario_06_objectiveSighted.lua", nil)
 end
 
 function createCultShips()
-    -- Cult's primary attack vessels
-    CpuShip():setFaction("Wreckage"):setTemplate("Sabre"):setCallSign("CCN3"):setPosition(5197, -8369):setHeading(202)
-    CpuShip():setFaction("Wreckage"):setTemplate("Falchion"):setCallSign("CSS5"):setPosition(6963, -7300):setHeading(202)
-
-
-    CpuShip():setFaction("Wreckage"):setTemplate("Q Ship"):setCallSign("VS6"):setPosition(37514, -8558):orderRoaming():setWeaponStorage("Torpedo", 0):setWeaponStorage("Macro", 97)
-    CpuShip():setFaction("Wreckage"):setTemplate("Q Ship"):setCallSign("UTI7"):setPosition(39088, -7513):orderRoaming():setWeaponStorage("Torpedo", 0):setWeaponStorage("Macro", 97)
-    CpuShip():setFaction("Wreckage"):setTemplate("Sabre"):setCallSign("NC2"):setPosition(40398, -6309):orderRoaming():setWeaponStorage("Macro", 99)
-    Planet():setPosition(45584, -14413)
-
-
     cultPlanet = Planet()
     cultPlanet:setPosition(45584, -14413)
 
     Mine():setPosition(5910, -3278)
     Mine():setPosition(7075, 5187)
-    -- Hidden forces in nebula
-    CpuShip():setFaction("Wreckage"):setTemplate("Sabre"):setCallSign("CV4"):setPosition(283, 6844):setHeading(0)
-    CpuShip():setFaction("Wreckage"):setTemplate("Sabre"):setCallSign("VS8"):setPosition(-604, 6567):setHeading(0)
-    CpuShip():setFaction("Wreckage"):setTemplate("Merchant Raider"):setCallSign("CCN9"):setPosition(4401, -2396):setHeading(230)
-    -- Ambush from read
-    CpuShip():setFaction("Wreckage"):setTemplate("Armed Merchantman"):setCallSign("CV10"):setPosition(-4525, -568):setHeading(90)
-    CpuShip():setFaction("Wreckage"):setTemplate("Armed Merchantman"):setCallSign("CV11"):setPosition(-4548, 731):setHeading(90)
 
 end
 

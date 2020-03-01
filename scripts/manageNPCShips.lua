@@ -13,7 +13,7 @@ function createNPCShips(npcConfig)
         local shipHeading = getShipHeading(npcShipConfig)
         local shipFaction = getShipFaction(npcShipConfig)
         -- read the faction of the ship
-        table.insert(npcShipConfig, CpuShip():setTemplate(shipClass):setFaction(shipFaction):setDescription(shipDescription):setCallSign("Unknown Contact"):setRotation(shipHeading):orderRoaming():setPosition(shipXPosition, shipYPosition))
+        table.insert(npcShipConfig, CpuShip():setTemplate(shipClass):setFaction(shipFaction):setDescription(shipDescription):setCallSign("Unknown Contact"):setHeading(shipHeading):orderRoaming():setPosition(shipXPosition, shipYPosition))
 
     end
     
