@@ -52,6 +52,7 @@ CpuShip::CpuShip()
 {
     setFactionId(2);
     orders = AI_Idle;
+    stance = Stance_Passive;
 
     setRotation(random(0, 360));
     target_rotation = getRotation();
@@ -137,6 +138,7 @@ void CpuShip::setAI(string new_ai)
 void CpuShip::orderIdle()
 {
     orders = AI_Idle;
+    stance = Stance_Passive;
     order_target = NULL;
     order_target_location = sf::Vector2f();
 }
@@ -145,6 +147,7 @@ void CpuShip::orderRoaming()
 {
     target_rotation = getRotation();
     orders = AI_Roaming;
+    stance = Stance_AtWill;
     order_target = NULL;
     order_target_location = sf::Vector2f();
     this->addBroadcast(FVF_Friendly,"Searching for targets.");
@@ -154,6 +157,7 @@ void CpuShip::orderRoamingAt(sf::Vector2f position)
 {
     target_rotation = getRotation();
     orders = AI_Roaming;
+    stance = Stance_AtWill;
     order_target = NULL;
     order_target_location = position;
     this->addBroadcast(FVF_Friendly, "Searching for hostiles around " + string(position.x) + "," + string(position.y) + ".");
@@ -163,6 +167,7 @@ void CpuShip::orderStandGround()
 {
     target_rotation = getRotation();
     orders = AI_StandGround;
+    stance = Stance_AtWill;
     order_target = NULL;
     order_target_location = sf::Vector2f();
     this->addBroadcast(FVF_Friendly, "Standing ground for now.");
@@ -171,6 +176,7 @@ void CpuShip::orderStandGround()
 void CpuShip::orderDefendLocation(sf::Vector2f position)
 {
     orders = AI_DefendLocation;
+    stance = Stance_AtWill;
     order_target = NULL;
     order_target_location = position;
     this->addBroadcast(FVF_Friendly, "Defending " + string(position.x) + "," + string(position.y) + ".");
@@ -181,6 +187,7 @@ void CpuShip::orderDefendTarget(P<SpaceObject> object)
     if (!object)
         return;
     orders = AI_DefendTarget;
+    stance = Stance_AtWill;
     order_target = object;
     order_target_location = sf::Vector2f();
     this->addBroadcast(FVF_Friendly, "Defending " + object->getCallSign() + ".");
@@ -191,6 +198,7 @@ void CpuShip::orderFlyFormation(P<SpaceObject> object, sf::Vector2f offset)
     if (!object)
         return;
     orders = AI_FlyFormation;
+    stance = Stance_AtWill;
     order_target = object;
     order_target_location = offset;
     this->addBroadcast(FVF_Friendly, "Following " + object->getCallSign() + ".");
@@ -199,6 +207,7 @@ void CpuShip::orderFlyFormation(P<SpaceObject> object, sf::Vector2f offset)
 void CpuShip::orderFlyTowards(sf::Vector2f target)
 {
     orders = AI_FlyTowards;
+    stance = Stance_AtWill;
     order_target = NULL;
     order_target_location = target;
     this->addBroadcast(FVF_Friendly, "Moving to " + string(target.x) + "," + string(target.y) + ".");
@@ -207,6 +216,7 @@ void CpuShip::orderFlyTowards(sf::Vector2f target)
 void CpuShip::orderFlyTowardsBlind(sf::Vector2f target)
 {
     orders = AI_FlyTowardsBlind;
+    stance = Stance_Passive;
     order_target = NULL;
     order_target_location = target;
     this->addBroadcast(FVF_Friendly,"Moving to " + string(target.x) + "," + string(target.y) + ".");
@@ -217,6 +227,7 @@ void CpuShip::orderAttack(P<SpaceObject> object)
     if (!object)
         return;
     orders = AI_Attack;
+    stance = Stance_Active;
     order_target = object;
     order_target_location = sf::Vector2f();
     this->addBroadcast(FVF_Friendly, "Moving to attack " + object->getCallSign() + "!");
@@ -227,9 +238,26 @@ void CpuShip::orderDock(P<SpaceObject> object)
     if (!object)
         return;
     orders = AI_Dock;
+    stance = Stance_Passive;
     order_target = object;
     order_target_location = sf::Vector2f();
     this->addBroadcast(FVF_Friendly, "Docking to " + object->getCallSign() + ".");
+}
+
+void CpuShip::orderPassive() {
+    stance = Stance_Passive;
+}
+
+void CpuShip::orderFireAtWill() {
+    stance = Stance_AtWill;
+}
+
+void CpuShip::orderFireAtTarget() {
+    stance = Stance_Active;
+}
+
+EAIStance CpuShip::getStance() {
+    return stance;
 }
 
 void CpuShip::drawOnGMRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range)

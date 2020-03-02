@@ -18,6 +18,13 @@ enum EAIOrder
     AI_Attack,          //Attack [order_target] very specificly.
 };
 
+enum EAIStance
+{
+    Stance_Passive,    // Do not engage any targets
+    Stance_AtWill,     // Engage any hostile targets en route to destination
+    Stance_Active      // Actively follow and engage current target
+};
+
 
 class ShipAI;
 class CpuShip : public SpaceShip
@@ -26,6 +33,7 @@ class CpuShip : public SpaceShip
     static constexpr float missile_resupply_time = 10.0f;
 
     EAIOrder orders;                    //Server only
+    EAIStance stance;                   //Server only
     sf::Vector2f order_target_location; //Server only
     P<SpaceObject> order_target;        //Server only
     ShipAI* ai;
@@ -38,6 +46,9 @@ public:
     virtual void update(float delta) override;
     virtual void applyTemplateValues() override;
     void setAI(string new_ai);
+
+
+    // ORDERS FUNCTIONS
 
     void orderIdle();
     void orderRoaming();
@@ -55,6 +66,11 @@ public:
     sf::Vector2f getOrderTargetLocation() { return order_target_location; }
     P<SpaceObject> getOrderTarget() { return order_target; }
     
+    // STANCE FUNCTIONS
+    void orderPassive();
+    void orderFireAtWill();
+    void orderFireAtTarget();
+    EAIStance getStance();
 
     virtual void drawOnGMRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range) override;
     virtual std::unordered_map<string, string> getGMInfo() override;

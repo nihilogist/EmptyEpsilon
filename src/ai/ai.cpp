@@ -68,12 +68,11 @@ void ShipAI::run(float delta)
     }
 
     //If we have a target and weapons, engage the target.
-    if (owner->getTarget() && (has_missiles || has_beams))
-    {
+    if (owner->getTarget() && (has_missiles || has_beams)) {
         runAttack(owner->getTarget());
-    }else{
-        runOrders();
-    }
+    } 
+    runOrders();
+
 }
 
 static int getDirectionIndex(float direction, float arc)
@@ -244,46 +243,68 @@ void ShipAI::updateWeaponState(float delta)
     }
 }
 
+// Updates the ship's target
 void ShipAI::updateTarget()
 {
+    // Store the current target.
     P<SpaceObject> target = owner->getTarget();
+    // Create a placeholder for the new target.
     P<SpaceObject> new_target;
+    // Get our current position.
     sf::Vector2f position = owner->getPosition();
+    // Get our current orders and stance
     EAIOrder orders = owner->getOrder();
+    EAIStance stance = owner->getStance();
+
+    // Get the current destination.
     sf::Vector2f order_target_location = owner->getOrderTargetLocation();
+    // Get the current ordered object.
     P<SpaceObject> order_target = owner->getOrderTarget();
 
     //Check if we need to lose our target because it entered a nebula.
     if (target && target->canHideInNebula() && Nebula::blockedByNebula(position, target->getPosition()))
     {
-        //When we are roaming, and we lost our target in a nebula, set the "fly to" position to the last known position of the enemy ship.
-        if (orders == AI_Roaming)
+        //When we are actively targeting a ship, and it goes into a nebula, then go to its last position.
+        if (stance == Stance_Active)
             owner->orderRoamingAt(target->getPosition());
         target = NULL;
     }
+
+    // If the target is no longer an enemy, then drop it as a target.
     if (target && !owner->isEnemy(target))
         target = NULL;
 
-    //Find new target which we might switch to
-    if (orders == AI_Roaming)
-        new_target = findBestTarget(position, 8000);
-    if (orders == AI_StandGround || orders == AI_FlyTowards)
-        new_target = findBestTarget(position, 7000);
-    if (orders == AI_DefendLocation)
-        new_target = findBestTarget(order_target_location, 7000);
+    // If we are not actively hunting a target, check to see if there are any new targets
+    if (stance == Stance_AtWill) {
+        if (orders == AI_Roaming)
+            new_target = findBestTarget(position, 8000);
+        if (orders == AI_StandGround || orders == AI_FlyTowards)
+            new_target = findBestTarget(position, 7000);
+        if (orders == AI_DefendLocation)
+            new_target = findBestTarget(order_target_location, 7000);
+    }
+    
+
+    // If we're flying formation, then set our target as the target of the lead ship, if that ship is within 5000U??
     if (orders == AI_FlyFormation && order_target)
     {
         P<SpaceShip> ship = order_target;
         if (ship && ship->getTarget() && (ship->getTarget()->getPosition() - position) < 5000.0f)
             new_target = ship->getTarget();
     }
+
+    // If we're defending a target, then check for targets near our ward.
     if (orders == AI_DefendTarget)
     {
         if (order_target)
             new_target = findBestTarget(order_target->getPosition(), 7000);
     }
-    if (orders == AI_Attack)
+
+    // If we're just attacking a target then keep attacking it
+    if (orders == AI_Attack) {
         new_target = order_target;
+    }
+        
 
     //Check if we need to drop the current target
     if (target)
@@ -391,8 +412,8 @@ void ShipAI::runOrders()
             owner->orderRoaming();
         }
         break;
-    case AI_Attack:          //Attack [order_target] very specificly.
-        pathPlanner.clear();
+    case AI_Attack:          //Attack [order_target] very specifically - movement is handled in the Attack segment.
+        //pathPlanner.clear();
         break;
     case AI_Dock:            //Dock with [order_target]
         if (owner->getOrderTarget())
@@ -422,15 +443,16 @@ void ShipAI::runAttack(P<SpaceObject> target)
     // calculate the ideal attack range based on the preferred weapon
     // float attack_distance = 4000.0;
     float attack_distance = MissileWeaponData::getDataFor(getPreferredWeaponType()).engagementRange;
-    if (has_beams)
+    if (has_beams) {
         attack_distance = beam_weapon_range * 0.7;
+    }
+        
 
     // Get current range to target
     sf::Vector2f position_diff = target->getPosition() - owner->getPosition();
     float distance = sf::length(position_diff);
 
     // If within weapons radar range and has missiles
-
     if (distance < 10000 && has_missiles)
     {
         for(int n=0; n<owner->weapon_tube_count; n++)
@@ -448,25 +470,29 @@ void ShipAI::runAttack(P<SpaceObject> target)
         }
     }
 
+    // if the ship's orders are to stand ground then pretty much just sit there
     if (owner->getOrder() == AI_StandGround)
     {
         owner->target_rotation = sf::vector2ToAngle(position_diff);
-    }else{
-        if (weapon_direction == EWeaponDirection::Side || weapon_direction == EWeaponDirection::Left || weapon_direction == EWeaponDirection::Right)
-        {
-            //We have side beams, find out where we want to attack from.
-            sf::Vector2f target_position = target->getPosition();
-            sf::Vector2f diff = target_position - owner->getPosition();
-            float angle = sf::vector2ToAngle(diff);
-            if ((weapon_direction == EWeaponDirection::Side && sf::angleDifference(angle, owner->getRotation()) > 0) || weapon_direction == EWeaponDirection::Left)
-                angle += 160;
-            else
-                angle -= 160;
-            target_position += sf::vector2FromAngle(angle) * (attack_distance + target->getRadius());
-            flyTowards(target_position, 0);
-        }else{
-            flyTowards(target->getPosition(), attack_distance);
+    } else {
+        // Otherwise, if we're actively attacking the target then change our destination as appropriate
+        if (owner->getStance() == Stance_Active) {
+            if (weapon_direction == EWeaponDirection::Side || weapon_direction == EWeaponDirection::Left || weapon_direction == EWeaponDirection::Right) {
+                //We have side beams, find out where we want to attack from.
+                sf::Vector2f target_position = target->getPosition();
+                sf::Vector2f diff = target_position - owner->getPosition();
+                float angle = sf::vector2ToAngle(diff);
+                if ((weapon_direction == EWeaponDirection::Side && sf::angleDifference(angle, owner->getRotation()) > 0) || weapon_direction == EWeaponDirection::Left)
+                    angle += 160;
+                else
+                    angle -= 160;
+                target_position += sf::vector2FromAngle(angle) * (attack_distance + target->getRadius());
+                flyTowards(target_position, 0);
+            } else {
+                flyTowards(target->getPosition(), attack_distance);
+            }
         }
+        
     }
 }
 

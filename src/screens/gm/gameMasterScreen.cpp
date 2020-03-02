@@ -405,6 +405,7 @@ void GameMasterScreen::onMouseUp(sf::Vector2f position)
         {
             //Right click
             bool shift_down = InputHandler::keyboardIsDown(sf::Keyboard::LShift) || InputHandler::keyboardIsDown(sf::Keyboard::RShift);
+            bool ctrl_down = InputHandler::keyboardIsDown(sf::Keyboard::LControl);
             P<SpaceObject> target;
             PVector<Collisionable> list = CollisionManager::queryArea(position, position);
             foreach(Collisionable, collisionable, list)
@@ -438,22 +439,28 @@ void GameMasterScreen::onMouseUp(sf::Vector2f position)
                 P<WormHole> wormhole = obj;
                 if (cpu_ship)
                 {
-                    if (target && target != obj && target->canBeTargetedBy(obj))
-                    {
-                        if (obj->isEnemy(target))
-                        {
+                    if (target && target != obj && target->canBeTargetedBy(obj)) {
+                        // If the ship is an enemy then just attack it.
+                        if (obj->isEnemy(target)) {
                             cpu_ship->orderAttack(target);
-                        }else{
-                            if (!shift_down && target->canBeDockedBy(cpu_ship))
-                                cpu_ship->orderDock(target);
-                            else
+                        } else {
+                            // If shift is held down, then defend the target
+                            if (shift_down) {
                                 cpu_ship->orderDefendTarget(target);
+                            } else if (ctrl_down) { // If control is held down then fly in formation with the target
+                                cpu_ship->orderFlyFormation(target, (obj->getPosition() - objects_center));
+                            } else if (target->canBeDockedBy(cpu_ship)) { // If we're not going to defend or fly near the target
+                                cpu_ship->orderDock(target);              // but we can dock with it, then dock with it.        
+                            } else {  // If nothing else, then just fly towards it.
+                                cpu_ship->orderFlyTowards(position + (obj->getPosition() - objects_center));
+                            }
                         }
-                    }else{
-                        if (shift_down)
+                    } else {
+                        if (shift_down) {
                             cpu_ship->orderFlyTowardsBlind(position + (obj->getPosition() - objects_center));
-                        else
+                        } else {
                             cpu_ship->orderFlyTowards(position + (obj->getPosition() - objects_center));
+                        } 
                     }
                 }
                 else if (wormhole)
