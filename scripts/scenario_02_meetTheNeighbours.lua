@@ -5,7 +5,6 @@
 
 require("utils.lua")
 require("manageNPCShips.lua")
--- require("launchBayControls.lua")
 
 
 function init()
@@ -14,13 +13,6 @@ function init()
     lexTalionis:setCallSign("Lex Talionis")
     -- spawn the station
     kharaStation = SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
-
-	furyOne = nil
-	furyOneButton = false
-	furyTwo = nil
-	furyTwoButton = false
-	starhawkOne = nil
-    starhawkOneButton = false
     
     createSmallAsteroids()
     createBoundaries()
@@ -35,7 +27,8 @@ function init()
 
     startInitialOrders()
 
-	lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+    lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+    lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
 	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 end
 
@@ -83,16 +76,18 @@ function gotoMeetTheNeighbours()
 end
 
 function launchInterceptorOne()
-	--lexTalionis:removeCustom("LaunchFury1")
-	furyOneButton = false
 	furyOne = launchFuryFromWake("Fury 1")
 	furyOne:setAutoCoolant(true)
     return furyOne
 end
 
+function launchInterceptorTwo()
+	furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo:setAutoCoolant(true)
+    return furyTwo
+end
+
 function launchBomberOne()
-	--lexTalionis:removeCustom("LaunchStarhawk1")
-	starhawkOneButton = false
 	starhawkOne = launchStarhawkFromWake("Starhawk 1")
 	starhawkOne:setAutoCoolant(true)
 	return starhawkOne

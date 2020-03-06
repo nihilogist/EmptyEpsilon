@@ -26,6 +26,9 @@ function init()
     createWreckedShips(shipwreckDetails)
 
     addGMFunction("Next Scene", gotoMeetTheNeighbours)
+    lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
+    lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
+	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 
 
 	
@@ -311,3 +314,41 @@ function setupAsteroids()
 
 end
 
+function launchInterceptorOne()
+	furyOne = launchFuryFromWake("Fury 1")
+	furyOne:setAutoCoolant(true)
+    return furyOne
+end
+
+function launchInterceptorTwo()
+	furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo:setAutoCoolant(true)
+    return furyTwo
+end
+
+function launchBomberOne()
+	starhawkOne = launchStarhawkFromWake("Starhawk 1")
+	starhawkOne:setAutoCoolant(true)
+	return starhawkOne
+end
+
+function launchFuryFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
+	return launchedFighter
+end
+
+function launchStarhawkFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
+	return launchedFighter
+end
+
+function launchVehicleFromWake(vehicleClass, callsign)
+	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
+	local x, y = lexTalionis:getPosition()
+    local direction = lexTalionis:getHeading()
+    setCirclePos(launchedVehicle, x, y, direction - 270, 310)
+    launchedVehicle:setHeading(direction - 180)
+    launchedVehicle:commandTargetRotation(direction - 270)
+    launchedVehicle:commandImpulse(0.5)
+    return launchedVehicle
+end

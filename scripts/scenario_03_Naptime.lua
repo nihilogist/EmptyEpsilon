@@ -14,12 +14,7 @@ function init()
 	-- Spawn a player Dauntless.
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("LexTalionisInitial")
 	lexTalionis:setCallSign("Lex Talionis")
-	furyOne = nil
-	furyOneButton = false
-	furyTwo = nil
-	furyTwoButton = false
-	starhawkOne = nil
-    starhawkOneButton = false
+
 
     createBoundaries()
     
@@ -38,50 +33,6 @@ function gotoNavigationOnline()
     setScenario("scenario_04_navigationOnline.lua", nil)
 end
 
-function launchInterceptorOne()
-	--lexTalionis:removeCustom("LaunchFury1")
-	furyOneButton = false
-	furyOne = launchFuryFromWake("Fury 1")
-	furyOne:setAutoCoolant(true)
-    return furyOne
-end
-
-function launchInterceptorTwo()
-	--lexTalionis:removeCustom("LaunchFury2")
-	furyTwoButton = false
-	furyTwo = launchFuryFromWake("Fury 2")
-	furyTwo:setAutoCoolant(true)
-    return furyTwo
-end
-
-function launchBomberOne()
-	--lexTalionis:removeCustom("LaunchStarhawk1")
-	starhawkOneButton = false
-	starhawkOne = launchStarhawkFromWake("Starhawk 1")
-	starhawkOne:setAutoCoolant(true)
-	return starhawkOne
-end
-
-function launchFuryFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
-	return launchedFighter
-end
-
-function launchStarhawkFromWake(callsign)
-	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
-	return launchedFighter
-end
-
-function launchVehicleFromWake(vehicleClass, callsign)
-	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
-	local x, y = lexTalionis:getPosition()
-    local direction = lexTalionis:getHeading()
-    setCirclePos(launchedVehicle, x, y, direction - 270, 310)
-    launchedVehicle:setHeading(direction - 180)
-    launchedVehicle:commandTargetRotation(direction - 270)
-    launchedVehicle:commandImpulse(0.5)
-    return launchedVehicle
-end
 
 
 function update(delta)
@@ -110,4 +61,43 @@ function createBoundaries()
     BlackHole():setPosition(-14408, -1031)
     BlackHole():setPosition(-12152, -8123)
 
+end
+
+function launchInterceptorOne()
+	furyOne = launchFuryFromWake("Fury 1")
+	furyOne:setAutoCoolant(true)
+    return furyOne
+end
+
+function launchInterceptorTwo()
+	furyTwo = launchFuryFromWake("Fury 2")
+	furyTwo:setAutoCoolant(true)
+    return furyTwo
+end
+
+function launchBomberOne()
+	starhawkOne = launchStarhawkFromWake("Starhawk 1")
+	starhawkOne:setAutoCoolant(true)
+	return starhawkOne
+end
+
+function launchFuryFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Mars-Pattern Fury Interceptor", callsign)
+	return launchedFighter
+end
+
+function launchStarhawkFromWake(callsign)
+	launchedFighter = launchVehicleFromWake("Calixis-Pattern Starhawk Bomber", callsign)
+	return launchedFighter
+end
+
+function launchVehicleFromWake(vehicleClass, callsign)
+	launchedVehicle = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate(vehicleClass):setCallSign(callsign)
+	local x, y = lexTalionis:getPosition()
+    local direction = lexTalionis:getHeading()
+    setCirclePos(launchedVehicle, x, y, direction - 270, 310)
+    launchedVehicle:setHeading(direction - 180)
+    launchedVehicle:commandTargetRotation(direction - 270)
+    launchedVehicle:commandImpulse(0.5)
+    return launchedVehicle
 end

@@ -29,16 +29,12 @@ function launchStarhawkFromLex(callsign)
 end
 
 function launchInterceptorOne()
-	--lexTalionis:removeCustom("LaunchFury1")
-	furyOneButton = false
 	furyOne = launchFuryFromLex("Fury 1")
 	furyOne:setAutoCoolant(true)
     return furyOne
 end
 
 function launchBomberOne()
-	--lexTalionis:removeCustom("LaunchStarhawk1")
-	starhawkOneButton = false
 	starhawkOne = launchStarhawkFromLex("Starhawk 1")
 	starhawkOne:setAutoCoolant(true)
 	return starhawkOne
