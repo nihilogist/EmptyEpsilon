@@ -97,10 +97,11 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
     info_heading->setSize(GuiElement::GuiSizeMax, 30);
     info_relspeed = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_REL_SPEED", 0.4, "Rel. Speed", "");
     info_relspeed->setSize(GuiElement::GuiSizeMax, 30);
-    info_faction = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_FACTION", 0.4, "Faction", "");
-    info_faction->setSize(GuiElement::GuiSizeMax, 30);
-    info_type = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_TYPE", 0.4, "Type", "");
-    info_type->setSize(GuiElement::GuiSizeMax, 30);
+    // REMOVE FACTION AND TYPE
+    // info_faction = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_FACTION", 0.4, "Faction", "");
+    // info_faction->setSize(GuiElement::GuiSizeMax, 30);
+    // info_type = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_TYPE", 0.4, "Type", "");
+    // info_type->setSize(GuiElement::GuiSizeMax, 30);
     info_shields = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_SHIELDS", 0.4, "Shields", "");
     info_shields->setSize(GuiElement::GuiSizeMax, 30);
     info_hull = new GuiKeyValueDisplay(info_sidebar, "SCIENCE_HULL", 0.4, "Hull", "");
@@ -118,11 +119,13 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
         sidebar_pager->addEntry("Tactical", "Tactical");
     }
 
-    // Add sidebar page for a description.
-    sidebar_pager->addEntry("Description", "Description");
+    
 
     // Add sidebar page for systems.
     sidebar_pager->addEntry("Systems", "Systems");
+
+    // Add sidebar page for a description.
+    sidebar_pager->addEntry("Description", "Description");
 
     // Default the pager to the first item.
     sidebar_pager->setSelectionIndex(0);
@@ -150,7 +153,8 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
 
     // Prep and hide the description text area.
     info_description = new GuiScrollText(info_sidebar, "SCIENCE_DESC", "");
-    info_description->setTextSize(18)->setMargins(20, 20, 0, 0)->setSize(GuiElement::GuiSizeMax, 400)->hide();
+    info_description->setScrollbarWidth(30.0);
+    info_description->setTextSize(18)->setMargins(0, 20, 0, 0)->setSize(GuiElement::GuiSizeMax, 400)->hide();
 
 
     // Probe view button
@@ -182,7 +186,7 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
         zoom_label->setText("Zoom: " + string(gameGlobalInfo->long_range_radar_range / value, 1) + "x");
         science_radar->setDistance(value);
     });
-    zoom_slider->setPosition(-20, -20, ABottomRight)->setSize(250, 50);
+    zoom_slider->setPosition(-20, 0, ATopRight)->setSize(250, 50);
     zoom_label = new GuiLabel(zoom_slider, "", "Zoom: 1.0x", 30);
     zoom_label->setSize(GuiElement::GuiSizeMax, GuiElement::GuiSizeMax);
 
@@ -240,8 +244,8 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
     info_distance->setValue("-");
     info_heading->setValue("-");
     info_relspeed->setValue("-");
-    info_faction->setValue("-");
-    info_type->setValue("-");
+    // info_faction->setValue("-");
+    // info_type->setValue("-");
     info_shields->setValue("-");
     info_hull->setValue("-");
     info_shield_frequency->setFrequency(-1)->hide();
@@ -312,8 +316,8 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
             // hull integrity, and database reference button.
             if (ship->getScannedStateFor(my_spaceship) >= SS_SimpleScan)
             {
-                info_faction->setValue(factionInfo[obj->getFactionId()]->getName());
-                info_type->setValue(ship->getTypeName());
+                // info_faction->setValue(factionInfo[obj->getFactionId()]->getName());
+                // info_type->setValue(ship->getTypeName());
                 info_shields->setValue(ship->getShieldDataString());
                 info_hull->setValue(int(ship->getHull()));
             }
@@ -391,12 +395,12 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
         else
         {
             sidebar_pager->hide();
-            info_faction->setValue(factionInfo[obj->getFactionId()]->getName());
+            // info_faction->setValue(factionInfo[obj->getFactionId()]->getName());
 
             // If the target is a station, show basic tactical info.
             if (station)
             {
-                info_type->setValue(station->template_name);
+                // info_type->setValue(station->template_name);
                 info_shields->setValue(station->getShieldDataString());
                 info_hull->setValue(int(station->getHull()));
             }

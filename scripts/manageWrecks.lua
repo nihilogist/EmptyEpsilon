@@ -23,11 +23,11 @@ function updateWreckedShipsCallsigns(shipwreckDetails)
             -- Check to see if it's fully scanned
             if wreckedShip:isFullyScannedByFaction(1) then
                 wreckedShip:setCallSign(getWreckName(wreckConfig))
-                wreckedShip:setDescription(getWreckFullyScannedDescription(wreckConfig))
+                wreckedShip:setDescription(getWreckFullyScannedDescription(wreckConfig) .. "\n\n" .. getWreckScannedDescription(wreckConfig) .. "\n\n" .. getWreckUnscannedDescription(wreckConfig))
                 -- or if it's partially scanned
             else if wreckedShip:isScannedByFaction("Imperial Navy") then
                 wreckedShip:setCallSign(getWreckClass(wreckConfig))
-                wreckedShip:setDescription(getWreckScannedDescription(wreckConfig))
+                wreckedShip:setDescription(getWreckScannedDescription(wreckConfig) .. "\n\n" .. getWreckUnscannedDescription(wreckConfig))
             end
         end
     end
@@ -51,15 +51,15 @@ function getWreckClass(wreckConfig)
 end
 
 function getWreckUnscannedDescription(wreckConfig)
-    return wreckConfig[5]
+    return "+++ AUSPEX_RETURN +++\n\n" .. wreckConfig[5]
 end
 
 function getWreckScannedDescription(wreckConfig)
-    return wreckConfig[6]
+    return "+++ AUSPEX_ANALYSE +++\n\n" .. wreckConfig[6]
 end
 
 function getWreckFullyScannedDescription(wreckConfig)
-    return wreckConfig[7]
+    return "+++ COGITATOR_CALIBRATION +++\n\n" .. wreckConfig[7]
 end
 
 function getWreckShip(wreckConfig)
