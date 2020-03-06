@@ -118,11 +118,11 @@ ScienceScreen::ScienceScreen(GuiContainer* owner, ECrewPosition crew_position)
         sidebar_pager->addEntry("Tactical", "Tactical");
     }
 
-    // Add sidebar page for systems.
-    sidebar_pager->addEntry("Systems", "Systems");
-
     // Add sidebar page for a description.
     sidebar_pager->addEntry("Description", "Description");
+
+    // Add sidebar page for systems.
+    sidebar_pager->addEntry("Systems", "Systems");
 
     // Default the pager to the first item.
     sidebar_pager->setSelectionIndex(0);
@@ -344,7 +344,11 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
 
                     for(int n = 0; n < SYS_COUNT; n++)
                     {
-                        info_system[n]->show();
+                        // hack to hide the systems we don't want to show
+                        if (n != SYS_Warp && n != SYS_JumpDrive && n != SYS_RearShield) {
+                            info_system[n]->show();
+                        }
+                        
                     }
                     
                     info_description->hide();

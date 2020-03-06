@@ -7,7 +7,7 @@ function createWreckedShips(shipwrecks)
         local wreckBaseDescription = getWreckUnscannedDescription(wreckConfig)
         local wreckXPosition = getWreckXPosition(wreckConfig)
         local wreckYPosition = getWreckYPosition(wreckConfig)
-        table.insert(wreckConfig, CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle():setPosition(wreckXPosition, wreckYPosition))
+        table.insert(wreckConfig, CpuShip():setTemplate(wreckClass):setDescription(wreckBaseDescription):setFaction("Wreckage"):setCallSign("Unknown Contact"):setRotation(random(0, 360)):orderIdle():setPosition(wreckXPosition, wreckYPosition):setSystemHealth("reactor", 0.0):setSystemHealth("beamweapons", 0.0):setSystemHealth("maneuver", 0.0):setSystemHealth("missilesystem", 0.0):setSystemHealth("frontshield", 0.0):setSystemHealth("impulse", 0.0))
 
     end
     
