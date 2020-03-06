@@ -1,7 +1,7 @@
 template = ShipTemplate():setName("LexTalionisInitial"):setClass("Cruiser", "Light Cruiser"):setModel("dauntlessLightCruiser"):setType("playership")
 template:setDescription([[This ship dates from the Regency era in the Prosperitas sector. It appears to differ slightly from the standard Mars-template Dauntless light cruiser.]])
 template:setRadarTrace("radar_dauntless.png")
-template:setHull(1000)
+template:setHull(500)
 template:setShields(50)
 template:setSpeed(20, 1, 0.2)
 --                  Arc, Dir, Range, CycleTime, Dmg

@@ -252,70 +252,29 @@ bool ShipTemplateBasedObject::hasShield()
 
 void ShipTemplateBasedObject::takeDamage(float damage_amount, DamageInfo info)
 {
+    float hullDamage = damage_amount;
+    // Calculate and apply shield damage
     if (shield_count > 0 && getShieldsActive())
     {
-        float angle = sf::angleDifference(getRotation(), sf::vector2ToAngle(info.location - getPosition()));
-        if (angle < 0)
-            angle += 360.0f;
-        float arc = 360.0f / float(shield_count);
-        int shield_index = int((angle + arc / 2.0f) / arc);
-        shield_index %= shield_count;
-        
-        // Calculate the damage to the shields based on the type of damage and the shield.
-        float shield_damage = damage_amount * getShieldDamageFactor(info, shield_index);
+        int shield_index = getShieldIndexForIncomingDamage(info);
+        // Calculate the damage taken by the shields
+        float shield_damage = calculateShieldDamage(info, damage_amount, shield_index);
         // Calculate any shield penetration based on the type of damage
         float shieldPenetrationDamage =  damage_amount * getShieldPenetrationDamage(info, shield_index);
-        // Reduce the shield damage by the shield penetration damage, as that is going to bypass shields completely.
-        shield_damage -= shieldPenetrationDamage;
-        // If there is a shield up in that area, and there was no shield penetration damage
-        if (shield_level[shield_index] > 1.0 && shieldPenetrationDamage == 0.0) {
-            // then damage is reduced to 0
-            damage_amount = 0;
-        } else if (shield_level[shield_index] > 0.0 && shieldPenetrationDamage > 0.0) { // if there is a shield up in that area and there was shield penetration damage
-            // then the damage is equal to the shield penetration damage
-            damage_amount = shieldPenetrationDamage;
-        } // and if there were no shields, then damage remains unchanged.
-
-        // Reduce the shield level of the appropriate shield by the shield damage taken.
-        shield_level[shield_index] -= shield_damage;
-
-        // If there was any shield damage, then add a shield recharge delay time
-        if (shield_damage > 0.0) {
-            shieldRechargeDelay[shield_index] = 3.0;
-        }
-
-        // Check to see if shield was broken
-        if (shield_level[shield_index] < 0)
-        {
-            shield_level[shield_index] = 0.0;
-            shieldRechargeDelay[shield_index] = 25.0;
-        } else {
-            shield_hit_effect[shield_index] = 1.0;
-        }
-
-        
-        // Check for out of range damage.
-        if (damage_amount < 0.0)
-        {
-            damage_amount = 0.0;
-        }
+        // Calculate the adjusted amount of hull damage
+        hullDamage = getHullDamageAfterShieldDeduction(damage_amount, shield_index, shieldPenetrationDamage);
+        // Apply damage to the shield
+        applyShieldDamage(shield_index, shield_damage);        
     }
 
-    // If the shipTemplateBasedObject has armour, then deduct that value from the damage as well 
-    if (armour > 0.0) {
-        damage_amount -= armour;
-        // Check for out of range damage.
-        if (damage_amount < 0.0)
-        {
-            damage_amount = 0.0;
-        }
-    }
-    
+    // Check to see if the armour of the ship prevents the damage.
+    hullDamage = howMuchDamagePenetratesArmour(hullDamage, info);
+    LOG(INFO) << "Taking hull damage of: " << string(hullDamage);
 
     // Finally, if there is possible hull damage left over, then delegate to taking hull damage.
-    if (info.type != DT_EMP && damage_amount > 0.0)
+    if (info.type != DT_EMP && hullDamage > 0.0)
     {
-        takeHullDamage(damage_amount, info);
+        takeHullDamage(hullDamage, info);
     }
 
     if (hull_strength > 0)
@@ -353,6 +312,77 @@ void ShipTemplateBasedObject::takeHullDamage(float damage_amount, DamageInfo& in
         }
         destroy();
     }
+}
+
+int ShipTemplateBasedObject::getShieldIndexForIncomingDamage(DamageInfo info) {
+    if (shield_count > 0 && getShieldsActive()) {
+        float angle = sf::angleDifference(getRotation(), sf::vector2ToAngle(info.location - getPosition()));
+        if (angle < 0)
+            angle += 360.0f;
+        float arc = 360.0f / float(shield_count);
+        int shield_index = int((angle + arc / 2.0f) / arc);
+        shield_index %= shield_count;
+        return shield_index;
+    } else {
+        return -1;
+    }
+}
+
+void ShipTemplateBasedObject::applyShieldDamage(int shieldIndex, float shieldDamage) {
+    // Reduce the shield level of the appropriate shield by the shield damage taken.
+    shield_level[shieldIndex] -= shieldDamage;
+
+    // If there was any shield damage, then add a shield recharge delay time
+    if (shieldDamage > 0.0) {
+        shieldRechargeDelay[shieldIndex] = 3.0;
+    }
+
+    // Check to see if shield was broken
+    if (shield_level[shieldIndex] < 0)
+    {
+        shield_level[shieldIndex] = 0.0;
+        shieldRechargeDelay[shieldIndex] = 25.0;
+    } else {
+        shield_hit_effect[shieldIndex] = 1.0;
+    }
+}
+
+float ShipTemplateBasedObject::calculateShieldDamage(DamageInfo info, float damageAmount, int shieldIndex) {
+    // Calculate the damage to the shields based on the type of damage and the shield.
+    float shieldDamage = damageAmount * getShieldDamageFactor(info, shieldIndex);
+    // Calculate any shield penetration based on the type of damage
+    float shieldPenetrationDamage =  damageAmount * getShieldPenetrationDamage(info, shieldIndex);
+    // Reduce the shield damage by the shield penetration damage, as that is going to bypass shields completely.
+    shieldDamage -= shieldPenetrationDamage;
+    return shieldDamage;
+}
+
+float ShipTemplateBasedObject::getHullDamageAfterShieldDeduction(float damageAmount, int shieldIndex, float shieldPenetrationDamage) {
+    // If there is a shield up for the shield index, and there was no shield penetration damage
+    if (shield_level[shieldIndex] > 1.0 && shieldPenetrationDamage == 0.0) {
+        // then damage is reduced to 0
+        damageAmount = 0;
+    } else if (shield_level[shieldIndex] > 0.0 && shieldPenetrationDamage > 0.0) { // if there is a shield up in that area and there was shield penetration damage
+        // then the damage is equal to the shield penetration damage
+        damageAmount = shieldPenetrationDamage;
+    } // and if there were no shields, then damage remains unchanged.
+
+    // Check for out of range damage.
+    if (damageAmount < 0.0)
+    {
+        damageAmount = 0.0;
+    }
+
+    return damageAmount;
+}
+
+float ShipTemplateBasedObject::howMuchDamagePenetratesArmour(float damageAmount, DamageInfo info) {
+    // For now use the simple calculation of subtracting armour from damage
+    float hullDamage = damageAmount - getArmour();
+    if (hullDamage < 0.0) {
+        hullDamage = 0;
+    }
+    return hullDamage;
 }
 
 float ShipTemplateBasedObject::getShieldDamageFactor(DamageInfo& info, int shield_index)

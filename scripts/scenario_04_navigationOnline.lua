@@ -14,7 +14,8 @@ require("manageWrecks.lua")
 function init()
 	-- Spawn a player Dauntless.
     lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(-15473, 6756):setHeading(30)
-
+    
+    
 	lexTalionis:setCallSign("Lex Talionis")
 
     createPlanet()
@@ -170,6 +171,8 @@ end
 function createPlanet()
     navigatorPlanet = Planet()
     navigatorPlanet:setPosition(40070, -20034)
+    navigatorPlanet:setScanningParameters(1, 2)
+    navigatorPlanet:setDescriptions("Unscanned Planet", "Scanned Planet")
 end
 
 function createRingSystem()

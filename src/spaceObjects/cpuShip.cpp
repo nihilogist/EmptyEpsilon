@@ -7,6 +7,7 @@
 #include "playerInfo.h"
 #include "pathPlanner.h"
 #include "nebula.h"
+#include "explosionEffect.h"
 
 #include "scriptInterface.h"
 
@@ -80,8 +81,12 @@ void CpuShip::update(float delta)
     if (!game_server)
         return;
 
+    // Try to repair systems
     for(int n=0; n<SYS_COUNT; n++)
         systems[n].health = std::min(1.0f, systems[n].health + delta * auto_system_repair_per_second);
+
+    // Check plasma reactor
+    updatePlasmaReactorHealth(delta);
 
     if (new_ai_name.length() && ai->canSwitchAI())
     {
@@ -133,6 +138,28 @@ void CpuShip::applyTemplateValues()
 void CpuShip::setAI(string new_ai)
 {
     new_ai_name = new_ai;
+}
+
+void CpuShip::updatePlasmaReactorHealth(float delta) {
+    // Only executed on game server.
+    if (!game_server) {
+        return;
+    }
+    // If the reactor has gone critical, then destroy the ship
+    if (systems[SYS_Reactor].health < -0.97) {
+        ExplosionEffect* e = new ExplosionEffect();
+        e->setSize(1000.0f);
+        e->setPosition(getPosition());
+
+        DamageInfo info(this, DT_Kinetic, getPosition());
+        SpaceObject::damageArea(getPosition(), 500, 30, 60, info, 0.0);
+
+        destroy();
+        return;
+    } else if (systems[SYS_Reactor].health < -0.5) { // if the reactor is badly damaged then the ship is pretty much fucked.
+        systems[SYS_Reactor].health -= delta / 120;
+    }
+        
 }
 
 void CpuShip::orderIdle()

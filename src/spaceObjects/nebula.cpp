@@ -109,6 +109,7 @@ bool Nebula::blockedByNebula(sf::Vector2f start, sf::Vector2f end)
 {
     sf::Vector2f startEndDiff = end - start;
     float startEndLength = sf::length(startEndDiff);
+    // nebula block radius
     if (startEndLength < 500.0f)
         return false;
     

@@ -315,7 +315,7 @@ void GuiRadarView::drawNebulaBlockedAreas(sf::RenderTarget& window)
     }
 
     {
-        float r = 5000.0f * scale;
+        float r = 500.0f * scale;
         sf::CircleShape circle(r, 32);
         circle.setOrigin(r, r);
         circle.setPosition(radar_screen_center + (scan_center - view_position) * scale);

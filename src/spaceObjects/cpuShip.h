@@ -29,7 +29,7 @@ enum EAIStance
 class ShipAI;
 class CpuShip : public SpaceShip
 {
-    static constexpr float auto_system_repair_per_second = 0.005f;
+    static constexpr float auto_system_repair_per_second = 0.00005f;
     static constexpr float missile_resupply_time = 10.0f;
 
     EAIOrder orders;                    //Server only
@@ -81,6 +81,10 @@ public:
 
     // Returns the distance to the selected target.
     float getDistanceToTarget();
+    
+    
+    private:
+    void updatePlasmaReactorHealth(float delta);
 };
 string getAIOrderString(EAIOrder order);
 

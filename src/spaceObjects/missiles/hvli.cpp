@@ -29,8 +29,9 @@ void HVLI::hitObject(P<SpaceObject> object)
         object->takeDamage(category_modifier * 6, info);
     // else
     //     object->takeDamage(category_modifier * 6 * (alive_for / 2.0), info);
-    P<ExplosionEffect> e = new ExplosionEffect();
-    e->setSize(category_modifier * 20);
-    e->setPosition(getPosition());
-    e->setOnRadar(true);
+    // P<ExplosionEffect> e = new ExplosionEffect();
+    // e->setSize(category_modifier * 20);
+    // e->setPosition(getPosition());
+    // e->setOnRadar(true);
+    soundManager->playSound("sfx/macrocannon-impact-effect-mono.wav", getPosition(), 200.0, 1.0, 1.0f + random(-0.2f, 0.2f));
 }

@@ -980,28 +980,27 @@ void SpaceShip::takeHullDamage(float damage_amount, DamageInfo& info)
     if (gameGlobalInfo->use_system_damage) {
         // Given that we're taking hull damage, we should determine if that applies to the systems.
         // Default damage is divided by the ship's hull points to simulate armour.
-        float systemDamage = (damage_amount / (hull_max * 2));
+        float systemDamage = (damage_amount / (hull_max / 2));
         // First up: Energy-class and torpedo-class damage always penetrates to do system damage
         if (info.type == DT_Energy || info.type == DT_Torpedo) {
             systemDamage *= 2;
         }
-        
-        // If a specific system is targeted, and the damage type is energy, then damage that system
-        if (info.type == DT_Energy && info.system_target != SYS_None) {
-            systems[info.system_target].health -= systemDamage;
-            if (systems[info.system_target].health < -1.0) {
-                systems[info.system_target].health = -1.0;
-            }
-        } else { // damage a random system
-            ESystem randomSystem = ESystem(irandom(0, SYS_COUNT - 1));
-            systems[randomSystem].health -= systemDamage;
-            if (systems[randomSystem].health < -1.0) {
-                systems[randomSystem].health = -1.0;
-            }
+
+        LOG(INFO) << "Taking system damage of: " << string(systemDamage);
+
+        ESystem systemToDamage = getSystemToDamage(info);
+        systems[systemToDamage].health -= systemDamage;
+        if (systems[systemToDamage].health < -1.0) {
+            systems[systemToDamage].health = -1.0;
         }
+
+        ShipTemplateBasedObject::takeHullDamage(damage_amount / 5, info);
+        
+    } else {
+        ShipTemplateBasedObject::takeHullDamage(damage_amount, info);
     }
 
-    ShipTemplateBasedObject::takeHullDamage(damage_amount, info);
+    
 }
 
 void SpaceShip::destroyedByDamage(DamageInfo& info)
@@ -1073,6 +1072,22 @@ float SpaceShip::getSystemEffectiveness(ESystem system)
 
     // If a system cannot be damaged, excessive heat degrades it.
     return std::max(0.0f, power * (1.0f - systems[system].heat_level));
+}
+
+ESystem SpaceShip::getRandomShipSystem() {
+    ESystem randomSystem = SYS_None;
+    while(!hasSystem(randomSystem)) {
+        randomSystem = ESystem(irandom(0, SYS_COUNT - 1));    
+    }
+    return randomSystem;
+}
+
+ESystem SpaceShip::getSystemToDamage(DamageInfo info) {
+    if (info.type == DT_Energy && info.system_target != SYS_None) {
+        return info.system_target;
+    } else {
+        return getRandomShipSystem();
+    }
 }
 
 void SpaceShip::setWeaponTubeCount(int amount)

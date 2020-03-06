@@ -413,6 +413,14 @@ public:
     //Return a string that can be appended to an object create function in the lua scripting.
     // This function is used in getScriptExport calls to adjust for tweaks done in the GM screen.
     string getScriptExportModificationsOnTemplate();
+
+
+
+    private:
+    // Returns a random system (that exists on the ship)
+    ESystem getRandomShipSystem();
+    // Returns the system that will be damaged by the current attack. If damage type is Beam then we can damage specific systems else random.
+    ESystem getSystemToDamage(DamageInfo info);
 };
 
 float frequencyVsFrequencyDamageFactor(int beam_frequency, int shield_frequency);

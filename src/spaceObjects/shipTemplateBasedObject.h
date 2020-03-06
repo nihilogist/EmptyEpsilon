@@ -53,7 +53,7 @@ public:
     virtual void takeHullDamage(float damage_amount, DamageInfo& info);
     virtual void destroyedByDamage(DamageInfo& info) = 0;
     virtual float getShieldDamageFactor(DamageInfo& info, int shield_index);
-    virtual float getShieldPenetrationDamage(DamageInfo& info, int shield_index);
+    
     
     void setCanBeDestroyed(bool enabled) { can_be_destroyed = enabled; }
     bool getCanBeDestroyed(){ return can_be_destroyed; }
@@ -87,6 +87,12 @@ public:
     // Returns a textual description of the shield state of the shield of the given index. 
     string getShieldText(int index);
     ESystem getShieldSystemForShieldIndex(int index);
+    // Causes damage to a shield.
+    void applyShieldDamage(int shieldIndex, float shieldDamage);
+    // Determines how much of a particular set of damage penetrates the ship's armour
+    float howMuchDamagePenetratesArmour(float damageAmount, DamageInfo info);
+
+    
 
     ///Deprecated old script functions for shields
     float getFrontShield() { return shield_level[0]; }
@@ -111,6 +117,15 @@ public:
     void onDestruction(ScriptSimpleCallback callback);
 
     string getShieldDataString();
+
+    private:
+    // Get the index of the shield that is hit by this damage. Returns the index of the shield that was hit. 
+    // If no shields or shield is down, then returns -1.
+    int getShieldIndexForIncomingDamage(DamageInfo info);
+    float calculateShieldDamage(DamageInfo info, float damageAmount, int shieldIndex);
+    virtual float getShieldPenetrationDamage(DamageInfo& info, int shield_index);
+    float getHullDamageAfterShieldDeduction(float damageAmount, int shieldIndex, float shieldPenetrationDamage);
+
 };
 
 #endif//SHIP_TEMPLATE_BASED_OBJECT_H

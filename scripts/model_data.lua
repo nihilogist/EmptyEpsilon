@@ -62,7 +62,7 @@ model:setIllumination("space_station_4/space_station_4_illumination.jpg")
 model:setRenderOffset(0, 0, 5)
 model:setScale(6)
 model:setRadius(200)
-model:setCollisionBox(200, 80)
+model:setCollisionBox(30, 10)
 
 model = ModelData()
 model:setName("lightFreighter")
