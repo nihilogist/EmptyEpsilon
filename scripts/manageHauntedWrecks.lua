@@ -52,18 +52,21 @@ function updateGhostShipsCallsigns(hauntedWreckConfiguration)
     for i,wreckConfig in ipairs(hauntedWreckConfiguration) do
         -- get the wrecked ship
         local ghostShip = getGhostShip(wreckConfig)
-        -- check if it is valid (not detonated)
-        if ghostShip:isValid() then
-            -- Check to see if it's fully scanned
-            if ghostShip:isFullyScannedByFaction(1) then
-                ghostShip:setCallSign(getHauntedWreckName(wreckConfig))
-                ghostShip:setDescription(getGhostShipFullyScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipUnscannedDescription(wreckConfig))
-                -- or if it's partially scanned
-            else if ghostShip:isScannedByFaction("Imperial Navy") then
-                ghostShip:setCallSign(getHauntedWreckClass(wreckConfig))
-                ghostShip:setDescription(getGhostShipScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipUnscannedDescription(wreckConfig))
+        -- if it exists
+        if ghostShip then
+            -- check if it is valid (not detonated)
+            if ghostShip:isValid() then
+                -- Check to see if it's fully scanned
+                if ghostShip:isFullyScannedByFaction(1) then
+                    ghostShip:setCallSign(getHauntedWreckName(wreckConfig))
+                    ghostShip:setDescription(getGhostShipFullyScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipUnscannedDescription(wreckConfig))
+                    -- or if it's partially scanned
+                else if ghostShip:isScannedByFaction("Imperial Navy") then
+                    ghostShip:setCallSign(getHauntedWreckClass(wreckConfig))
+                    ghostShip:setDescription(getGhostShipScannedDescription(wreckConfig) .. "\n\n" .. getGhostShipUnscannedDescription(wreckConfig))
+                end
             end
-        end
+        end 
     end
 end
 end
@@ -74,13 +77,16 @@ function healAllDamageToGhostShips(hauntedWreckConfiguration)
     for i,wreckConfig in ipairs(hauntedWreckConfiguration) do
         -- get the ghost ship
         local ghostShip = getGhostShip(wreckConfig)
-        -- check if it is valid (not detonated)
-        if ghostShip:isValid() then
-            -- Heal all damage
-            local hullMax = ghostShip:getHullMax()
-            ghostShip:setHull(hullMax)
-            -- Heal all system damage
-            ghostShip:setSystemHealth("reactor", 1.0):setSystemHealth("beamweapons", 1.0):setSystemHealth("maneuver", 1.0):setSystemHealth("missilesystem", 1.0):setSystemHealth("frontshield", 1.0):setSystemHealth("impulse", 1.0)        
+        -- if it exists
+        if ghostShip then
+            -- check if it is valid (not detonated)
+            if ghostShip:isValid() then
+                -- Heal all damage
+                local hullMax = ghostShip:getHullMax()
+                ghostShip:setHull(hullMax)
+                -- Heal all system damage
+                ghostShip:setSystemHealth("reactor", 1.0):setSystemHealth("beamweapons", 1.0):setSystemHealth("maneuver", 1.0):setSystemHealth("missilesystem", 1.0):setSystemHealth("frontshield", 1.0):setSystemHealth("impulse", 1.0)        
+            end
         end
     end
 end

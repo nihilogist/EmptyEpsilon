@@ -60,6 +60,7 @@ function createHauntedWreckConfig()
     hauntedWrecksPhaseOneDetails = {
         --{Callsign, posX, posY, template, ghostTemplate, unscannedAuspex, scannedAuspex, deepscannedAuspex, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         {"Haunted Wreck 01", 4835, 53103, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 02", -7127, 51203, "Wrecked Frigate", "Sword", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
     }
 end
 
