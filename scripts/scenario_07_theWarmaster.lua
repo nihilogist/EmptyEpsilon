@@ -32,8 +32,10 @@ function init()
     -- create the specifically haunted wrecks
     createHauntedWreckConfig()
     createWreckedShipsForHaunts(hauntedWrecksPhaseOneDetails)
+    createWreckedShipsForHaunts(hauntedWrecksPhaseTwoDetails)
 
     addGMFunction("Ghost Ships Phase One", activateGhostsPhaseOne)
+    addGMFunction("Ghost Ships Phase Two", activateGhostsPhaseTwo)
 
 
 
@@ -48,12 +50,16 @@ function update(delta)
     updateWreckedShipsCallsigns(shipwreckDetails)
     -- Update the callsigns and descriptions of the haunted wrecks.
     updateHauntedWreckedShipsCallsigns(hauntedWrecksPhaseOneDetails)
+    updateHauntedWreckedShipsCallsigns(hauntedWrecksPhaseTwoDetails)
     -- Update the callsigns and descriptions of the ghost ships
     updateGhostShipsCallsigns(hauntedWrecksPhaseOneDetails)
+    updateGhostShipsCallsigns(hauntedWrecksPhaseTwoDetails)
     -- Heal all damage to any ghost ships
     healAllDamageToGhostShips(hauntedWrecksPhaseOneDetails)
+    healAllDamageToGhostShips(hauntedWrecksPhaseTwoDetails)
     -- Check to see if any ghost ships need to be destroyed
     checkForExorcism(hauntedWrecksPhaseOneDetails)
+    checkForExorcism(hauntedWrecksPhaseTwoDetails)
 
 end
 
@@ -61,12 +67,30 @@ function createHauntedWreckConfig()
     hauntedWrecksPhaseOneDetails = {
         --{Callsign, posX, posY, template, ghostTemplate, unscannedAuspex, scannedAuspex, deepscannedAuspex, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         {"Haunted Wreck 01", 4835, 53103, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
-        {"Haunted Wreck 02", -7127, 51203, "Wrecked Frigate", "Sword", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 02", -7127, 51203, "Wrecked Frigate", "Ghost Sword", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 03", 6817, 66210, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 04", -6150, 66146, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
     }
+
+    hauntedWrecksPhaseTwoDetails = {
+        {"Haunted Wreck 05", -9601, 50102, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 06", -12111, 52180, "Wrecked Frigate", "Ghost Sword", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 07", -7863, 69460, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 08", -11434, 66069, "Wrecked Frigate", "Ghost Firestorm", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 09", 7556, 70696, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 10", 12165, 67401, "Wrecked Frigate", "Ghost Sword", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 11", 9231, 52783, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+        {"Haunted Wreck 12", 11709, 55829, "Wrecked Frigate", "Ghost Firestorm", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+    }
+
 end
 
 function activateGhostsPhaseOne() 
     createGhostShipsForHaunts(hauntedWrecksPhaseOneDetails)
+end
+
+function activateGhostsPhaseTwo() 
+    createGhostShipsForHaunts(hauntedWrecksPhaseTwoDetails)
 end
 
 function createWreckConfig()
