@@ -5,6 +5,7 @@
 
 require("utils.lua")
 require("manageWrecks.lua")
+require("manageNPCShips.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -25,10 +26,24 @@ function init()
     createRingSystem()
     
     createAuxiliaryShips()
-    createWreckConfig()
 
+    --Create all necessary shipwrecks for the area.
+    createWreckConfig()
     createWreckedShips(shipwreckDetails)
 
+    -- Create all necessary NPC ships for the area.
+    createNPCShipConfig()
+    createNPCShips(npcConfiguration)
+
+    -- Create Pike Salvage area
+    createPikeSalvageArea()
+
+    -- start initial NPC orders
+    startInitialOrders()
+
+
+
+    -- Add other useful buttons
     addGMFunction("Next Scene", gotoPsykerfest)
     lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
     lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
@@ -41,16 +56,39 @@ end
 function createWreckConfig()
     shipwreckDetails = {
         --{Callsign, posX, posY, template, unscannedAuspex, scannedAuspex, deepscannedAuspex}
-        -- {"Lawhill", -3568, 3455, "Wrecked Freighter", "Metallic object. Mass reading 20.000IT. Thermal signature consistent with background radiation.", "Voidship. Novus-Pattern Imperial Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete: Lawhill. Trade licence Carthusia-Castellum. Expired. No significant void-armament. Status: all systems offline."},
-        -- {"Palinuro", 2051, -2127, "Wrecked Freighter", "Metallic object. Mass reading 24.500IT. Thermal signature consistent with background radiation.", "Voidship. Novus-Pattern Imperial Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete. Palinuro. Trade licence Korimestra-Castellum (subset munitions). No significant void-armament. Status: all systems offline."},
-        -- {"Saint Aglaia", 2788, 1150, "Wrecked Bulk Carrier", "Metallic object. Mass reading 24.460.000IT. Thermal signature consistent with background radiation.", "Voidship. Ursifex-AA3-Pattern Imperial Bulk Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete. Saint Aglaia. Sector bulktrade licence Bachian IV-Castellum. Single dorsal cannon. Status: all systems offline."},
-        -- {"Hetairos", 8731, 1297, "Wrecked Freighter", "Metallic object. Mass reading 20.000IT. Thermal signature consistent with background radiation.", "Voidship. Novus-Pattern Imperial Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete: Hetairos. Trade licence Carthusia-Castellum (subset alchemicals). No significant void-armament. Status: all systems offline."},
-        -- {"Adix Rossi", 17858, 947, "Wrecked Freighter", "Metallic object. Mass reading 20.000IT. Thermal signature consistent with background radiation.", "Voidship. Novus-IV-Pattern Imperial Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete: Adix Rossi. Trade licence Carthusia-Castellum. REVOKED: Impound ship; arrest crew. Prow lance array. Dorsal cannon. Status: all systems offline."},
-        -- {"Atyla", 29132, -1886, "Wrecked Freighter", "Metallic object. Mass reading 20.000IT. Thermal signature consistent with background radiation.", "Voidship. Lampyridae-Pattern Imperial Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete: Atyla. Trade licence Mazar-63-Kydos (subset alchemicals). No significant void-armament. Status: all systems offline."},
-        -- {"St Ignace's Mercy", 35821, -3046, "Wrecked Bulk Carrier", "Metallic object. Mass reading 24.460.000IT. Thermal signature consistent with background radiation.", "Voidship. Ursifex-AA4-Pattern Imperial Bulk Freighter. Negative biosignature. Negative power.", "Cogitator bank pattern-match complete. St Ignace's Mercy. Sector bulktrade licence Mazar-63-Kydos. Single dorsal cannon. Status: all systems offline."}
+        {"Name", -800, -39344, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", -487, -39364, "Wrecked Freighter", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", -133, -39253, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", -300, -39871, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", 131, -38677, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
     }
 
+
 end
+
+function createNPCShipConfig()
+    npcConfiguration = {
+        --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
+        
+        {"Name", -1686, -41893, 270, "Armed Merchantman", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1021, -42888, 270, "Armed Merchantman", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -2098, -42689, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -945, -42175, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -293, -42418, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1605, -37935, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1300, -39303, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 396, -39075, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 728, -37998, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -77, -37526, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Golden Grox", 57155, -9622, 270, "Q Ship", "Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        
+
+    }
+
+
+end
+
 
 function createAuxiliaryShips()
     
@@ -63,30 +101,32 @@ end
 
 function update(delta)
     updateWreckedShipsCallsigns(shipwreckDetails)
+    updateNPCShipCallsigns(npcConfiguration)
+
 end
 
-function createTashMajid()
-    CpuShip():setFaction("Wreckage"):setTemplate("Q Ship"):setCallSign("Golden Grox"):setPosition(57155, -9622):orderRoaming():setWeaponStorage("Torpedo", 0):setWeaponStorage("Macro", 97)
+function startInitialOrders()
+    getShip(npcConfiguration[1]):orderIdle()
+    getShip(npcConfiguration[2]):orderIdle()
+    getShip(npcConfiguration[3]):orderIdle()
+    getShip(npcConfiguration[4]):orderIdle()
+    getShip(npcConfiguration[5]):orderIdle()
+    getShip(npcConfiguration[6]):orderIdle()
 end
 
 function createPikeSalvageArea()
-    CpuShip():setFaction("Wreckage"):setTemplate("Hauler"):setCallSign("BR7"):setPosition(-2098, -42689):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Hauler"):setCallSign("BR6"):setPosition(-945, -42175):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Hauler"):setCallSign("CSS5"):setPosition(-293, -42418):orderRoaming()
-    CpuShip():setFaction("Pikes"):setTemplate("Armed Merchantman"):setCallSign("CV3"):setPosition(-1686, -41893):orderRoaming():setWeaponStorage("Macro", 98)
-    CpuShip():setFaction("Pikes"):setTemplate("Armed Merchantman"):setCallSign("BR4"):setPosition(-1021, -42888):orderRoaming():setWeaponStorage("Macro", 98)
-    CpuShip():setFaction("Pikes"):setTemplate("Merchant Raider"):setCallSign("VK2"):setPosition(-2979, -41327):orderRoaming():setWeaponStorage("Macro", 98)
+    
     Asteroid():setPosition(1421, -41063)
     Asteroid():setPosition(1810, -39721)
     
     Asteroid():setPosition(-1509, -40816)
     Asteroid():setPosition(150, -40145)
     Asteroid():setPosition(927, -38486)
-    Asteroid():setPosition(-520, -38768)
-    Asteroid():setPosition(-2639, -39298)
+    Asteroid():setPosition(-520, -38768):setSize(320)
+    Asteroid():setPosition(-2639, -39298):setSize(240)
     
     Asteroid():setPosition(-697, -39757)
-    Asteroid():setPosition(6187, -39227)
+    Asteroid():setPosition(6187, -39227):setSize(402)
     Asteroid():setPosition(2480, -39015)
     Asteroid():setPosition(2904, -44523)
     Asteroid():setPosition(2657, -40745)
@@ -161,6 +201,7 @@ function setupBoundaries()
 end
 
 function setupBigAsteroids()
+    Asteroid():setPosition(40023, 48041):setSize(423)
 
 
 end

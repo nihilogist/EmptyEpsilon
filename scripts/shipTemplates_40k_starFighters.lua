@@ -111,7 +111,7 @@ template:setShields(0)
 template:setSpeed(0, 30, 0)
 template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 30, 0, 900.0, 8.0, 6)
+template:setBeam(0, 50, 0, 900.0, 8.0, 6)
 template:setBeamWeaponTargetingDetails(0, 100, 60)
 
 template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")

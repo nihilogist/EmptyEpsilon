@@ -70,6 +70,10 @@ function startInitialOrders()
     getShip(npcConfiguration[14]):orderDefendTarget(kharaStation)
 end
 
+function update(delta)
+    updateNPCShipCallsigns(npcConfiguration)
+end
+
 
 function gotoMeetTheNeighbours()
     setScenario("scenario_03_Naptime.lua", nil)
@@ -115,9 +119,7 @@ function launchVehicleFromWake(vehicleClass, callsign)
 end
 
 
-function update(delta)
-    updateNPCShipCallsigns(npcConfiguration)
-end
+
 
 
 function createSmallAsteroids()
