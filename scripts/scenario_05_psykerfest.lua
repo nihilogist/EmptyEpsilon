@@ -20,16 +20,16 @@ function init()
     lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
 	lexTalionis:addCustomButton("fighterBay","LaunchStarhawk1","Launch Starhawk 1",launchBomberOne)
 
-
+    -- Create all the NPC ships.
     createNPCShipConfig()
-
     createNPCShips(npcConfiguration)
 
     
-    createCultShips()
+    createCultBase()
     createAsteroids()
     createNebulas()
 
+    initialiseNPCShipOrders()
 
 
 
@@ -47,24 +47,37 @@ function createNPCShipConfig()
     npcConfiguration = {
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
-        {"Hallowed Mirror", 12282, -10060, 202, "Falchion", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Feathered Glass", 11874, -10671, 202, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Tears of Change", 37514, -8558, 0, "Q Ship", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Everpromise", 40398, -6309, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Fate's Warning", 39088, -7513, 0, "Q Ship", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Architect's Blade", 5014, 8686, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Scythe", 4629, 9665, 0, "Sabre", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Freedom of Thought", 6776, -114, 230, "Merchant Raider", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Clarity of Angels", -4525, -568, 90, "Armed Merchantman", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"},
-        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
+        {"Hallowed Mirror", 12282, -10060, 202, "Falchion", "Wake Cult", "Metallic object. Mass reading 910,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sworrrrd-patt-patt Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Error-errormatch. ??? ??@Template mismatch. EmissionSig mismatch. DataCorruption??? Weapon batteries detected."},
+        {"Feathered Glass", 11874, -10671, 202, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 96% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
+        {"Tears of Change", 37514, -8558, 0, "Q Ship", "Wake Cult", "Metallic object. Mass reading 711.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH Cogitation projection designate ident Son Of Holub. Broadcast ident Tears Of Change. MISMATCH. Turret configuration mistmatch detected. Multiple primary battery targeting matrices. Plasma warhead emissions."},
+        {"Everpromise", 40398, -6309, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
+        {"Fate's Warning", 39088, -7513, 0, "Q Ship", "Wake Cult", "Metallic object. Mass reading 713.300IT. Thermal signature variable, consistent with naval plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Broadcast Ident Fate's Warning. Mismatch in mass:dimension ratio. Query: additional plating. Weapons batteries detected."},
+        {"Architect's Blade", 5014, 8686, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Varrrriations in data hull corruption plate turret config. Weapon batteries detected."},
+        {"Scythe", 4629, 9665, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Weapon batteries detected."},
+        {"Freedom of Thought", 6776, -114, 230, "Merchant Raider", "Wake Cult", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign FREEDOM OF THOUGHT. Weapons batteries detected."},
+        {"Clarity of Angels", -4525, -568, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 551.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign CLARITY OF ANGELS. Weapon batteries detected."},
+        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign SUFFERING'S END. Weapon batteries detected."}
     }
+end
+
+function initialiseNPCShipOrders()
+    getShip(npcConfiguration[1]):orderIdle()
+    getShip(npcConfiguration[2]):orderIdle()
+    getShip(npcConfiguration[3]):orderIdle()
+    getShip(npcConfiguration[4]):orderIdle()
+    getShip(npcConfiguration[5]):orderIdle()
+    getShip(npcConfiguration[6]):orderDefendTarget(getShip(npcConfiguration[8]))
+    getShip(npcConfiguration[7]):orderDefendTarget(getShip(npcConfiguration[8]))
+    getShip(npcConfiguration[8]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[9]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[10]):orderAttack(lexTalionis)
 end
 
 function gotoObjectiveSighted()
     setScenario("scenario_06_objectiveSighted.lua", nil)
 end
 
-function createCultShips()
+function createCultBase()
     cultPlanet = Planet()
     cultPlanet:setPosition(45584, -14413)
 

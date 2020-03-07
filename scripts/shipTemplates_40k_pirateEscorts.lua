@@ -44,6 +44,7 @@ template = ShipTemplate():setName("Q Ship"):setClass("Escort", "Destroyer"):setM
 template:setDescription([[This ship appears to be based on the Cobra Class destroyer. Its armament has been heavily altered from the standard pattern.]])
 template:setRadarTrace("radar_medium_freighter.png")
 template:setHull(150)
+template:setArmour(2.0)
 template:setShields(60)
 template:setSpeed(25, 3, 10)
 

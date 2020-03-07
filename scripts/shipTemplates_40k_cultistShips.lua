@@ -4,11 +4,12 @@ template = ShipTemplate():setName("Sabre"):setClass("Escort", "Frigate"):setMode
 template:setDescription([[A staple design of the Imperial Navy, the Sword-class frigate has a reputation as a dependable escort vessel.]])
 template:setRadarTrace("radar_sword.png")
 template:setHull(200)
+template:setArmour(2.0)
 template:setShields(100)
 template:setSpeed(25, 3, 5)
 
 
-template:setTubes(1, 18.0)
+template:setTubes(1, 14.0)
 template:setWeaponStorage("HVLI", 100)
 template:setTubeDirection(0, 0)
 --template:setTubeDirection(1, 90)
@@ -25,11 +26,11 @@ template:setRadarTrace("radar_sword.png")
 template:setHull(400)
 template:setShields(200)
 template:setSpeed(20, 2, 2)
-template:setArmour(2.0)
+template:setArmour(3.0)
 
 
 template:setTubes(1, 18.0)
-template:setWeaponStorage("HVLI", 300)
+template:setWeaponStorage("HVLI", 3000)
 template:setTubeDirection(0, 0)
 --template:setTubeDirection(1, 90)
 --template:setTubeDirection(2, -90)

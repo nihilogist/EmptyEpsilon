@@ -12,7 +12,7 @@ function init()
     lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("LexTalionisInitial"):setPosition(-8000, -2000)
     lexTalionis:setCallSign("Lex Talionis")
     -- spawn the station
-    kharaStation = SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
+    kharaStation = SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912):setDescription("+++ Mismatch. Asteroid --- powered structure. Queryquery:: Voss-pattern dockstation available.")
     
     createSmallAsteroids()
     createBoundaries()
@@ -36,8 +36,8 @@ function createNPCShipConfig()
     npcConfiguration = {
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
-        {"Malevolence", -451, 2942, 270, "Merchant Raider", "The Pikes", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign MALEVOLENCE. Weapon batteries detected."},
-        {"Stormspike", -1176, 3451, 270, "Armed Merchantman", "The Pikes", "Metallic object. Mass reading 550.300IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign STORMSPIKE. Weapon batteries detected."},
+        {"Malevolence", -451, 2942, 270, "Merchant Raider", "Pikes", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign MALEVOLENCE. Weapon batteries detected."},
+        {"Stormspike", -1176, 3451, 270, "Armed Merchantman", "Pikes", "Metallic object. Mass reading 550.300IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign STORMSPIKE. Weapon batteries detected."},
         {"Khara-Lighter 001", 8014, -4135, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.202IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
         {"Khara-Lighter 009", 6920, -5261, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.472IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
         {"Khara-Lighter 0A1", 5827, -6625, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 12.802IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
@@ -54,8 +54,8 @@ function createNPCShipConfig()
 end
 
 function startInitialOrders()
-    getShip(npcConfiguration[1]):orderAttack(lexTalionis)
-    getShip(npcConfiguration[2]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[1]):orderIdle()
+    getShip(npcConfiguration[2]):orderIdle()
     getShip(npcConfiguration[3]):orderIdle()
     getShip(npcConfiguration[4]):orderIdle()
     getShip(npcConfiguration[5]):orderIdle()
