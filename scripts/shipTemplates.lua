@@ -29,6 +29,7 @@ require("shipTemplates_40k_auxiliaries.lua")
 require("shipTemplates_40k_pirateStation.lua")
 require("shipTemplates_40k_pirateEscorts.lua")
 require("shipTemplates_40k_cultistShips.lua")
+require("shipTemplates_40k_ghostShips.lua")
 --]]
 --For now, we add our old ship templates as well. These should be removed at some point.
 --require("shipTemplates_OLD.lua")

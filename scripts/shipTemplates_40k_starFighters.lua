@@ -126,3 +126,17 @@ template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 45, 0, 900.0, 3.0, 2)
 template:setBeamWeaponTargetingDetails(0, 130, 40)
+
+
+template = ShipTemplate():setName("WakeBomber"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
+template:setRadarTrace("radar_fury.png")
+template:setDescription([[This in-system hauler vessel has been upgraded with weapons batteries, either for protection from pirates, or to become one.
+
+Whilst it may not pose a significant threat to Imperial Navy vessels on its own, a swarm of them can be a dangerous foe.]])
+template:setHull(10)
+template:setShields(0)
+template:setSpeed(70, 25, 10)
+template:setDefaultAI('fighter')
+template:setTubes(1, 20.0)
+template:setWeaponStorage("Homing", 4)
+

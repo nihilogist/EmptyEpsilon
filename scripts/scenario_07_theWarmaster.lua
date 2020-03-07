@@ -4,6 +4,9 @@
 
 
 require("utils.lua")
+require("manageWrecks.lua")
+require("manageHauntedWrecks.lua")
+
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -21,6 +24,15 @@ function init()
 
     createScenario()
 
+    -- Create the regular wrecked ships that are part of the scenery
+    createWreckConfig()
+    createWreckedShips(shipwreckDetails)
+
+    -- create the specifically haunted wrecks
+    createHauntedWreckConfig()
+    createWreckedShipsForHaunts(hauntedWrecksPhaseOneDetails)
+
+    addGMFunction("Ghost Ships Phase One", activateGhostsPhaseOne)
 
 
 
@@ -31,7 +43,45 @@ end
 
 
 function update(delta)
+    -- Update the callsigns and descriptions of the regular wrecks.
+    updateWreckedShipsCallsigns(shipwreckDetails)
+    -- Update the callsigns and descriptions of the haunted wrecks.
+    updateWreckedShipsCallsigns(hauntedWrecksPhaseOneDetails)
 
+end
+
+function createHauntedWreckConfig()
+    hauntedWrecksPhaseOneDetails = {
+        --{Callsign, posX, posY, template, ghostTemplate, unscannedAuspex, scannedAuspex, deepscannedAuspex, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        {"Haunted Wreck 01", 4835, 53103, "Wrecked Freighter", "Ghost Merchantman", "Unscanned", "Scanned", "Deepscan", "Unscanned", "Scanned", "Deepscan"},
+    }
+end
+
+function activateGhostsPhaseOne() 
+    createGhostShipsForHaunts(hauntedWrecksPhaseOneDetails)
+end
+
+function createWreckConfig()
+    shipwreckDetails = {
+        --{Callsign, posX, posY, template, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        {"Lion Of Terra", 2, 60267, "Wrecked Battleship", "Metallic object. Mass reading 500.000.000IT. Thermal signature variable.", "Voidship. Mars-pattern Emperor class Imperial Battleship. Biosignatures present. Reactor active::inactive::errorerror.", "Cogitator Pattern match. Broadcast Ident confirmed. CallsignDesignate \"Lion Of Terra\", Assignation: Flagship of the Admiralty (Crusade Fleet Prosperitas). Weapon Batteries detected."},
+        {"Name", 6399, 38286, "Wrecked Bulk Carrier", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 8283, 51017, "Wrecked Bulk Carrier", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -11062, 60078, "Wrecked Bulk Carrier", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 10225, 54628, "Wrecked Bulk Carrier", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -8408, 53048, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -2196, 48587, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 6082, 49429, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 5639, 69131, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 118, 71498, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -9082, 66895, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -5491, 38467, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -4249, 70104, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 2543, 48144, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -6077, 49746, "Wrecked Destroyer", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 9994, 66919, "Wrecked Destroyer", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 11927, 60001, "Wrecked Cruiser", "Unscanned", "Scanned", "Deepscan"},
+    }
 
 end
 
@@ -40,7 +90,6 @@ function gotoWrathOfTheWake()
 end
 
 function createScenario()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Battleship"):setCallSign("BR2"):setPosition(2, 60267):orderRoaming()
     warpAnomaly = WarpAnomaly()
     warpAnomaly:setPosition(3, 60267)
     Asteroid():setPosition(5402, 34315)
@@ -229,22 +278,7 @@ function createScenario()
     Asteroid():setPosition(-10524, 16845)
     Asteroid():setPosition(-5286, 35459)
     Asteroid():setPosition(1209, 33048)
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Bulk Carrier"):setCallSign("UTI3"):setPosition(6399, 38286):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Bulk Carrier"):setCallSign("NC4"):setPosition(8283, 51017):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Bulk Carrier"):setCallSign("UTI5"):setPosition(-11062, 60078):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Bulk Carrier"):setCallSign("BR6"):setPosition(10225, 54628):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("UTI7"):setPosition(-8408, 53048):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("VS8"):setPosition(-2196, 48587):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("VS9"):setPosition(6082, 49429):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("SS10"):setPosition(5639, 69131):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("CSS11"):setPosition(118, 71498):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("BR12"):setPosition(-9082, 66895):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("S13"):setPosition(-5491, 38467):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Frigate"):setCallSign("CV14"):setPosition(-4249, 70104):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Frigate"):setCallSign("CSS15"):setPosition(2543, 48144):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Destroyer"):setCallSign("VK16"):setPosition(-6077, 49746):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Destroyer"):setCallSign("CCN17"):setPosition(9994, 66919):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Cruiser"):setCallSign("VS18"):setPosition(11927, 60001):orderRoaming()
+    
 
 
 end

@@ -39,3 +39,9 @@ template:setDescription([[The wreck of an Imperial Bulk Freighter, now darkened 
 template:setRadarTrace("radar_heavy_freighter.png")
 template:setHull(500)
 template:setSpeed(0, 0, 0)
+
+template = ShipTemplate():setName("General Wreckage"):setClass("Wreckage", "Wreckage"):setModel("mediumFreighter")
+template:setDescription([[Wreckage]])
+template:setRadarTrace("radar_medium_freighter.png")
+template:setHull(500)
+template:setSpeed(0, 0, 0)
