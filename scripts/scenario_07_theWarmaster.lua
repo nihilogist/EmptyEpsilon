@@ -49,6 +49,10 @@ function update(delta)
     updateHauntedWreckedShipsCallsigns(hauntedWrecksPhaseOneDetails)
     -- Update the callsigns and descriptions of the ghost ships
     updateGhostShipsCallsigns(hauntedWrecksPhaseOneDetails)
+    -- Heal all damage to any ghost ships
+    healAllDamageToGhostShips(hauntedWrecksPhaseOneDetails)
+    -- Check to see if any ghost ships need to be destroyed
+    checkForExorcism(hauntedWrecksPhaseOneDetails)
 
 end
 

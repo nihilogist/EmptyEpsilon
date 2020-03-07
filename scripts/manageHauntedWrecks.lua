@@ -68,6 +68,46 @@ function updateGhostShipsCallsigns(hauntedWreckConfiguration)
 end
 end
 
+-- Function to massheal all the ghost ships
+function healAllDamageToGhostShips(hauntedWreckConfiguration)
+    -- Check over the ghost ships to see if any of them need to be healed
+    for i,wreckConfig in ipairs(hauntedWreckConfiguration) do
+        -- get the ghost ship
+        local ghostShip = getGhostShip(wreckConfig)
+        -- check if it is valid (not detonated)
+        if ghostShip:isValid() then
+            -- Heal all damage
+            local hullMax = ghostShip:getHullMax()
+            ghostShip:setHull(hullMax)
+            -- Heal all system damage
+            ghostShip:setSystemHealth("reactor", 1.0):setSystemHealth("beamweapons", 1.0):setSystemHealth("maneuver", 1.0):setSystemHealth("missilesystem", 1.0):setSystemHealth("frontshield", 1.0):setSystemHealth("impulse", 1.0)        
+        end
+    end
+end
+
+-- Function to check damage on the haunted wrecks and nuke the ghost ships if they have take a bunch
+function checkForExorcism(hauntedWreckConfiguration)
+    -- Check over the wreck configuration to see if any of them need to have their ghosts detonated
+    for i,wreckConfig in ipairs(hauntedWreckConfiguration) do
+        -- get the wrecked ship
+        local hauntedWreck = getHauntedWreckShip(wreckConfig)
+        -- check if it is valid (not detonated)
+        if not hauntedWreck:isValid() then
+            -- the wreck is blown up --> if there is a ghost ship then blow it up.
+            local ghostShip = getGhostShip(wreckConfig)
+            ghostShip:destroy()
+        end
+        -- check if the wreck has extensive damage
+        if (hauntedWreck:getSystemHealth("impulse") < -0.5 or hauntedWreck:getSystemHealth("beamweapons") < -0.5 or hauntedWreck:getSystemHealth("missilesystem") < -0.5) then
+            -- if so then destroy the wreck and the ghost
+            hauntedWreck:destroy()
+            local ghostShip = getGhostShip(wreckConfig)
+            ghostShip:destroy()
+        end
+    end
+end
+
+
 
 
 -- Utility functions
