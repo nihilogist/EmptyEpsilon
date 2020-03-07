@@ -17,6 +17,7 @@ function init()
 	-- Spawn a player Dauntless.
 	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(0, 0):setHeading(0)
     lexTalionis:setCallSign("Lex Talionis")
+    lexTalionis:setShieldsActive(true)
     addGMFunction("Next Scene", gotoWrathOfTheWake)
     lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
     lexTalionis:addCustomButton("fighterBay","LaunchFury2","Launch Fury 2",launchInterceptorTwo)
@@ -88,7 +89,40 @@ function createWreckConfig()
         {"Name", -6077, 49746, "Wrecked Destroyer", "Unscanned", "Scanned", "Deepscan"},
         {"Name", 9994, 66919, "Wrecked Destroyer", "Unscanned", "Scanned", "Deepscan"},
         {"Name", 11927, 60001, "Wrecked Cruiser", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -6784, 49497, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -7247, 48834, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -6165, 48900, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -4574, 47729, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -4320, 46823, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -2254, 46514, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -5933, 48027, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 5420, 47766, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 4038, 47795, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 4435, 46810, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 2994, 45810, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 1979, 46986, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 7272, 48809, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 7390, 46560, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 12728, 49471, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 8728, 47868, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 15980, 58076, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 14258, 55729, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 15184, 67398, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 12988, 64750, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 15119, 62166, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 6056, 72565, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 11072, 70907, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 308, 76095, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", 3063, 74244, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -15558, 62274, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -11683, 64039, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -12480, 67613, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -10198, 71553, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -12071, 54718, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -12910, 59303, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
+        {"Name", -14181, 55471, "Small Wreckage", "Unscanned", "Scanned", "Deepscan"},
     }
+
 
 end
 

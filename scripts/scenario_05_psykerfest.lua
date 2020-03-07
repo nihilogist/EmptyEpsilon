@@ -5,6 +5,7 @@
 
 require("utils.lua")
 require("manageNPCShips.lua")
+require("manageWrecks.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -23,6 +24,10 @@ function init()
     -- Create all the NPC ships.
     createNPCShipConfig()
     createNPCShips(npcConfiguration)
+
+    -- Create the wrecks
+    createWreckConfig()
+    createWreckedShips(shipwreckDetails)
 
     
     createCultBase()
@@ -56,8 +61,33 @@ function createNPCShipConfig()
         {"Scythe", 4629, 9665, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Weapon batteries detected."},
         {"Freedom of Thought", 6776, -114, 230, "Merchant Raider", "Wake Cult", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign FREEDOM OF THOUGHT. Weapons batteries detected."},
         {"Clarity of Angels", -4525, -568, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 551.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign CLARITY OF ANGELS. Weapon batteries detected."},
-        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign SUFFERING'S END. Weapon batteries detected."}
+        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign SUFFERING'S END. Weapon batteries detected."},        
+        {"Cyclops 1", 10194, -11343, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Cyclops 2", 9888, -11672, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Cyclops 3", 10476, -11038, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Scourge 1", 10094, -11908, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 2", 10629, -11511, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 3", 10881, -11328, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 4", 10347, -11702, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."}
     }
+
+end
+
+function createWreckConfig()
+    shipwreckDetails = {
+        --{Callsign, posX, posY, template, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        {"Name", 1460, 3568, "Wrecked Light Freighter", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -4808, 4374, "Small Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -3568, 3455, "Wrecked Light Freighter", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -6936, 769, "Small Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -665, -2515, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 6309, -2141, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 6258, -4099, "Small Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 11077, -5611, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 12609, -8468, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 34684, -11238, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+    }
+
 end
 
 function initialiseNPCShipOrders()
@@ -71,6 +101,13 @@ function initialiseNPCShipOrders()
     getShip(npcConfiguration[8]):orderAttack(lexTalionis)
     getShip(npcConfiguration[9]):orderAttack(lexTalionis)
     getShip(npcConfiguration[10]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[11]):orderIdle()
+    getShip(npcConfiguration[12]):orderIdle()
+    getShip(npcConfiguration[13]):orderIdle()
+    getShip(npcConfiguration[14]):orderIdle()
+    getShip(npcConfiguration[15]):orderIdle()
+    getShip(npcConfiguration[16]):orderIdle()
+    getShip(npcConfiguration[17]):orderIdle()
 end
 
 function gotoObjectiveSighted()
