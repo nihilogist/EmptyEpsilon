@@ -4,6 +4,7 @@
 
 
 require("utils.lua")
+require("manageNPCShips.lua")
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
 --      Returns a relative vector (x, y coordinates)
@@ -22,11 +23,12 @@ function init()
     
     createSmallAsteroids()
     createBoundaries()
-    createEnemies()
 
-    SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912)
+    SpaceStation():setTemplate("Khara Station"):setFaction("Kirill"):setCallSign("Khara Station"):setPosition(12816, -6912):setDescription("+++ Mismatch. Asteroid --- powered structure. Queryquery:: Voss-pattern dockstation available.")
 
+    createNPCShipConfig()
 
+    createNPCShips(npcConfiguration)
 
 	
 end
@@ -37,14 +39,25 @@ function update(delta)
 
 end
 
+function createNPCShipConfig()
+    npcConfiguration = {
+        --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
+        {"Khara-Lighter 001", 8014, -4135, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.202IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 009", 6920, -5261, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.472IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 0A1", 5827, -6625, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 12.802IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 00F", 13926, -2522, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 12.688IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 01A", 9876, -2749, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"St Sebastian's Properity", 10027, -4495, 0, "Q Ship", "Kirill", "Metallic object. Mass reading 708.953IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident St Sebastians Prosperity. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."},
+        {"Sabre's Point", 7492, -9318, 0, "Sword", "Kirill", "Metallic object. Mass reading 895,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate \"Sabre's Point\" att. Battlefleet Prosperitas. Weapon batteries detected."},
+    }
+end
+
+
 function gotoTheWarmaster()
     setScenario("scenario_07_theWarmaster.lua", nil)
 end
 
-function createEnemies()
-    -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(7378, 3714):setHeading(30):orderRoaming()
-    -- CpuShip():setFaction("The Pikes"):setTemplate("Armed Merchantman"):setCallSign("Unknown Contact"):setPosition(6878, 3714):setHeading(30):orderRoaming()
- end
 
 function createSmallAsteroids()
 
