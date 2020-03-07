@@ -46,7 +46,9 @@ function update(delta)
     -- Update the callsigns and descriptions of the regular wrecks.
     updateWreckedShipsCallsigns(shipwreckDetails)
     -- Update the callsigns and descriptions of the haunted wrecks.
-    updateWreckedShipsCallsigns(hauntedWrecksPhaseOneDetails)
+    updateHauntedWreckedShipsCallsigns(hauntedWrecksPhaseOneDetails)
+    -- Update the callsigns and descriptions of the ghost ships
+    updateGhostShipsCallsigns(hauntedWrecksPhaseOneDetails)
 
 end
 
