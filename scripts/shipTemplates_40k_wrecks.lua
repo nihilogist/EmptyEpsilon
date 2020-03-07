@@ -22,7 +22,7 @@ template:setRadarTrace("radar_emperor.png")
 template:setHull(800)
 template:setSpeed(0, 0, 0)
 
-template = ShipTemplate():setName("Wrecked Freighter"):setClass("Freighter", "Light"):setModel("lightFreighter")
+template = ShipTemplate():setName("Wrecked Light Freighter"):setClass("Freighter", "Light"):setModel("lightFreighter")
 template:setDescription([[The wreck of a light Imperial Freighter, now darkened forever in the void of the Wake.]])
 template:setRadarTrace("radar_light_freighter.png")
 template:setHull(70)

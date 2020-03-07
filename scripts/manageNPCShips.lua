@@ -19,6 +19,28 @@ function createNPCShips(npcConfig)
     
 end
 
+-- Function to update the callsigns and descriptions of NPC ships
+function updateNPCShipCallsigns(npcDetails)
+    -- Check over the wreck configuration to see if any of them need to have their descriptions updated
+    for i,npcConfig in ipairs(npcDetails) do
+        -- get the wrecked ship
+        local npcShip = getShip(npcConfig)
+        -- check if it is valid (not detonated)
+        if npcShip:isValid() then
+            -- Check to see if it's fully scanned
+            if npcShip:isFullyScannedByFaction(1) then
+                npcShip:setCallSign(getShipName(npcConfig))
+                npcShip:setDescription(getShipFullyScannedDescription(npcConfig) .. "\n\n" .. getShipScannedDescription(npcConfig) .. "\n\n" .. getShipUnscannedDescription(npcConfig))
+                -- or if it's partially scanned
+            else if npcShip:isScannedByFaction("Imperial Navy") then
+                npcShip:setCallSign(getShipClass(npcConfig))
+                npcShip:setDescription(getShipScannedDescription(npcConfig) .. "\n\n" .. getShipUnscannedDescription(npcConfig))
+            end
+        end
+    end
+end
+end
+
 
 -- Utility functions to read from a shipConfig table
 
@@ -47,15 +69,15 @@ function getShipFaction(npcShipConfig)
 end
 
 function getShipUnscannedDescription(npcShipConfig)
-    return npcShipConfig[7]
+    return "+++ AUSPEX_RETURN +++\n\n" .. npcShipConfig[7]
 end
 
 function getShipScannedDescription(npcShipConfig)
-    return npcShipConfig[8]
+    return "+++ AUSPEX_ANALYSE +++\n\n" .. npcShipConfig[8]
 end
 
 function getShipFullyScannedDescription(npcShipConfig)
-    return npcShipConfig[9]
+    return "+++ COGITATOR_CALIBRATION +++\n\n" .. npcShipConfig[9]
 end
 
 function getShip(npcShipConfig)

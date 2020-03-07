@@ -36,20 +36,20 @@ function createNPCShipConfig()
     npcConfiguration = {
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
-        {"Malevolence", -451, 2942, 270, "Merchant Raider", "The Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Stormspike", -1176, 3451, 270, "Armed Merchantman", "The Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Khara-Lighter 001", 8014, -4135, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Khara-Lighter 009", 6920, -5261, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Khara-Lighter 0A1", 5827, -6625, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Khara-Lighter 00F", 13926, -2522, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Khara-Lighter 01A", 9876, -2749, 0, "Tug Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Ark of Plenty", 11590, -4650, 0, "Q Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"St Sebastian's Properity", 10027, -4495, 0, "Q Ship", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Cornucopia", 12561, -3486, 0, "Armed Merchantman", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Bearclaw", 16132, -3974, 0, "Armed Merchantman", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Mazar's Revenge", 8640, -7610, 0, "Pirate Destroyer", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Sabre's Point", 7492, -9318, 0, "Sword", "Kirill", "Unscanned", "Scanned", "Deepscanned"},
-        {"Flamberge", 10638, -10477, 0, "Sword", "Kirill", "Unscanned", "Scanned", "Deepscanned"}
+        {"Malevolence", -451, 2942, 270, "Merchant Raider", "The Pikes", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign MALEVOLENCE. Weapon batteries detected."},
+        {"Stormspike", -1176, 3451, 270, "Armed Merchantman", "The Pikes", "Metallic object. Mass reading 550.300IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign STORMSPIKE. Weapon batteries detected."},
+        {"Khara-Lighter 001", 8014, -4135, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.202IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 009", 6920, -5261, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.472IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 0A1", 5827, -6625, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 12.802IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 00F", 13926, -2522, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 12.688IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Khara-Lighter 01A", 9876, -2749, 0, "Tug Ship", "Kirill", "Metallic object. Mass reading 13.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Terrier-pattern Maintenance vessel. Biosignatures present. Reactor Active.", "Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament."},
+        {"Ark of Plenty", 11590, -4650, 0, "Q Ship", "Kirill", "Metallic object. Mass reading 711.478IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident Ark Of Plenty. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."},
+        {"St Sebastian's Properity", 10027, -4495, 0, "Q Ship", "Kirill", "Metallic object. Mass reading 708.953IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident St Sebastians Prosperity. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."},
+        {"Cornucopia", 12561, -3486, 0, "Armed Merchantman", "Kirill", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Pattern match CallsignDesignate \"Cornucopia\". Weapon batteries detected."},
+        {"Bearclaw", 16132, -3974, 0, "Armed Merchantman", "Kirill", "Metallic object. Mass reading 550.300IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Pattern match CallsignDesignate \"Bearclaw\". Sector trade license detected (expired). Weapon batteries detected."},
+        {"Mazar's Revenge", 8640, -7610, 0, "Pirate Destroyer", "Kirill", "Metallic object. Mass reading 848,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Cobra-pattern Destroyer class. Biosignatures present. Reactor active", "Cogitator Pattern mismatch error. Pattern match CallsignDesignate \"Anguine Moros\" att. Battlefleet Prosperitas. Broadcast Ident \"Mazar's Revenge\". Weapon batteries detected."},
+        {"Sabre's Point", 7492, -9318, 0, "Sword", "Kirill", "Metallic object. Mass reading 895,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate \"Sabre's Point\" att. Battlefleet Prosperitas. Weapon batteries detected."},
+        {"Flamberge", 10638, -10477, 0, "Sword", "Kirill", "Metallic object. Mass reading 848,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate \"Flamberge\" att. Battlefleet Prosperitas. Weapon batteries detected."}
     }
 end
 
@@ -116,7 +116,7 @@ end
 
 
 function update(delta)
-
+    updateNPCShipCallsigns(npcConfiguration)
 end
 
 

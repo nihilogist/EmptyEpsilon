@@ -28,25 +28,13 @@ template:setShields(30)
 template:setSpeed(20, 2, 1)
 
 -- Three weapons batteries
-template:setTubes(3, 20.0)
--- Battery 1: port macrocannon
-template:setTubeDirection(0, -90)
+template:setTubes(1, 20.0)
+-- Battery 1: dorsal macrocannon
 template:weaponTubeDisallowMissle(0, "Homing")
-template:setTubeBatterySize(0, 1)
-template:setTubeSalvoSpread(0, 4)
-template:setTubeTurretArc(0, 60)
--- Battery 2: dorsal macrocannon
-template:weaponTubeDisallowMissle(1, "Homing")
-template:setTubeBatterySize(1, 2)
-template:setTubeSalvoSpread(1, 8)
-template:setTubeTurretArc(1, 270)
-template:setTubeTurretRotationSpeed(1, 0.6)
--- Battery 3: starbaord macrocannon
-template:setTubeDirection(2, 90)
-template:weaponTubeDisallowMissle(2, "Homing")
-template:setTubeBatterySize(2, 1)
-template:setTubeSalvoSpread(2, 4)
-template:setTubeTurretArc(2, 60)
+template:setTubeBatterySize(0, 3)
+template:setTubeSalvoSpread(0, 8)
+template:setTubeTurretArc(0, 270)
+template:setTubeTurretRotationSpeed(0, 0.6)
 -- Ammunition
 template:setWeaponStorage("HVLI", 100)
 
@@ -69,7 +57,7 @@ template:setTubeSalvoSpread(0, 4)
 template:setTubeTurretArc(0, 60)
 -- Battery 2: dorsal macrocannon
 template:weaponTubeDisallowMissle(1, "Homing")
-template:setTubeBatterySize(1, 2)
+template:setTubeBatterySize(1, 4)
 template:setTubeSalvoSpread(1, 8)
 template:setTubeTurretArc(1, 270)
 template:setTubeTurretRotationSpeed(1, 0.6)

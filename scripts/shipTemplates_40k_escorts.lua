@@ -2,11 +2,9 @@ template = ShipTemplate():setName("Pirate Destroyer"):setClass("Escort", "Destro
 template:setDescription([[This ship appears to be based on the Cobra Class destroyer. Its armament has been heavily altered from the standard pattern.]])
 template:setRadarTrace("radar_cobra.png")
 template:setHull(150)
+template:setArmour(2.0)
 template:setShields(30)
 template:setSpeed(35, 5, 5)
---                  Arc, Dir, Range, CycleTime, Dmg
-template:setBeam(0, 270, 0, 2000.0, 20.0, 30)
-template:setBeamWeaponTargetingDetails(0, 40, 20)
 -- Two weapons batteries
 template:setTubes(2, 20.0)
 -- Battery 1: Twin-linked torpedo launcher
