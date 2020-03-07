@@ -42,6 +42,12 @@ template:setSpeed(0, 0, 0)
 
 template = ShipTemplate():setName("General Wreckage"):setClass("Wreckage", "Wreckage"):setModel("mediumFreighter")
 template:setDescription([[Wreckage]])
-template:setRadarTrace("radar_medium_freighter.png")
+template:setRadarTrace("radar_wreckage.png")
+template:setHull(500)
+template:setSpeed(0, 0, 0)
+
+template = ShipTemplate():setName("Small Wreckage"):setClass("Wreckage", "Wreckage"):setModel("mediumFreighter")
+template:setDescription([[Wreckage]])
+template:setRadarTrace("radar_wreckage_small.png")
 template:setHull(500)
 template:setSpeed(0, 0, 0)
