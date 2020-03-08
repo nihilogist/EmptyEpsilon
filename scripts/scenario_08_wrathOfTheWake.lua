@@ -14,7 +14,7 @@ require("manageWrecks.lua")
 
 function init()
 	-- Spawn a player Dauntless.
-	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(34118, 926)
+	lexTalionis = PlayerSpaceship():setFaction("Imperial Navy"):setTemplate("Regency Pattern Dauntless"):setPosition(34118, 926):setHeading(0)
     lexTalionis:setCallSign("Lex Talionis")
     addGMFunction("Next Scene", gotoTeaAndMedals)
     lexTalionis:addCustomButton("fighterBay","LaunchFury1","Launch Fury 1",launchInterceptorOne)
@@ -29,6 +29,9 @@ function init()
     -- Create the wrecks
     createWreckConfig()
     createWreckedShips(shipwreckDetails)
+
+    -- Set the initial orders going
+    startInitialOrders()
 
 end
 
@@ -59,8 +62,17 @@ function createNPCShipConfig()
         {"Bonehead One", 70227, 2166, 270, "WakeBomber", "Clan Kirill", "Metallic object. Mass reading 24,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Bonehead One. Short range Orbital Hauler. CAUTION: Unlicensed plasma-warhead emissions detected."},
         {"Bonehead Two", 70117, 1143, 270, "WakeBomber", "Clan Kirill", "Metallic object. Mass reading 24,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Bonehead Two. Short range Orbital Hauler. CAUTION: Unlicensed plasma-warhead emissions detected."},
         {"Bonehead Three", 70049, -125, 270, "WakeBomber", "Clan Kirill", "Metallic object. Mass reading 24,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Bonehead Three. Short range Orbital Hauler. CAUTION: Unlicensed plasma-warhead emissions detected."},
+        {"Venit Hora One", 29402, 17264, 0, "WakeBomber", "The Pikes", "Metallic object. Mass reading 24,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora One. Short range Orbital Hauler. CAUTION: Unlicensed plasma-warhead emissions detected."},
+        {"Venit Hora Two", 27474, 16421, 0, "WakeBomber", "The Pikes", "Metallic object. Mass reading 24,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Two. Short range Orbital Hauler. CAUTION: Unlicensed plasma-warhead emissions detected."},
+        {"Venit Hora Three", 30318, 16831, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Three. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
+        {"Venit Hora Four", 27161, 15602, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Four. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
+        {"Venit Hora Five", 28414, 16036, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Five. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
+        {"Venit Hora Six", 29330, 16493, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Six. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
+        {"Firebolt", 28405, 17278, 0, "Pirate Destroyer", "The Pikes", "Metallic object. Mass reading 845,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Cobra-pattern Destroyer class. Biosignatures present. Reactor active.", "Cogitator Pattern mismatch error. Pattern match CallsignDesignate \"Caladium\" att. Battlefleet Prosperitas. Broadcast Ident \"Firebolt\". Weapon batteries detected."},
+
 
     }
+    
 
 end
 
@@ -70,6 +82,12 @@ function createWreckConfig()
         {"Name", 1460, 3568, "Wrecked Light Freighter", "Unscanned", "Scanned", "Deepscanned"},
 
     }
+
+end
+
+function startInitialOrders()
+    getShip(npcConfiguration[1]):orderIdle():setScanned(true)
+    getShip(npcConfiguration[2]):orderIdle():setScanned(true)
 
 end
 
@@ -89,6 +107,10 @@ function createScenario()
     Nebula():setPosition(-10539, 34258)
     Nebula():setPosition(21406, 82730)
     Nebula():setPosition(67239, 73008)
+    Nebula():setPosition(23106, 7172)
+    Nebula():setPosition(40956, 23368)
+    Nebula():setPosition(52510, 43199)
+    Nebula():setPosition(18586, 47542)
 
 
 
