@@ -1007,11 +1007,20 @@ void SpaceShip::takeHullDamage(float damage_amount, DamageInfo& info)
         }
 
         LOG(INFO) << "Taking system damage of: " << string(systemDamage);
-
         ESystem systemToDamage = getSystemToDamage(info);
         systems[systemToDamage].health -= systemDamage;
         if (systems[systemToDamage].health < -1.0) {
             systems[systemToDamage].health = -1.0;
+        }
+
+        // If it's a torpedo hit then take a damage to a second system as well.
+        if (info.type == DT_Torpedo) {
+            LOG(INFO) << "Taking secondary system damage of: " << string(systemDamage);
+            ESystem systemToDamage = getSystemToDamage(info);
+            systems[systemToDamage].health -= systemDamage;
+            if (systems[systemToDamage].health < -1.0) {
+                systems[systemToDamage].health = -1.0;
+            }
         }
 
         ShipTemplateBasedObject::takeHullDamage(damage_amount / 15, info);

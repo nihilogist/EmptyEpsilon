@@ -45,7 +45,7 @@ void FighterAI::runAttack(P<SpaceObject> target)
     switch(attack_state)
     {
     case dive:
-        if (distance < 2500 + target->getRadius() && has_missiles)
+        if (distance < 4500 + target->getRadius() && has_missiles)
         {
             for(int n=0; n<owner->weapon_tube_count; n++)
             {
