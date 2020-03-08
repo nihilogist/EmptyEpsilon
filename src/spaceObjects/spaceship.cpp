@@ -705,6 +705,8 @@ P<SpaceObject> SpaceShip::getTarget()
     return game_client->getObjectById(target_id);
 }
 
+
+
 void SpaceShip::executeJump(float distance)
 {
     float f = systems[SYS_JumpDrive].health;
@@ -731,6 +733,7 @@ bool SpaceShip::canBeDockedBy(P<SpaceObject> obj)
 
 void SpaceShip::collide(Collisionable* other, float force)
 {
+    // If we're docking with the target then this is OK
     if (docking_state == DS_Docking && fabs(sf::angleDifference(target_rotation, getRotation())) < 10.0)
     {
         P<SpaceObject> dock_object = P<Collisionable>(other);
@@ -741,7 +744,20 @@ void SpaceShip::collide(Collisionable* other, float force)
             float length = sf::length(docking_offset);
             docking_offset = docking_offset / length * (length + 2.0f);
         }
+        return;
     }
+    // If we're not then we handle damage
+    // Simple implementation based on force and mass
+    P<SpaceShip> hit_object = P<Collisionable>(other); // Cast to SpaceShip and nullcheck
+    if (!hit_object) {
+        return;
+    }
+
+    DamageInfo targetDamage(nullptr, DT_Kinetic, getPosition());
+    float targetDamageAmount = force * getHullMax() / 600000;
+    //LOG(INFO) << "RAMMING SPEED! Target takes: " << string(targetDamageAmount);
+    hit_object->takeHullDamage(targetDamageAmount, targetDamage);
+        
 }
 
 void SpaceShip::initializeJump(float distance)
