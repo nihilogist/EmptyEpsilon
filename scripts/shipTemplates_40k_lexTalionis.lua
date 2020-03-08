@@ -27,7 +27,9 @@ template:setTubeIsTurreted(2, false):setTubeDirection(2, 0):setTubeSalvoSpread(2
 template:setTubeLoadTime(2, 240)
 -- We also set a small amount of armour on the ship
 template:setArmour(4.0)
+-- Starfighers can dock
 template:setDockClasses("Starfighter")
+template:setRepairCrewCount(1)
 
 template:addRoomSystem(1, 0, 2, 1, "Maneuver");
 template:addRoomSystem(1, 1, 2, 1, "BeamWeapons");

@@ -7,6 +7,7 @@ template:setHull(200)
 template:setArmour(3.0)
 template:setShields(100)
 template:setSpeed(25, 3, 5)
+template:setRepairCrewCount(2)
 
 
 template:setTubes(1, 18.0)

@@ -24,6 +24,7 @@ template:setTubeTurretRotationSpeed(0, 0.1)
 -- We also set a small amount of armour on the ship
 template:setArmour(4.0)
 template:setDockClasses("Starfighter")
+template:setRepairCrewCount(0)
 
 template:addRoomSystem(1, 0, 2, 1, "Maneuver");
 template:addRoomSystem(1, 1, 2, 1, "BeamWeapons");

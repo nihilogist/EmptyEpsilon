@@ -1000,7 +1000,7 @@ void SpaceShip::takeHullDamage(float damage_amount, DamageInfo& info)
     if (gameGlobalInfo->use_system_damage) {
         // Given that we're taking hull damage, we should determine if that applies to the systems.
         // Default damage is divided by the ship's hull points to simulate armour.
-        float systemDamage = (damage_amount / (hull_max / 2));
+        float systemDamage = (damage_amount / (hull_max / 3));
         // First up: Energy-class and torpedo-class damage always penetrates to do system damage
         if (info.type == DT_Energy || info.type == DT_Torpedo) {
             systemDamage *= 2;
@@ -1014,7 +1014,7 @@ void SpaceShip::takeHullDamage(float damage_amount, DamageInfo& info)
             systems[systemToDamage].health = -1.0;
         }
 
-        ShipTemplateBasedObject::takeHullDamage(damage_amount / 5, info);
+        ShipTemplateBasedObject::takeHullDamage(damage_amount / 15, info);
         
     } else {
         ShipTemplateBasedObject::takeHullDamage(damage_amount, info);

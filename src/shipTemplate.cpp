@@ -101,7 +101,7 @@ ShipTemplate::ShipTemplate()
     repair_docked = false;
     restocks_scan_probes = false;
     energy_storage_amount = 1000;
-    repair_crew_count = 3;
+    repair_crew_count = 0;
     weapon_tube_count = 0;
     for(int n=0; n<max_weapon_tubes; n++)
     {

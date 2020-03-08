@@ -6,6 +6,7 @@ template:setRadarTrace("radar_lunar.png")
 template:setHull(800)
 template:setShields(300)
 template:setSpeed(20, 2.5, 5)
+template:setRepairCrewCount(5)
 
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 90, 90, 5000.0, 30.0, 120)

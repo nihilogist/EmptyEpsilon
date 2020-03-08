@@ -82,8 +82,12 @@ void CpuShip::update(float delta)
         return;
 
     // Try to repair systems
-    for(int n=0; n<SYS_COUNT; n++)
-        systems[n].health = std::min(1.0f, systems[n].health + delta * auto_system_repair_per_second);
+    if (repairCrew > 0) {
+        // Get the most damaged system
+        ESystem mostDamagedSystem = getMostHeavilyDamagedSystem();
+        systems[mostDamagedSystem].health = std::min(1.0f, systems[mostDamagedSystem].health + delta * auto_system_repair_per_second * repairCrew);
+    }
+    
 
     // Check plasma reactor
     updatePlasmaReactorHealth(delta);
@@ -131,6 +135,8 @@ void CpuShip::update(float delta)
 void CpuShip::applyTemplateValues()
 {
     SpaceShip::applyTemplateValues();
+    // Set a repair crew variable.
+    repairCrew = ship_template->repair_crew_count;
 
     new_ai_name = ship_template->default_ai_name;
 }
@@ -285,6 +291,16 @@ void CpuShip::orderFireAtTarget() {
 
 EAIStance CpuShip::getStance() {
     return stance;
+}
+
+ESystem CpuShip::getMostHeavilyDamagedSystem() {
+    ESystem mostDamaged = SYS_None;
+    for(int n=0; n<SYS_COUNT; n++) {
+        if (systems[n].health < systems[mostDamaged].health) {
+            mostDamaged = ESystem(n); //??
+        }
+    }
+    return mostDamaged;
 }
 
 void CpuShip::drawOnGMRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, bool long_range)

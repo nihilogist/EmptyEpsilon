@@ -26,6 +26,7 @@ template:setRadarTrace("radar_medium_freighter.png")
 template:setHull(150)
 template:setShields(30)
 template:setSpeed(20, 2, 1)
+template:setRepairCrewCount(1)
 
 -- Three weapons batteries
 template:setTubes(1, 20.0)
@@ -47,6 +48,7 @@ template:setHull(150)
 template:setArmour(2.0)
 template:setShields(60)
 template:setSpeed(25, 3, 10)
+template:setRepairCrewCount(1)
 
 -- Three weapons batteries
 template:setTubes(4, 20.0)

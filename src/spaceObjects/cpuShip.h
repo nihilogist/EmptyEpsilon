@@ -29,7 +29,7 @@ enum EAIStance
 class ShipAI;
 class CpuShip : public SpaceShip
 {
-    static constexpr float auto_system_repair_per_second = 0.00005f;
+    static constexpr float auto_system_repair_per_second = 0.004f;
     static constexpr float missile_resupply_time = 10.0f;
 
     EAIOrder orders;                    //Server only
@@ -39,6 +39,7 @@ class CpuShip : public SpaceShip
     ShipAI* ai;
 
     string new_ai_name;
+    int repairCrew;
 public:
     CpuShip();
     virtual ~CpuShip();
@@ -84,7 +85,10 @@ public:
     
     
     private:
+    // Update the health of the plasma reactor - increase damage if it is breached.
     void updatePlasmaReactorHealth(float delta);
+    // Returns the most heavily damaged system on the ship.
+    ESystem getMostHeavilyDamagedSystem();
 };
 string getAIOrderString(EAIOrder order);
 
