@@ -20,6 +20,7 @@ Player ships are in general large frigates to small corvette class
 require("shipTemplates_40k_lexTalionis.lua")
 require("shipTemplates_40k_lexTalionisInitial.lua")
 require("shipTemplates_40k_SwordClassFrigate.lua")
+require("shipTemplates_40k_FirestormClassFrigate.lua")
 require("shipTemplates_40k_LunarClassCruiser.lua")
 require("shipTemplates_40k_Cruisers.lua")
 require("shipTemplates_40k_escorts.lua")

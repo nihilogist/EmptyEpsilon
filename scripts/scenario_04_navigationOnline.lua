@@ -56,13 +56,33 @@ end
 function createWreckConfig()
     shipwreckDetails = {
         --{Callsign, posX, posY, template, unscannedAuspex, scannedAuspex, deepscannedAuspex}
-        {"Name", -800, -39344, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Wreckage", -800, -39344, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation.", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", -487, -39364, "Wrecked Freighter", "Unscanned.", "Scanned", "Deepscanned"},
-        {"Name", -133, -39253, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
-        {"Name", -300, -39871, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
-        {"Name", 131, -38677, "Small Wreckage", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", -133, -39253, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
+        {"Name", -300, -39871, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
+        {"Name", 131, -38677, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
     }
 
+    CpuShip():setFaction("Wreckage"):setTemplate("General Wreckage"):setCallSign("CV20"):setPosition(37920, 48284):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Frigate"):setCallSign("CV26"):setPosition(37225, 47677):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("S21"):setPosition(38265, 47428):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CSS25"):setPosition(38601, 50415):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CSS23"):setPosition(37708, 49909):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CSS24"):setPosition(37386, 48914):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("VS22"):setPosition(38631, 49221):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CV27"):setPosition(30878, -1348):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("BR28"):setPosition(28445, -2645):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CCN30"):setPosition(22300, -10736):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CV29"):setPosition(25220, -5889):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("VS35"):setPosition(26274, -32212):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("UTI38"):setPosition(38249, -37890):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Cruiser"):setCallSign("CV39"):setPosition(29084, 3055):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("SS40"):setPosition(19325, -7122):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CV43"):setPosition(55107, -6319):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("S42"):setPosition(55919, -7160):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("General Wreckage"):setCallSign("NC44"):setPosition(57509, -11278):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CCN41"):setPosition(57794, -9264):orderRoaming()
+    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Bulk Carrier"):setCallSign("S45"):setPosition(-8782, 1687):orderRoaming()
 
 end
 
@@ -82,7 +102,7 @@ function createNPCShipConfig()
         {"Name", 728, -37998, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
         {"Name", -77, -37526, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
         {"Golden Grox", 57155, -9622, 270, "Q Ship", "Wreckage", "Unscanned", "Scanned", "Deepscanned"},
-        
+        {"Golden Grox", 40762, 47189, 270, "Firestorm", "Rising Flame", "Unscanned", "Scanned", "Deepscanned"},
 
     }
 
@@ -201,7 +221,7 @@ function setupBoundaries()
 end
 
 function setupBigAsteroids()
-    Asteroid():setPosition(40023, 48041):setSize(423)
+    Asteroid():setPosition(40023, 48041):setSize(523)
 
 
 end
