@@ -649,7 +649,11 @@ void SpaceShip::update(float delta)
     // If the ship isn't making a combat maneuver, recharge its boost.
     }else if (combat_maneuver_charge < 1.0)
     {
-        combat_maneuver_charge += (delta / combat_maneuver_charge_time) * (getSystemEffectiveness(SYS_Maneuver) + getSystemEffectiveness(SYS_Impulse)) / 2.0;
+        float combatManeuverRecharge = (delta / combat_maneuver_charge_time) * (getSystemEffectiveness(SYS_Maneuver) + getSystemEffectiveness(SYS_Impulse)) / 2.0;
+        if (getHullMax() < 50) {
+            combatManeuverRecharge = combatManeuverRecharge * 3;
+        }
+        combat_maneuver_charge += combatManeuverRecharge;
         if (combat_maneuver_charge > 1.0)
             combat_maneuver_charge = 1.0;
     }

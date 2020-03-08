@@ -102,8 +102,11 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
                 my_spaceship->commandImpulse(-(z_position / 100));
         },
         [this](float r_position) {
-            if (my_spaceship)
+            if (my_spaceship) {
+                LOG(INFO) << "Performing combat maneuver strafe.";
                 my_spaceship->commandCombatManeuverStrafe(r_position / 100);
+            }
+                
         }
     );
 

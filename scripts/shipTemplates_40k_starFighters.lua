@@ -34,6 +34,7 @@ variation:setTubes(1, 5)
 variation:setWeaponTubeExclusiveFor(0, "Seeker")
 variation:setTubeDirection(0, 0)
 variation:setWeaponStorage("Seeker", 6)
+variation:setCombatManeuver(0.0, 200.0)
 
 variation:setRepairCrewCount(1)
 variation:addRoomSystem(3, 0, 1, 1, "Maneuver");
