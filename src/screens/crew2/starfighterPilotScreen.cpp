@@ -103,7 +103,6 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
         },
         [this](float r_position) {
             if (my_spaceship) {
-                LOG(INFO) << "Performing combat maneuver strafe.";
                 my_spaceship->commandCombatManeuverStrafe(r_position / 100);
             }
                 
@@ -111,7 +110,7 @@ StarfighterPilotScreen::StarfighterPilotScreen(GuiContainer* owner)
     );
 
     // Ship stats and combat maneuver at bottom right corner of left panel.
-    (new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(100, 75);
+    //(new GuiCombatManeuver(left_panel, "COMBAT_MANEUVER"))->setPosition(-20, -180, ABottomRight)->setSize(100, 75);
 
     // Energy boost displays
     plasmaDriveStatus = new GuiKeyValueDisplay(left_panel, "PLASMA_DRIVE_STATUS", 0.45, "Engines", "");
