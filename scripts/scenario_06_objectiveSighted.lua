@@ -35,7 +35,7 @@ end
 
 
 function update(delta)
-
+    updateNPCShipCallsigns(npcConfiguration)
 
 end
 

@@ -31,7 +31,8 @@ end
 
 
 function update(delta)
-
+    updateWreckedShipsCallsigns(shipwreckDetails)
+    updateNPCShipCallsigns(npcConfiguration)
 
 end
 
