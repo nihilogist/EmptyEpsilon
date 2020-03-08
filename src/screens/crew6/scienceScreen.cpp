@@ -348,9 +348,15 @@ void ScienceScreen::onDraw(sf::RenderTarget& window)
 
                     for(int n = 0; n < SYS_COUNT; n++)
                     {
-                        // hack to hide the systems we don't want to show
-                        if (n != SYS_Warp && n != SYS_JumpDrive && n != SYS_RearShield) {
-                            info_system[n]->show();
+                        // hack to hide the systems we don't want to show cause no ship has them.
+                        if ((n != SYS_Warp) && (n != SYS_JumpDrive) && (n != SYS_RearShield)) {
+                            // now only show beam weapons if the ship has them
+                            if (n == SYS_BeamWeapons && !ship->isShipArmedWithBeamWeapons()) {
+                                
+                            } else {
+                                info_system[n]->show();
+                            }
+                            
                         }
                         
                     }

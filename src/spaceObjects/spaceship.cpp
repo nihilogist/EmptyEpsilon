@@ -1226,6 +1226,15 @@ std::unordered_map<string, string> SpaceShip::getGMInfo()
     return ret;
 }
 
+bool SpaceShip::isShipArmedWithBeamWeapons() {
+    for(int n=0; n<max_beam_weapons; n++) {
+        if (beam_weapons[n].getRange() > 0.0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 float SpaceShip::getAngleToTarget() {
     P<SpaceObject> targetedObject = getTarget();
     

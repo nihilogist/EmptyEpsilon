@@ -414,6 +414,9 @@ public:
     // This function is used in getScriptExport calls to adjust for tweaks done in the GM screen.
     string getScriptExportModificationsOnTemplate();
 
+    // Returns true if the ship has beam weapons
+    bool isShipArmedWithBeamWeapons();
+
 
 
     private:
