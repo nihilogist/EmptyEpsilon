@@ -75,3 +75,6 @@ template:weaponTubeDisallowMissle(3, "HVLI")
 -- Ammunition
 template:setWeaponStorage("HVLI", 100)
 template:setWeaponStorage("Homing", 1)
+template:setTubeTurretArc(3, 10)
+template:setTubeTurretRotationSpeed(3, 0.6)
+template:setTubeBatterySize(3, 1)
