@@ -77,7 +77,12 @@ variation:setHull(60)
 variation:setShields(40)
 variation:setBeam(0, 30, 0, 900.0, 2.0, 4.0)
 variation:setTubes(2, 10.0)
-variation:setWeaponStorage("Homing", 4)
+variation:setWeaponStorage("Homing", 6)
+variation:setWeaponStorage("Seeker", 10)
+variation:setWeaponTubeExclusiveFor(0, "Seeker")
+variation:setWeaponTubeExclusiveFor(1, "Homing")
+variation:setTubeSalvoSpread(1, 0):setTubeBatterySize(1, 1)
+
 
 variation:setRepairCrewCount(1)
 variation:addRoomSystem(3, 0, 1, 1, "Maneuver");
@@ -114,6 +119,9 @@ template:setDefaultAI('fighter')
 --                  Arc, Dir, Range, CycleTime, Dmg
 template:setBeam(0, 50, 0, 900.0, 8.0, 6)
 template:setBeamWeaponTargetingDetails(0, 100, 60)
+template:setTubes(1, 20.0)
+template:setWeaponStorage("Homing", 1)
+template:setTubeSalvoSpread(0, 0):setTubeBatterySize(0, 1)
 
 template = ShipTemplate():setName("Hauler"):setClass("Starfighter", "Improvised"):setModel("WespeScoutYellow")
 template:setRadarTrace("radar_fury.png")
@@ -140,4 +148,5 @@ template:setSpeed(70, 25, 10)
 template:setDefaultAI('fighter')
 template:setTubes(1, 20.0)
 template:setWeaponStorage("Homing", 4)
+template:setTubeSalvoSpread(0, 0):setTubeBatterySize(0, 1)
 
