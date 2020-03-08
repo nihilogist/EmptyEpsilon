@@ -126,6 +126,10 @@ private:
     void drawTargets(sf::RenderTarget& window);
     void drawHeadingIndicators(sf::RenderTarget& window);
     void drawRadarCutoff(sf::RenderTarget& window);
+    // Draw the maximum offsets of missile turret arcs.
+    void drawMissileTurretArcs(sf::RenderTarget& window);
+    // Draw the current offsets of missile turret arcs.
+    void drawMissileTurretAngles(sf::RenderTarget& window);
 };
 
 #endif//RADAR_VIEW_H

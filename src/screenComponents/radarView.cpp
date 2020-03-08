@@ -60,10 +60,16 @@ void GuiRadarView::onDraw(sf::RenderTarget& window)
         drawRenderTexture(mask_texture, background_texture, sf::Color::White, sf::BlendMultiply);
     drawSectorGrid(background_texture);
     drawRangeIndicators(background_texture);
-    if (show_target_projection)
+    if (show_target_projection) {
         drawTargetProjections(background_texture);
-    if (show_missile_tubes)
+        drawMissileTurretAngles(background_texture);
+    }
+        
+    if (show_missile_tubes) {
         drawMissileTubes(background_texture);
+        drawMissileTurretArcs(background_texture);
+    }
+        
 
     ///Start drawing of foreground
     forground_texture.clear(sf::Color::Transparent);
@@ -529,6 +535,62 @@ void GuiRadarView::drawMissileTubes(sf::RenderTarget& window)
         }
         window.draw(a);
     }
+}
+
+void GuiRadarView::drawMissileTurretArcs(sf::RenderTarget& window) {
+    sf::Vector2f radar_screen_center(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
+    float scale = std::min(rect.width, rect.height) / 2.0f / distance;
+
+    if (my_spaceship) {
+        for (int n = 0; n < my_spaceship->weapon_tube_count; n++) {
+            // If the tube is turreted
+            if (my_spaceship->weapon_tube[n].isTurreted()) {
+                sf::Vector2f fire_position = my_spaceship->getPosition() + sf::rotateVector(my_spaceship->ship_template->model_data->getTubePosition2D(n), my_spaceship->getRotation());
+                sf::Vector2f fire_draw_position = radar_screen_center - (view_position - fire_position) * scale;
+                float turretAngleMaxForward = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection() + (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+                float turretAngleMaxAft = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection() - (my_spaceship->weapon_tube[n].getTurretArc() / 2);
+                sf::VertexArray a(sf::Lines, 4);
+                a[0].position = fire_draw_position;
+                a[0].color = sf::Color(128, 128, 128, 200);
+                a[1].position = fire_draw_position + (sf::vector2FromAngle(turretAngleMaxForward) * 3000.0f) * scale;
+                a[1].color = sf::Color(128, 128, 128, 0);
+                a[2].position = fire_draw_position;
+                a[2].color = sf::Color(128, 128, 128, 200);
+                a[3].position = fire_draw_position + (sf::vector2FromAngle(turretAngleMaxAft) * 3000.0f) * scale;
+                a[3].color = sf::Color(128, 128, 128, 0);
+                window.draw(a);
+            }
+            
+        }
+    }   
+}
+
+void GuiRadarView::drawMissileTurretAngles(sf::RenderTarget& window) {
+    sf::Vector2f radar_screen_center(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
+    float scale = std::min(rect.width, rect.height) / 2.0f / distance;
+
+    if (my_spaceship) {
+        for (int n = 0; n < my_spaceship->weapon_tube_count; n++) {
+            // If the tube is turreted
+            if (my_spaceship->weapon_tube[n].isTurreted()) {
+                sf::Vector2f fire_position = my_spaceship->getPosition() + sf::rotateVector(my_spaceship->ship_template->model_data->getTubePosition2D(n), my_spaceship->getRotation());
+                sf::Vector2f fire_draw_position = radar_screen_center - (view_position - fire_position) * scale;
+                float turretAngleCurrent = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection() + my_spaceship->weapon_tube[n].getTurretOffsetActual();
+                float turretAngleRequested = my_spaceship->getRotation() + my_spaceship->weapon_tube[n].getDirection() + my_spaceship->weapon_tube[n].getTurretOffsetRequested();
+                sf::VertexArray a(sf::Lines, 4);
+                a[0].position = fire_draw_position;
+                a[0].color = sf::Color(100, 100, 250, 200);
+                a[1].position = fire_draw_position + (sf::vector2FromAngle(turretAngleCurrent) * 3000.0f) * scale;
+                a[1].color = sf::Color(200, 128, 128, 0);
+                a[2].position = fire_draw_position;
+                a[2].color = sf::Color(128, 128, 200, 200);
+                a[3].position = fire_draw_position + (sf::vector2FromAngle(turretAngleRequested) * 7000.0f) * scale;
+                a[3].color = sf::Color(128, 128, 128, 0);
+                window.draw(a);
+            }
+            
+        }
+    }   
 }
 
 void GuiRadarView::drawObjects(sf::RenderTarget& window_normal, sf::RenderTarget& window_alpha)
