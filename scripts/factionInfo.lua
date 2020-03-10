@@ -31,6 +31,10 @@ wakeCult = FactionInfo():setName("Wake Cult")
 wakeCult:setGMColor(255,192,203)
 wakeCult:setDescription([[The Wake Cult are eeeeevil.]])
 
+childrenOfTain = FactionInfo():setName("Children of Tain")
+childrenOfTain:setGMColor(255,192,203)
+childrenOfTain:setDescription([[More bad guys.]])
+
 unknown = FactionInfo():setName("Unknown Ship")
 unknown:setGMColor(80, 80, 180)
 unknown:setDescription([[The Imperium is vast, and not everything is charted.]])
@@ -50,6 +54,10 @@ imperium:setEnemy(kirillHostile)
 -- Wake Cult are opposed to the Imperial Navy and vice versa
 wakeCult:setEnemy(imperium)
 imperium:setEnemy(wakeCult)
+
+-- childrenOfTain are opposed to the Imperial Navy and vice versa
+childrenOfTain:setEnemy(imperium)
+imperium:setEnemy(childrenOfTain)
 
 -- everyone is opposed to the unknown threat
 risingFlame:setEnemy(unknown)
