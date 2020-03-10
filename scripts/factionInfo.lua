@@ -35,6 +35,10 @@ childrenOfTain = FactionInfo():setName("Children of Tain")
 childrenOfTain:setGMColor(255,192,203)
 childrenOfTain:setDescription([[More bad guys.]])
 
+fistOfSteel = FactionInfo():setName("Fist of Steel")
+fistOfSteel:setGMColor(255,192,203)
+childrenOfTain:setDescription([[Heretek bad guys.]])
+
 unknown = FactionInfo():setName("Unknown Ship")
 unknown:setGMColor(80, 80, 180)
 unknown:setDescription([[The Imperium is vast, and not everything is charted.]])

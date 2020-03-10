@@ -58,6 +58,7 @@ function createWreckConfig()
         --{Callsign, posX, posY, template, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         {"Wreckage", -800, -39344, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation.", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", -487, -39364, "Wrecked Freighter", "Unscanned.", "Scanned", "Deepscanned"},
+        {"Name", 19325, -7122, "Wrecked Freighter", "Metallic object. Mass reading 420.000IT. Thermal signature consistent with background radiation.", "Voidship. Orion-class Star Clipper. Negative biosignature. Negative power.", "Metallic hull composites prevent standard deepscan. CallsignDesignate return: Shadow Of The Throne. Trade permit registration: REDACTREDACT."},
         {"Name", -133, -39253, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", -300, -39871, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", 131, -38677, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
@@ -77,7 +78,6 @@ function createWreckConfig()
     CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("VS35"):setPosition(26274, -32212):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("UTI38"):setPosition(38249, -37890):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Cruiser"):setCallSign("CV39"):setPosition(29084, 3055):orderRoaming()
-    CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Freighter"):setCallSign("SS40"):setPosition(19325, -7122):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("CV43"):setPosition(55107, -6319):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("Small Wreckage"):setCallSign("S42"):setPosition(55919, -7160):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("General Wreckage"):setCallSign("NC44"):setPosition(57509, -11278):orderRoaming()
@@ -91,18 +91,23 @@ function createNPCShipConfig()
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
         
-        {"Name", -1686, -41893, 270, "Armed Merchantman", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -1021, -42888, 270, "Armed Merchantman", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -2098, -42689, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -945, -42175, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -293, -42418, 270, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -1605, -37935, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -1300, -39303, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", 396, -39075, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", 728, -37998, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", -77, -37526, 270, "Defensive Turret", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1686, -41893, 270, "Armed Merchantman", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1021, -42888, 270, "Armed Merchantman", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -2098, -42689, 270, "Hauler", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -945, -42175, 270, "Hauler", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -293, -42418, 270, "Hauler", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1605, -37935, 270, "Defensive Turret", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -1300, -39303, 270, "Defensive Turret", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 396, -39075, 270, "Defensive Turret", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 728, -37998, 270, "Defensive Turret", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", -77, -37526, 270, "Defensive Turret", "Fist of Steel", "Unscanned", "Scanned", "Deepscanned"},
         {"Golden Grox", 57155, -9622, 270, "Q Ship", "Wreckage", "Unscanned", "Scanned", "Deepscanned"},
-        {"Golden Grox", 40762, 47189, 270, "Firestorm", "Rising Flame", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 31994, -29920, 0, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 32769, -30641, 0, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 30752, -28436, 0, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 33478, -31884, 0, "Hauler", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 31380, -32151, 0, "Merchant Raider", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
+        {"Callsign", 30378, -30962, 0, "Merchant Raider", "Pikes", "Unscanned", "Scanned", "Deepscanned"},
 
     }
 
@@ -132,6 +137,16 @@ function startInitialOrders()
     getShip(npcConfiguration[4]):orderIdle()
     getShip(npcConfiguration[5]):orderIdle()
     getShip(npcConfiguration[6]):orderIdle()
+    getShip(npcConfiguration[7]):orderIdle()
+    getShip(npcConfiguration[8]):orderIdle()
+    getShip(npcConfiguration[9]):orderIdle()
+    getShip(npcConfiguration[10]):orderIdle()
+    getShip(npcConfiguration[11]):orderIdle()
+    getShip(npcConfiguration[12]):orderIdle()
+    getShip(npcConfiguration[13]):orderIdle()
+    getShip(npcConfiguration[14]):orderIdle()
+    getShip(npcConfiguration[15]):orderIdle()
+    getShip(npcConfiguration[16]):orderIdle()
 end
 
 function createPikeSalvageArea()
