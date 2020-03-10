@@ -54,9 +54,9 @@ function createWreckConfig()
 end
 
 function createAuxiliaryShips()
-    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Tug Alpha"):setPosition(-2433, 1967):orderIdle():setScanned(true):setDescription("Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament.")
-    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Tug Delta-07"):setPosition(463, 3223):orderIdle():setScanned(true):setDescription("Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament.")
-    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Tug Digamma"):setPosition(3790, -305):orderIdle():setScanned(true):setDescription("Broadcast Ident matches emission signature. Low orbit Terrier-Pattern maintenance vessel. No void-armament.")
+    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Salvage Lead"):setPosition(-2433, 1967):orderIdle():setScanned(true):setDescription("Registered transponder IFF: Kirill Salvage team lead.")
+    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Salvage-2"):setPosition(463, 3223):orderIdle():setScanned(true):setDescription("Registered transponder IFF: Kirill Salvage team.")
+    CpuShip():setFaction("Kirill"):setTemplate("Tug Ship"):setCallSign("K-AUX Salvage-3"):setPosition(3790, -305):orderIdle():setScanned(true):setDescription("Registered transponder IFF: Kirill Salvage team.")
 
 end
 
