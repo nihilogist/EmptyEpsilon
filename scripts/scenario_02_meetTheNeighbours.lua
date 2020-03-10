@@ -129,6 +129,9 @@ end
 
 
 function createSmallAsteroids()
+    Asteroid():setPosition(18498, -6429):setSize(30)
+
+
 
     Asteroid():setPosition(-906, -1487)
     Asteroid():setPosition(-4876, -872)
