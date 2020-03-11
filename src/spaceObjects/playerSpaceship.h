@@ -212,6 +212,8 @@ public:
     void commandFireTube(int8_t tubeNumber, float missile_target_angle);    
     void commandFireTubeAtTarget(int8_t tubeNumber, P<SpaceObject> target);
     void commandTubeRequestTurretAngle(int8_t tubeNumber, float turretRequestedOffset);
+    void commandTubeTurretSlewLeft(int8_t tubeNumber);
+    void commandTubeTurretSlewRight(int8_t tubeNumber);
 
 
     void commandSetShields(bool enabled);

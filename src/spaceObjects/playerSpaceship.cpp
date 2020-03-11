@@ -184,6 +184,8 @@ static const int16_t CMD_HACKING_FINISHED = 0x0028;
 static const int16_t CMD_CUSTOM_FUNCTION = 0x0029;
 static const int16_t CMD_REQUEST_MISSILE_TUBE_ANGLE = 0x002A;
 static const int16_t CMD_HIGH_ENERGY_TURN = 0x002B;
+static const int16_t CMD_REQUEST_MISSILE_TUBE_SLEW_LEFT = 0x002C;
+static const int16_t CMD_REQUEST_MISSILE_TUBE_SLEW_RIGHT = 0x002D;
 
 string alertLevelToString(EAlertLevel level)
 {
@@ -1539,7 +1541,26 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             }
         }
         break;
-        case CMD_HIGH_ENERGY_TURN: {
+    case CMD_REQUEST_MISSILE_TUBE_SLEW_LEFT:
+        {
+            int8_t tubeNumber;
+            packet >> tubeNumber;
+            LOG(INFO) << "Missile tube " << string(tubeNumber) << " slew left executing";
+            float angleToRequest = my_spaceship->weapon_tube[tubeNumber].getTurretOffsetRequested() + my_spaceship->weapon_tube[tubeNumber].getTurretRotationSpeed();
+            weapon_tube[tubeNumber].setTurretOffsetRequested(angleToRequest);
+        }
+        break;
+    case CMD_REQUEST_MISSILE_TUBE_SLEW_RIGHT:
+        {
+            int8_t tubeNumber;
+            packet >> tubeNumber;
+            LOG(INFO) << "Missile tube " << string(tubeNumber) << " slew right executing";
+            float angleToRequest = my_spaceship->weapon_tube[tubeNumber].getTurretOffsetRequested() - my_spaceship->weapon_tube[tubeNumber].getTurretRotationSpeed();
+            weapon_tube[tubeNumber].setTurretOffsetRequested(angleToRequest);
+        }
+        break;
+    case CMD_HIGH_ENERGY_TURN: 
+        {
             // Execute code for high energy turn
             float requestedHighEnergyTurnAmount;
             packet >> requestedHighEnergyTurnAmount;
@@ -1628,6 +1649,18 @@ void PlayerSpaceship::commandFireTubeAtTarget(int8_t tubeNumber, P<SpaceObject> 
 void PlayerSpaceship::commandTubeRequestTurretAngle(int8_t tubeNumber, float turretRequestedOffset) {
     sf::Packet packet;
     packet << CMD_REQUEST_MISSILE_TUBE_ANGLE << tubeNumber << turretRequestedOffset;
+    sendClientCommand(packet);
+}
+
+void PlayerSpaceship::commandTubeTurretSlewLeft(int8_t tubeNumber) {
+    sf::Packet packet;
+    packet << CMD_REQUEST_MISSILE_TUBE_SLEW_LEFT << tubeNumber;
+    sendClientCommand(packet);
+}
+
+void PlayerSpaceship::commandTubeTurretSlewRight(int8_t tubeNumber) {
+    sf::Packet packet;
+    packet << CMD_REQUEST_MISSILE_TUBE_SLEW_RIGHT << tubeNumber;
     sendClientCommand(packet);
 }
 
