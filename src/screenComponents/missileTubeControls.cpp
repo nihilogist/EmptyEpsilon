@@ -200,7 +200,7 @@ void GuiMissileTubeControls::onDraw(sf::RenderTarget& window){
         }
 
         // Update the slider for the turret rotation if there is a change to the requested value
-        if (tube.getTurretArc() > 0.1f) {
+        if (tube.isTurreted()) {
             rows[n].turretControl->setValue(tube.getTurretOffsetRequested());
         }
 
@@ -237,8 +237,10 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
                     my_spaceship->commandLoadTube(n, load_type);
                 }
             }
-            if (key.hotkey == "UNLOAD_TUBE_" + string(n+1))
+            if (key.hotkey == "UNLOAD_TUBE_" + string(n+1)) {
                 my_spaceship->commandUnloadTube(n);
+            }
+                
             if (key.hotkey == "FIRE_TUBE_" + string(n+1))
             {
                 float target_angle = missile_target_angle;
@@ -252,10 +254,12 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
             }
             // Check for hotkeys for turret rotation
             if (key.hotkey == "TURRET_LEFT_TUBE_" + string(n+1)) {
+                LOG(INFO) << "Turret " << string(n) << " slew left requested.";
                 my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() + my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
             }
                 
             if (key.hotkey == "TURRET_RIGHT_TUBE_" + string(n+1)) {
+                LOG(INFO) << "Turret " << string(n) << " slew right requested.";
                 my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() - my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
             }
                     
