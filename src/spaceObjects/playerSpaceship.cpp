@@ -1582,9 +1582,8 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
         break;
     case CMD_HIGH_ENERGY_TURN: 
         {
-            // Execute code for high energy turn
-            float requestedHighEnergyTurnAmount;
-            packet >> requestedHighEnergyTurnAmount;
+            
+            packet >> highEnergyTurnAmount;
         }
     }
     
@@ -1874,7 +1873,7 @@ void PlayerSpaceship::commandCombatManeuverStrafe(float amount)
 }
 
 void PlayerSpaceship::commandHighEnergyTurn(float amount) {
-    highEnergyTurnAmount = amount;
+    //highEnergyTurnAmount = amount;
     sf::Packet packet;
     packet << CMD_HIGH_ENERGY_TURN << amount;
     sendClientCommand(packet);
