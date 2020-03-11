@@ -23,7 +23,8 @@ template:setTubeIsTurreted(0, true):setTubeIsTurreted(1, true)
 template:setTubeTurretArc(0, 90):setTubeTurretArc(1, 90)
 template:setTubeTurretRotationSpeed(0, 0.3):setTubeTurretRotationSpeed(1, 0.3)
 -- Tube 3 is a quin-linked torpedo launcher
-template:setTubeIsTurreted(2, false):setTubeDirection(2, 0):setTubeSalvoSpread(2, 4):setTubeBatterySize(2, 5):setWeaponTubeExclusiveFor(2, "Homing")
+template:setTubeIsTurreted(2, true):setTubeDirection(2, 0):setTubeSalvoSpread(2, 4):setTubeBatterySize(2, 5):setWeaponTubeExclusiveFor(2, "Homing")
+template:setTubeTurretArc(2, 10):setTubeTurretRotationSpeed(2, 0.01)
 template:setTubeLoadTime(2, 240)
 -- We also set a small amount of armour on the ship
 template:setArmour(4.0)

@@ -109,8 +109,6 @@ end
 function createBoundaries()
     Nebula():setPosition(-16678, -8399)
     Nebula():setPosition(34397, -9282)
-    Nebula():setPosition(37930, -21509)
-    Nebula():setPosition(34825, -17205)
     Nebula():setPosition(38358, -27869)
     BlackHole():setPosition(29867, -7625)
     BlackHole():setPosition(33377, -700)
