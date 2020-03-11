@@ -62,7 +62,10 @@ function createWreckConfig()
         {"Name", -133, -39253, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", -300, -39871, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
         {"Name", 131, -38677, "Small Wreckage", "Metallic object. Mass reading unreliable. Thermal signature consistent with background radiation..", "Fragmentary metallic objects. Negative biosignatures. Negative power.", "Metallic composition matches standard voidship hull. Extensive immaterium-based damage. Vessel of origin not identified."},
+        {"Imperial Escape Pods", -487, -39364, "Small Wreckage", "Metallic objects. Mass reading unreliable against planetary background. Thermal signature consistent with planetary background.", "Imperial Aegis-class life-support capsules. Biosignatures in area. Powered.", "Signal broadcast decoded: EMERGENCY BEACON. Parent vessel: Shadow Of The Throne. STATUS: Critical. All Imperial vessels to IMMEDIATELY CEASE current operations and PROVIDE ASSITANCE."},
     }
+    CpuShip():setFaction("Wreckage"):setTemplate(""):setCallSign("CCN44"):setPosition(37366, -25005):orderRoaming()
+
 
     CpuShip():setFaction("Wreckage"):setTemplate("General Wreckage"):setCallSign("CV20"):setPosition(37920, 48284):orderRoaming()
     CpuShip():setFaction("Wreckage"):setTemplate("Wrecked Frigate"):setCallSign("CV26"):setPosition(37225, 47677):orderRoaming()
