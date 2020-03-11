@@ -251,11 +251,15 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
                 my_spaceship->commandFireTube(n, target_angle);
             }
             // Check for hotkeys for turret rotation
-            if (my_spaceship->weapon_tube[n].getTurretArc() > 0.0) {
-                if (key.hotkey == "TURRET_LEFT_TUBE_" + string(n+1))
+            if (my_spaceship->weapon_tube[n].isTurreted()) {
+                if (key.hotkey == "TURRET_LEFT_TUBE_" + string(n+1)) {
                     my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() + my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
-                if (key.hotkey == "TURRET_RIGHT_TUBE_" + string(n+1))
+                }
+                    
+                if (key.hotkey == "TURRET_RIGHT_TUBE_" + string(n+1)) {
                     my_spaceship->commandTubeRequestTurretAngle(n, (my_spaceship->weapon_tube[n].getTurretOffsetRequested() - my_spaceship->weapon_tube[n].getTurretRotationSpeed()));
+                }
+                    
             }
         }
     }
