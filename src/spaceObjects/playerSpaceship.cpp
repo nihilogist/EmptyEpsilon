@@ -1529,9 +1529,11 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             float requestedTurretAngle;
             packet >> tubeNumber >> requestedTurretAngle;
             // if the data is valid then apply the changes.
+            LOG(INFO) << "Received command to alter missile tube " << string(tubeNumber) << " angle by " << string(requestedTurretAngle);
             if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
                 // If the tube is turreted then apply the changes
                 if (weapon_tube[tubeNumber].isTurreted()) {
+                    LOG(INFO) << "Setting turret offset request.";
                     weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
                 }
             }
