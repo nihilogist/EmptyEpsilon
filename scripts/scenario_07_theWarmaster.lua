@@ -6,6 +6,7 @@
 require("utils.lua")
 require("manageWrecks.lua")
 require("manageHauntedWrecks.lua")
+require("manageNPCShips.lua")
 
 -- For this scenario, utils.lua provides:
 --   vectorFromAngle(angle, length)
@@ -37,7 +38,9 @@ function init()
     addGMFunction("Ghost Ships Phase One", activateGhostsPhaseOne)
     addGMFunction("Ghost Ships Phase Two", activateGhostsPhaseTwo)
 
+    createNPCShipConfig()
 
+    createNPCShips(npcConfiguration)
 
 
 
@@ -60,6 +63,9 @@ function update(delta)
     -- Check to see if any ghost ships need to be destroyed
     checkForExorcism(hauntedWrecksPhaseOneDetails)
     checkForExorcism(hauntedWrecksPhaseTwoDetails)
+
+    updateNPCShipCallsigns(npcConfiguration)
+
 
 end
 
@@ -91,6 +97,15 @@ end
 
 function activateGhostsPhaseTwo() 
     createGhostShipsForHaunts(hauntedWrecksPhaseTwoDetails)
+end
+
+function createNPCShipConfig()
+    npcConfiguration = {
+        --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
+        --{"Callsign", 0, 0, 0, "Template", "Faction", "Unscanned", "Scanned", "Deepscanned"}
+        {"Ember's Death", -11104, 60971, 0, "Caballus Merchant", "Wreckage", "Metallic object. Mass reading 213.202IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern freightship. Reactor Active.", "Ship systems non-functional. No void-armament."},
+    }
+
 end
 
 function createWreckConfig()
