@@ -1527,36 +1527,57 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
     case CMD_REQUEST_MISSILE_TUBE_ANGLE:
         {
             // retrieve the tube number and slider value from the packet
-            int8_t tubeNumber;
-            float requestedTurretAngle;
-            packet >> tubeNumber >> requestedTurretAngle;
-            // if the data is valid then apply the changes.
-            LOG(INFO) << "Received command to alter missile tube " << string(tubeNumber) << " angle by " << string(requestedTurretAngle);
-            if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
-                // If the tube is turreted then apply the changes
-                if (weapon_tube[tubeNumber].isTurreted()) {
-                    LOG(INFO) << "Setting turret offset request.";
-                    weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
-                }
-            }
+            // int8_t tubeNumber;
+            // float requestedTurretAngle;
+            // packet >> tubeNumber >> requestedTurretAngle;
+            // // if the data is valid then apply the changes.
+            // LOG(INFO) << "Received command to alter missile tube " << string(tubeNumber) << " angle by " << string(requestedTurretAngle);
+            // if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
+            //     // If the tube is turreted then apply the changes
+            //     if (weapon_tube[tubeNumber].isTurreted()) {
+            //         LOG(INFO) << "Setting turret offset request.";
+            //         weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
+            //     }
+            // }
         }
         break;
     case CMD_REQUEST_MISSILE_TUBE_SLEW_LEFT:
         {
-            int8_t tubeNumber;
-            packet >> tubeNumber;
-            LOG(INFO) << "Missile tube " << string(tubeNumber) << " slew left executing";
-            float angleToRequest = my_spaceship->weapon_tube[tubeNumber].getTurretOffsetRequested() + my_spaceship->weapon_tube[tubeNumber].getTurretRotationSpeed();
-            weapon_tube[tubeNumber].setTurretOffsetRequested(angleToRequest);
+            int8_t tube_nr;
+            packet >> tube_nr;
+            LOG(INFO) << "Missile tube " << string(tube_nr) << " slew left executing";
+            if (tube_nr >= 0 && tube_nr < max_weapon_tubes) {
+                LOG(INFO) << "Tube number is valid.";
+                float currentRequestedOffset = weapon_tube[tube_nr].getTurretOffsetRequested();
+                float rotationSpeed = weapon_tube[tube_nr].getTurretRotationSpeed();
+                float angleToRequest = currentRequestedOffset + rotationSpeed;
+                LOG(INFO) << "Requesting turret offset of " << string(angleToRequest);
+                weapon_tube[tube_nr].setTurretOffsetRequested(angleToRequest);
+            }
         }
         break;
     case CMD_REQUEST_MISSILE_TUBE_SLEW_RIGHT:
         {
-            int8_t tubeNumber;
-            packet >> tubeNumber;
-            LOG(INFO) << "Missile tube " << string(tubeNumber) << " slew right executing";
-            float angleToRequest = my_spaceship->weapon_tube[tubeNumber].getTurretOffsetRequested() - my_spaceship->weapon_tube[tubeNumber].getTurretRotationSpeed();
-            weapon_tube[tubeNumber].setTurretOffsetRequested(angleToRequest);
+            // int8_t tube_nr;
+            // float missile_target_angle;
+            // packet >> tube_nr >> missile_target_angle;
+
+            // if (tube_nr >= 0 && tube_nr < max_weapon_tubes)
+            //     weapon_tube[tube_nr].fire(missile_target_angle);
+
+
+            int8_t tube_nr;
+            packet >> tube_nr;
+            LOG(INFO) << "Missile tube " << string(tube_nr) << " slew right executing";
+            if (tube_nr >= 0 && tube_nr < max_weapon_tubes) {
+                LOG(INFO) << "Tube number is valid.";
+                float currentRequestedOffset = weapon_tube[tube_nr].getTurretOffsetRequested();
+                float rotationSpeed = weapon_tube[tube_nr].getTurretRotationSpeed();
+                float angleToRequest = currentRequestedOffset - rotationSpeed;
+                LOG(INFO) << "Requesting turret offset of " << string(angleToRequest);
+                weapon_tube[tube_nr].setTurretOffsetRequested(angleToRequest);
+            }
+            
         }
         break;
     case CMD_HIGH_ENERGY_TURN: 

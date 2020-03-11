@@ -259,7 +259,6 @@ void GuiMissileTubeControls::onHotkey(const HotkeyResult& key)
             }
                 
             if (key.hotkey == "TURRET_RIGHT_TUBE_" + string(n+1)) {
-                float angleToRequest = my_spaceship->weapon_tube[n].getTurretOffsetRequested() - my_spaceship->weapon_tube[n].getTurretRotationSpeed();
                 LOG(INFO) << "Turret " << string(n) << " slew right requested.";
                 my_spaceship->commandTubeTurretSlewRight(n);
             }
