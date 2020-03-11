@@ -1530,7 +1530,10 @@ void PlayerSpaceship::onReceiveClientCommand(int32_t client_id, sf::Packet& pack
             packet >> tubeNumber >> requestedTurretAngle;
             // if the data is valid then apply the changes.
             if (tubeNumber >= 0 && tubeNumber < max_weapon_tubes) {
-                weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
+                // If the tube is turreted then apply the changes
+                if (weapon_tube[tubeNumber].isTurreted()) {
+                    weapon_tube[tubeNumber].setTurretOffsetRequested(requestedTurretAngle);
+                }
             }
         }
         break;
