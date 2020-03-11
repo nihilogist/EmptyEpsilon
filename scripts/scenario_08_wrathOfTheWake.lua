@@ -46,13 +46,15 @@ function createNPCShipConfig()
     npcConfiguration = {
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
-        {"Sola Fidei", 97282, 98551, 0, "Lunar", "Imperial Navy", "Unscanned", "Scanned", "Deepscanned"},
-        {"Salvation's Fire", 98282, 96551, 0, "Lunar", "Imperial Navy", "Unscanned", "Scanned", "Deepscanned"},
+        {"Sola Fidei", 97282, 98551, 0, "Lunar", "Imperial Navy", "", "", "HIMVS Sola Fidei. Lead ship, CG Hydros Salient."},
+        {"Salvation's Fire", 98282, 96551, 0, "Lunar", "Imperial Navy", "", "", "HIMVS Salvation's Fire. Second ship, CG Hydros Salient."},
+        {"St Jaghatai's Arrow", 99579, 98038, 0, "Lunar", "Imperial Navy", "", "", "IFF Broadcast Ident: St Jaghatai's Arrow. Escort attached with REDACTED."},
+        {"Seeker After Truth", 101426, 97966, 0, "Lunar", "Imperial Navy", "", "", "IFF Broadcast Ident: Seeker After Truth. Negative STC patternmatch."},
         {"Ark of Plenty", 76158, -3284, 270, "Q Ship", "Clan Kirill", "Metallic object. Mass reading 711.478IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident Ark Of Plenty. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."},
         {"St Sebastian's Properity", 76251, 5960, 270, "Q Ship", "Clan Kirill", "Metallic object. Mass reading 708.953IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident St Sebastians Prosperity. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."},
         {"Cornucopia", 72203, -3224, 270, "Armed Merchantman", "Clan Kirill", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Pattern match CallsignDesignate \"Cornucopia\". Weapon batteries detected."},
         {"Bearclaw", 72302, 5974, 270, "Armed Merchantman", "Clan Kirill", "Metallic object. Mass reading 550.300IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Pattern match CallsignDesignate \"Bearclaw\". Sector trade license detected (expired). Weapon batteries detected."},
-        {"Mazar's Revenge", 77945, 1360, 270, "Pirate Destroyer", "Clan Kirill", "Metallic object. Mass reading 848,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Cobra-pattern Destroyer class. Biosignatures present. Reactor active", "Cogitator Pattern mismatch error. Pattern match CallsignDesignate \"Anguine Moros\" att. Battlefleet Prosperitas. Broadcast Ident \"Mazar's Revenge\". Weapon batteries detected."},
+        {"Maw's Revenge", 77945, 1360, 270, "Falchion", "Clan Kirill", "Metallic object. Mass reading 895,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Cogitator Pattern mismatch error. Pattern match CallsignDesignate \"Anguine Moros\" att. Battlefleet Prosperitas. Broadcast Ident \"Maw's Revenge\". Weapon batteries detected."},
         {"Sabre's Point", 79206, 1345, 270, "Sword", "Clan Kirill", "Metallic object. Mass reading 895,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate \"Sabre's Point\" att. Battlefleet Prosperitas. Weapon batteries detected."},
         {"Flamberge", 80761, 1247, 270, "Sword", "Clan Kirill", "Metallic object. Mass reading 848,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate \"Flamberge\" att. Battlefleet Prosperitas. Weapon batteries detected."},
         {"Gambler One", 68931, 6297, 270, "Hauler", "Clan Kirill", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Gambler One. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
@@ -69,7 +71,8 @@ function createNPCShipConfig()
         {"Venit Hora Five", 28414, 16036, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Five. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
         {"Venit Hora Six", 29330, 16493, 0, "Hauler", "The Pikes", "Metallic object. Mass reading 20,000IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Orbital Hauler. Biosignatures present. Reactor active.", "Broadcast Ident: Venit Hora Six. Short range Orbital Hauler. Unlicensed lasweapon charging frequencies detected."},
         {"Firebolt", 28405, 17278, 0, "Pirate Destroyer", "The Pikes", "Metallic object. Mass reading 845,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Cobra-pattern Destroyer class. Biosignatures present. Reactor active.", "Cogitator Pattern mismatch error. Pattern match CallsignDesignate \"Caladium\" att. Battlefleet Prosperitas. Broadcast Ident \"Firebolt\". Weapon batteries detected."},
-
+        {"Hope Unchained", 9457, -9329, 340, "Sword", "Rising Flame", "Metallic object. Mass reading 853,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Pattern match CallsignDesignate Hope Unchained. Cannot reconcile with naval records. Weapon batteries detected."},
+        {"Profit Margin", 26986, 17268, 0, "Q Ship", "Pikes", "Metallic object. Mass reading 708.953IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH__MISMATCH. Broadcast Ident Profit Margin. Armament classification exceeds Caballus-pattern Freightship. DETECTED: Multiple primary battery targeting matrices. Plasma torpedo launch signature."}
 
     }
     
@@ -88,6 +91,7 @@ end
 function startInitialOrders()
     getShip(npcConfiguration[1]):orderIdle():setScanned(true)
     getShip(npcConfiguration[2]):orderIdle():setScanned(true)
+    getShip(npcConfiguration[3]):orderIdle():setScanned(true)
 
 end
 
