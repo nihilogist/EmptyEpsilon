@@ -26,8 +26,8 @@ template:setDescription([[A staple design of the Imperial Navy, the Sword-class 
 template:setRadarTrace("radar_sword.png")
 template:setHull(400)
 template:setShields(200)
-template:setSpeed(20, 2, 2)
-template:setArmour(3.0)
+template:setSpeed(28, 2, 10)
+template:setArmour(4.0)
 template:setRepairCrewCount(2)
 
 

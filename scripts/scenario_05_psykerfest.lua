@@ -33,6 +33,7 @@ function init()
     createCultBase()
     createAsteroids()
     createNebulas()
+    createMines()
 
     initialiseNPCShipOrders()
 
@@ -53,23 +54,23 @@ function createNPCShipConfig()
     npcConfiguration = {
         --{Callsign, posX, posY, heading, template, faction, unscannedAuspex, scannedAuspex, deepscannedAuspex}
         --{"Callsign", 0, 0, 0, "Template", "Wake Cult", "Unscanned", "Scanned", "Deepscanned"}
-        {"Hallowed Mirror", 12282, -10060, 202, "Falchion", "Wake Cult", "Metallic object. Mass reading 910,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sworrrrd-patt-patt Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Error-errormatch. ??? ??@Template mismatch. EmissionSig mismatch. DataCorruption??? Weapon batteries detected."},
-        {"Feathered Glass", 11874, -10671, 202, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 96% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
-        {"Tears of Change", 37514, -8558, 0, "Q Ship", "Wake Cult", "Metallic object. Mass reading 711.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH Cogitation projection designate ident Son Of Holub. Broadcast ident Tears Of Change. MISMATCH. Turret configuration mistmatch detected. Multiple primary battery targeting matrices. Plasma warhead emissions."},
-        {"Everpromise", 40398, -6309, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
-        {"Fate's Warning", 39088, -7513, 0, "Q Ship", "Wake Cult", "Metallic object. Mass reading 713.300IT. Thermal signature variable, consistent with naval plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Broadcast Ident Fate's Warning. Mismatch in mass:dimension ratio. Query: additional plating. Weapons batteries detected."},
-        {"Architect's Blade", 5014, 8686, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Varrrriations in data hull corruption plate turret config. Weapon batteries detected."},
-        {"Scythe", 4629, 9665, 0, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Weapon batteries detected."},
-        {"Freedom of Thought", 6776, -114, 230, "Merchant Raider", "Wake Cult", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign FREEDOM OF THOUGHT. Weapons batteries detected."},
-        {"Clarity of Angels", -4525, -568, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 551.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign CLARITY OF ANGELS. Weapon batteries detected."},
-        {"Suffering's End", -4548, 731, 90, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign SUFFERING'S END. Weapon batteries detected."},        
-        {"Cyclops 1", 10194, -11343, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
-        {"Cyclops 2", 9888, -11672, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
-        {"Cyclops 3", 10476, -11038, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
-        {"Scourge 1", 10094, -11908, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
-        {"Scourge 2", 10629, -11511, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
-        {"Scourge 3", 10881, -11328, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
-        {"Scourge 4", 10347, -11702, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."}
+        {"Rebirth", 67343, 47210, 30, "Falchion", "Wake Cult", "Metallic object. Mass reading 910,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. Sworrrrd-patt-patt Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Error-errormatch. ??? ??@Template mismatch. EmissionSig mismatch. DataCorruption??? Weapon batteries detected."},
+        {"Feathered Glass", 66497, 490651, 30, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 96% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
+        {"Tears of Change", 87755, 31092, 270, "Q Ship", "Wake Cult", "Metallic object. Mass reading 711.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "MISMATCH Cogitation projection designate ident Son Of Holub. Broadcast ident Tears Of Change. MISMATCH. Turret configuration mistmatch detected. Multiple primary battery targeting matrices. Plasma warhead emissions."},
+        {"Everpromise", 90743, 35741, 270, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Variations in hull plating %% Turret config. Weapons batteries detected."},
+        {"Fate's Warning", 87816, 29059, 270, "Q Ship", "Wake Cult", "Metallic object. Mass reading 713.300IT. Thermal signature variable, consistent with naval plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Broadcast Ident Fate's Warning. Mismatch in mass:dimension ratio. Query: additional plating. Weapons batteries detected."},
+        {"Architect's Blade", 68890, -794, 180, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Varrrriations in data hull corruption plate turret config. Weapon batteries detected."},
+        {"Scythe", 68926, -2262, 180, "Sabre", "Wake Cult", "Metallic object. Mass reading 891,000IT. Thermal signature variable, consistent with Naval plasma reactor.", "Voidship. 92% probability match Sword-pattern Frigate class. Biosignatures present. Reactor active.", "Standard Template Construct mismatch. Weapon batteries detected."},
+        {"Freedom of Thought", 43958, 31566, 0, "Merchant Raider", "Wake Cult", "Metallic object. Mass reading 700.500IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Caballus-pattern Imperial Freightship. Biosignatures present. Reactor active.", "Negative Ident Patternmatch. IFF broadcast callsign FREEDOM OF THOUGHT. Weapons batteries detected."},
+        {"Clarity of Angels", 42607, 34030, 0, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 551.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign CLARITY OF ANGELS. Weapon batteries detected."},
+        {"Suffering's End", 42636, 31600, 0, "Armed Merchantman", "Wake Cult", "Metallic object. Mass reading 549.100IT. Thermal signature variable, consistent with plasma reactor.", "Voidship. Asinus-pattern Imperial Freightship. Biosignatures present. Reactor Active.", "Negative Ident Patternmatch. IFF broadcast callsign SUFFERING'S END. Weapon batteries detected."},        
+        {"Cyclops 1", 84110, 36334, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Cyclops 2", 85072, 36718, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Cyclops 3", 86065, 37069, 200, "Hauler", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Lascannon array detected."},
+        {"Scourge 1", 87602, 34676, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 2", 86859, 38763, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 3", 87425, 37471, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."},
+        {"Scourge 4", 87524, 36106, 200, "WakeBomber", "Wake Cult", "Metallic object. Mass reading 6.341IT. Thermal signature variable, consistent with low-power plasma reactor.", "Voidship. Orbital lifter. Biosignatures present. Reactor active.", "PatternMatch: Modified Orbital lifter. Plasma munitions detected."}
     }
 
 end
@@ -84,9 +85,9 @@ function createWreckConfig()
         {"Name", -665, -2515, "Wrecked Freighter", "Unscanned", "Scanned", "Deepscanned"},
         {"Name", 6309, -2141, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscanned"},
         {"Name", 6258, -4099, "Small Wreckage", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", 11077, -5611, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", 12609, -8468, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
-        {"Name", 34684, -11238, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 11151, 6835, "Wrecked Frigate", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 19090, 13515, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
+        {"Name", 3885, -5262, "General Wreckage", "Unscanned", "Scanned", "Deepscanned"},
     }
 
 end
@@ -97,11 +98,11 @@ function initialiseNPCShipOrders()
     getShip(npcConfiguration[3]):orderIdle()
     getShip(npcConfiguration[4]):orderIdle()
     getShip(npcConfiguration[5]):orderIdle()
-    getShip(npcConfiguration[6]):orderDefendTarget(getShip(npcConfiguration[8]))
-    getShip(npcConfiguration[7]):orderDefendTarget(getShip(npcConfiguration[8]))
-    getShip(npcConfiguration[8]):orderAttack(lexTalionis)
-    getShip(npcConfiguration[9]):orderAttack(lexTalionis)
-    getShip(npcConfiguration[10]):orderAttack(lexTalionis)
+    getShip(npcConfiguration[6]):orderIdle()
+    getShip(npcConfiguration[7]):orderIdle()
+    getShip(npcConfiguration[8]):orderIdle()
+    getShip(npcConfiguration[9]):orderIdle()
+    getShip(npcConfiguration[10]):orderIdle()
     getShip(npcConfiguration[11]):orderIdle()
     getShip(npcConfiguration[12]):orderIdle()
     getShip(npcConfiguration[13]):orderIdle()
@@ -117,10 +118,9 @@ end
 
 function createCultBase()
     cultPlanet = Planet()
-    cultPlanet:setPosition(45584, -14413)
+    cultPlanet:setPosition(49472, 53355)
 
-    Mine():setPosition(5910, -3278)
-    Mine():setPosition(7075, 5187)
+
 
 end
 
@@ -128,10 +128,48 @@ function createNebulas()
     Nebula():setPosition(-17229, -5707)
     Nebula():setPosition(-17103, 5806)
     Nebula():setPosition(-10137, 15401)
-    Nebula():setPosition(12557, 11021)
     Nebula():setPosition(-8879, -11726)
     Nebula():setPosition(11963, 392)
     Nebula():setPosition(722, 8647)
+    Nebula():setPosition(6749, 12906)
+    Nebula():setPosition(35779, 29717)
+    Nebula():setPosition(42185, 24734)
+    Nebula():setPosition(34755, 21619)
+    Nebula():setPosition(27503, 2266)
+    Nebula():setPosition(19521, 5285)
+    Nebula():setPosition(36414, 3447)
+    Nebula():setPosition(62438, 1266)
+    Nebula():setPosition(55250, 6173)
+    Nebula():setPosition(45336, 4984)
+    Nebula():setPosition(16933, 32990)
+    Nebula():setPosition(26004, 32842)
+    Nebula():setPosition(21493, 19954)
+    Nebula():setPosition(-16373, 12397)
+    Nebula():setPosition(-3289, 15237)
+    Nebula():setPosition(13725, 17146)
+    Nebula():setPosition(27261, 21048)
+    Nebula():setPosition(65486, 39514)
+    Nebula():setPosition(57847, 35347)
+    Nebula():setPosition(49722, 30764)
+    Nebula():setPosition(89381, 51126)
+    Nebula():setPosition(88822, 59962)
+    Nebula():setPosition(85355, 69133)
+    Nebula():setPosition(81552, 77297)
+    Nebula():setPosition(75960, 81883)
+    Nebula():setPosition(67684, 82442)
+    Nebula():setPosition(59072, 83113)
+    Nebula():setPosition(50349, 81995)
+    Nebula():setPosition(40283, 80876)
+    Nebula():setPosition(32007, 79534)
+    Nebula():setPosition(22388, 73942)
+    Nebula():setPosition(17244, 66561)
+    Nebula():setPosition(7072, -13446)
+    Nebula():setPosition(16192, -5201)
+    Nebula():setPosition(14665, -10975)
+    Nebula():setPosition(-679, -11896)
+    Nebula():setPosition(-23885, -1144)
+
+
 end
 
 function createAsteroids()
@@ -164,6 +202,62 @@ function createAsteroids()
     Asteroid():setPosition(-16245, -11208)
     Asteroid():setPosition(-148, -21147)
     Asteroid():setPosition(23679, -8490)
+    Asteroid():setPosition(50965, 24261):setSize(122)
+    Asteroid():setPosition(49149, 22460):setSize(123)
+    Asteroid():setPosition(54313, 22099):setSize(121)
+    Asteroid():setPosition(56130, 29276):setSize(113)
+    Asteroid():setPosition(55485, 27940):setSize(127)
+    Asteroid():setPosition(53232, 26213):setSize(118)
+    Asteroid():setPosition(58412, 29741):setSize(129)
+    Asteroid():setPosition(63442, 29861):setSize(124)
+    Asteroid():setPosition(56100, 26078):setSize(122)
+    Asteroid():setPosition(56686, 21754):setSize(116)
+    Asteroid():setPosition(58007, 24952):setSize(115)
+    Asteroid():setPosition(57617, 25883):setSize(125)
+    Asteroid():setPosition(58247, 28045):setSize(118)
+    Asteroid():setPosition(56611, 23376):setSize(113)
+    Asteroid():setPosition(62181, 28585):setSize(116)
+    Asteroid():setPosition(52234, 24766):setSize(112)
+    Asteroid():setPosition(54481, 25241):setSize(110)
+    Asteroid():setPosition(62284, 25362):setSize(115)
+    Asteroid():setPosition(56672, 24756):setSize(118)
+    Asteroid():setPosition(60783, 26686):setSize(121)
+    Asteroid():setPosition(58834, 27264):setSize(111)
+    Asteroid():setPosition(57128, 27357):setSize(125)
+    Asteroid():setPosition(65304, 29726):setSize(113)
+    Asteroid():setPosition(50290, 21709):setSize(125)
+    Asteroid():setPosition(66264, 25793):setSize(129)
+    Asteroid():setPosition(65919, 27534):setSize(126)
+    Asteroid():setPosition(65604, 30957):setSize(123)
+    Asteroid():setPosition(66940, 30612):setSize(126)
+    Asteroid():setPosition(57527, 28608):setSize(123)
+    Asteroid():setPosition(68306, 25042):setSize(122)
+    Asteroid():setPosition(68592, 29261):setSize(126)
+    Asteroid():setPosition(68351, 32279):setSize(114)
+    Asteroid():setPosition(70378, 23345):setSize(114)
+    Asteroid():setPosition(70784, 24832):setSize(118)
+    Asteroid():setPosition(69763, 29606):setSize(114)
+    Asteroid():setPosition(72240, 30462):setSize(121)
+    Asteroid():setPosition(70979, 32669):setSize(127)
+
+end
+
+function createMines()
+    Mine():setPosition(48774, 24517)
+    Mine():setPosition(53826, 23363)
+    Mine():setPosition(59396, 25835)
+    Mine():setPosition(64285, 30780)
+    Mine():setPosition(64316, 28651)
+    Mine():setPosition(64238, 26241)
+    Mine():setPosition(62031, 29950)
+    Mine():setPosition(61937, 27477)
+    Mine():setPosition(66523, 29293)
+    Mine():setPosition(59636, 28823)
+    Mine():setPosition(68855, 30748)
+    Mine():setPosition(68417, 27994)
+    Mine():setPosition(63659, 33440)
+    Mine():setPosition(66367, 31907)
+
 end
 
 
